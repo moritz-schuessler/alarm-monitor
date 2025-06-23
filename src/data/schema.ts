@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { InferSelectModel, relations } from "drizzle-orm";
 import { sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const stations = sqliteTable("stations", {
@@ -26,3 +26,8 @@ export const firetrucksRelations = relations(firetrucks, ({ one }) => ({
     references: [stations.id],
   }),
 }));
+
+type Station = InferSelectModel<typeof stations>;
+type Firetruck = InferSelectModel<typeof firetrucks>;
+
+export { type Station, type Firetruck };
