@@ -7,13 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:push": "npx drizzle-kit push"
+    "db:push": "npx drizzle-kit push",
+    "db:seed": "npx tsx ./src/data/seeding.ts",
+    "db:studio": "npx drizzle-kit studio"
   },
   "dependencies": {
     "@libsql/client": "^0.15.9",
     "drizzle-orm": "^0.44.2",
     "next": "15.3.3",
-    "next-auth": "^5.0.0-beta.28",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
