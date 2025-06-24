@@ -9,7 +9,7 @@ export const stations = sqliteTable("stations", {
 });
 
 export const stationsRelations = relations(stations, ({ many }) => ({
-  posts: many(firetrucks),
+  firetrucks: many(firetrucks),
 }));
 
 export const firetrucks = sqliteTable("firetrucks", {

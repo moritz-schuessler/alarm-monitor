@@ -1,14 +1,17 @@
 import "server-only";
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
+import { Firetruck } from "@/data/schema";
 
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
 
-export async function encrypt(payload: {
+type Payload = {
   firetruckId: string;
-  expiresAt: Date;
-}) {
+  firetruck: Firetruck;
+};
+
+export async function encrypt(payload: Payload) {
   return new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -27,9 +30,9 @@ export async function decrypt(session: string | undefined = "") {
   }
 }
 
-export async function createSession(firetruckId: string) {
+export async function createSession(firetruck: Firetruck) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const session = await encrypt({ firetruckId, expiresAt });
+  const session = await encrypt({ firetruckId: firetruck.id, firetruck });
   const cookieStore = await cookies();
 
   cookieStore.set("session", session, {
