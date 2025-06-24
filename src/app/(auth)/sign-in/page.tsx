@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -50,7 +51,7 @@ const SelectUserPage = async () => {
             })}
           </SelectContent>
         </Select>
-        <button type="submit">Sign in</button>
+        <Button type="submit">Sign in</Button>
       </form>
     </main>
   );
