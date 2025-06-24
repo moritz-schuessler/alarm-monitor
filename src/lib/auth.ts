@@ -18,7 +18,7 @@ const signIn = async (radioIdentification: string) => {
     };
   }
 
-  await createSession(firetruck.id);
+  await createSession(firetruck);
 };
 
 const signOut = async () => {
