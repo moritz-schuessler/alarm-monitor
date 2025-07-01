@@ -26,6 +26,7 @@ export const stationsRelations = relations(stations, ({ one, many }) => ({
     references: [departments.id],
   }),
   firetrucks: many(firetrucks),
+  firefighters: many(firefighters),
 }));
 
 export const firetrucks = sqliteTable("firetrucks", {
@@ -51,10 +52,26 @@ export const firefighters = sqliteTable("firefighters", {
   stationId: text("station_id"),
 });
 
-export const firefightersRelations = relations(firefighters, ({ one }) => ({
-  station: one(stations, {
-    fields: [firefighters.stationId],
-    references: [stations.id],
+export const firefightersRelations = relations(
+  firefighters,
+  ({ one, many }) => ({
+    station: one(stations, {
+      fields: [firefighters.stationId],
+      references: [stations.id],
+    }),
+    beacons: many(beacons),
+  }),
+);
+
+export const beacons = sqliteTable("beacons", {
+  id: text("id").primaryKey(),
+  firefighterId: text("firefighter_id"),
+});
+
+export const beaconsRelations = relations(beacons, ({ one }) => ({
+  firefighter: one(firefighters, {
+    fields: [beacons.firefighterId],
+    references: [firefighters.id],
   }),
 }));
 
@@ -62,5 +79,12 @@ type Departments = InferSelectModel<typeof departments>;
 type Stations = InferSelectModel<typeof stations>;
 type Firetrucks = InferSelectModel<typeof firetrucks>;
 type Firefighters = InferSelectModel<typeof firefighters>;
+type Beacons = InferSelectModel<typeof beacons>;
 
-export { type Departments, type Stations, type Firetrucks, type Firefighters };
+export {
+  type Departments,
+  type Stations,
+  type Firetrucks,
+  type Firefighters,
+  type Beacons,
+};
