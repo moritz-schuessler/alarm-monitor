@@ -43,7 +43,23 @@ export const firetrucksRelations = relations(firetrucks, ({ one }) => ({
   }),
 }));
 
+export const firefighters = sqliteTable("firefighters", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  name: text("name").notNull(),
+  stationId: text("station_id"),
+});
+
+export const firefightersRelations = relations(firefighters, ({ one }) => ({
+  station: one(stations, {
+    fields: [firefighters.stationId],
+    references: [stations.id],
+  }),
+}));
+
 type Station = InferSelectModel<typeof stations>;
 type Firetruck = InferSelectModel<typeof firetrucks>;
+type Firefighters = InferSelectModel<typeof firefighters>;
 
-export { type Station, type Firetruck };
+export { type Station, type Firetruck, type Firefighters };
