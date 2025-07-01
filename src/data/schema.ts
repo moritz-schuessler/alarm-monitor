@@ -1,5 +1,5 @@
 import { InferSelectModel, relations } from "drizzle-orm";
-import { sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const departments = sqliteTable("departments", {
   id: text("id")
@@ -75,11 +75,33 @@ export const beaconsRelations = relations(beacons, ({ one }) => ({
   }),
 }));
 
+export const qualifications = sqliteTable("qualifications", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  type: text("type"),
+  name: text("name"),
+});
+
+export const qualificationToFirefighter = sqliteTable(
+  "qualificationToFirefighter",
+  {
+    qualificationId: text("qualification_id")
+      .notNull()
+      .references(() => qualifications.id),
+    firefighterId: text("firefighter_id")
+      .notNull()
+      .references(() => firefighters.id),
+  },
+  (t) => [primaryKey({ columns: [t.qualificationId, t.firefighterId] })],
+);
+
 type Departments = InferSelectModel<typeof departments>;
 type Stations = InferSelectModel<typeof stations>;
 type Firetrucks = InferSelectModel<typeof firetrucks>;
 type Firefighters = InferSelectModel<typeof firefighters>;
 type Beacons = InferSelectModel<typeof beacons>;
+type Qualifications = InferSelectModel<typeof qualifications>;
 
 export {
   type Departments,
@@ -87,4 +109,5 @@ export {
   type Firetrucks,
   type Firefighters,
   type Beacons,
+  type Qualifications,
 };
