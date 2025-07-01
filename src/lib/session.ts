@@ -1,14 +1,14 @@
 import "server-only";
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
-import { Firetruck } from "@/data/schema";
+import { Firetrucks } from "@/data/schema";
 
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
 
 type Payload = {
   firetruckId: string;
-  firetruck: Firetruck;
+  firetruck: Firetrucks;
 };
 
 export async function encrypt(payload: Payload) {
@@ -30,7 +30,7 @@ export async function decrypt(session: string | undefined = "") {
   }
 }
 
-export async function createSession(firetruck: Firetruck) {
+export async function createSession(firetruck: Firetrucks) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   const session = await encrypt({ firetruckId: firetruck.id, firetruck });
   const cookieStore = await cookies();
