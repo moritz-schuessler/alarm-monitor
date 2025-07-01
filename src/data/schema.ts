@@ -1,14 +1,30 @@
 import { InferSelectModel, relations } from "drizzle-orm";
 import { sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-export const stations = sqliteTable("stations", {
+export const departments = sqliteTable("departments", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   name: text("name").notNull(),
 });
 
-export const stationsRelations = relations(stations, ({ many }) => ({
+export const departmentsRelations = relations(departments, ({ many }) => ({
+  stations: many(stations),
+}));
+
+export const stations = sqliteTable("stations", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  name: text("name").notNull(),
+  departmentId: text("department_id"),
+});
+
+export const stationsRelations = relations(stations, ({ one, many }) => ({
+  departments: one(departments, {
+    fields: [stations.departmentId],
+    references: [departments.id],
+  }),
   firetrucks: many(firetrucks),
 }));
 
