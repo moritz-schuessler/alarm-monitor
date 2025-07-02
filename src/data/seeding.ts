@@ -1,5 +1,6 @@
 import db from ".";
-import { firetrucks, stations } from "./schema";
+import { firetrucks } from "./firetrucks/schema";
+import { stations } from "./stations/schema";
 
 async function main() {
   const stationArray = [
