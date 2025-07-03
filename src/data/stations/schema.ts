@@ -13,7 +13,7 @@ const stations = sqliteTable("stations", {
 });
 
 const stationsRelations = relations(stations, ({ one, many }) => ({
-  departments: one(departments, {
+  department: one(departments, {
     fields: [stations.departmentId],
     references: [departments.id],
   }),
