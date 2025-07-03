@@ -1,53 +1,172 @@
+import { fakerDE as faker } from "@faker-js/faker";
+
 import db from ".";
-import { firetrucks, stations } from "./schema";
+import {
+  departments as departmentsSchema,
+  stations as stationsSchema,
+  firetrucks as firetrucksSchema,
+  firefighters as firefightersSchema,
+  Firetrucks,
+  Firefighters,
+} from "./schema";
 
 async function main() {
-  const stationArray = [
-    ...(await db.insert(stations).values({ name: "Mitte" }).returning()),
-    ...(await db.insert(stations).values({ name: "Süd" }).returning()),
-    ...(await db.insert(stations).values({ name: "Musterdorf" }).returning()),
-  ];
+  await db.delete(departmentsSchema);
+  await db.delete(stationsSchema);
+  await db.delete(firetrucksSchema);
+  await db.delete(firefightersSchema);
 
-  {
-    await db.insert(firetrucks).values({
-      radioIdentification: "Mustergemeinde 1-30-1",
-      stationId: stationArray[0].id,
-    });
+  const departments = await db
+    .insert(departmentsSchema)
+    .values([{ name: "Feuerwehr Mustergemeinde" }])
+    .returning();
 
-    await db.insert(firetrucks).values({
-      radioIdentification: "Mustergemeinde 1-44-1",
-      stationId: stationArray[0].id,
-    });
+  const stationsMustergemeinde = await db
+    .insert(stationsSchema)
+    .values([
+      { name: "Mitte", departmentId: departments[0].id },
+      { name: "Süd", departmentId: departments[0].id },
+      { name: "Musterdorf", departmentId: departments[0].id },
+    ])
+    .returning();
 
-    await db.insert(firetrucks).values({
-      radioIdentification: "Mustergemeinde 1-12-1",
-      stationId: stationArray[0].id,
-    });
+  const firetrucksByStation: {
+    [station: string]: null | Firetrucks[];
+  } = {};
 
-    await db.insert(firetrucks).values({
-      radioIdentification: "Mustergemeinde 1-51-1",
-      stationId: stationArray[0].id,
-    });
-  }
+  firetrucksByStation.mitte = await db
+    .insert(firetrucksSchema)
+    .values([
+      {
+        radioIdentification: "Mustergemeinde 1-30-1",
+        stationId: stationsMustergemeinde[0].id,
+      },
+      {
+        radioIdentification: "Mustergemeinde 1-44-1",
+        stationId: stationsMustergemeinde[0].id,
+      },
+      {
+        radioIdentification: "Mustergemeinde 1-12-1",
+        stationId: stationsMustergemeinde[0].id,
+      },
+      {
+        radioIdentification: "Mustergemeinde 1-51-1",
+        stationId: stationsMustergemeinde[0].id,
+      },
+    ])
+    .returning();
 
-  {
-    await db.insert(firetrucks).values({
-      radioIdentification: "Mustergemeinde 1-46-1",
-      stationId: stationArray[1].id,
-    });
+  firetrucksByStation.sued = await db
+    .insert(firetrucksSchema)
+    .values([
+      {
+        radioIdentification: "Mustergemeinde 2-46-1",
+        stationId: stationsMustergemeinde[1].id,
+      },
+      {
+        radioIdentification: "Mustergemeinde 2-19-1",
+        stationId: stationsMustergemeinde[1].id,
+      },
+    ])
+    .returning();
 
-    await db.insert(firetrucks).values({
-      radioIdentification: "Mustergemeinde 2-19-1",
-      stationId: stationArray[1].id,
-    });
-  }
+  firetrucksByStation.musterdorf = await db
+    .insert(firetrucksSchema)
+    .values([
+      {
+        radioIdentification: "Mustergemeinde 3-48-1",
+        stationId: stationsMustergemeinde[2].id,
+      },
+    ])
+    .returning();
 
-  {
-    await db.insert(firetrucks).values({
-      radioIdentification: "Mustergemeinde 1-48-1",
-      stationId: stationArray[2].id,
-    });
-  }
+  const firefighersByStation: { [station: string]: null | Firefighters[] } = {};
+
+  firefighersByStation.mitte = await db
+    .insert(firefightersSchema)
+    .values([
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[0].id,
+      },
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[0].id,
+      },
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[0].id,
+      },
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[0].id,
+      },
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[0].id,
+      },
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[0].id,
+      },
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[0].id,
+      },
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[0].id,
+      },
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[0].id,
+      },
+    ])
+    .returning();
+
+  firefighersByStation.sued = await db
+    .insert(firefightersSchema)
+    .values([
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[1].id,
+      },
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[1].id,
+      },
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[1].id,
+      },
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[1].id,
+      },
+    ])
+    .returning();
+
+  firefighersByStation.musterdorf = await db
+    .insert(firefightersSchema)
+    .values([
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[2].id,
+      },
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[2].id,
+      },
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[2].id,
+      },
+      {
+        name: faker.person.fullName(),
+        stationId: stationsMustergemeinde[2].id,
+      },
+    ])
+    .returning();
 }
 
 main();

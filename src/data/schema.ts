@@ -1,33 +1,8 @@
-import { InferSelectModel, relations } from "drizzle-orm";
-import { sqliteTable, text } from "drizzle-orm/sqlite-core";
-
-export const stations = sqliteTable("stations", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
-  name: text("name").notNull(),
-});
-
-export const stationsRelations = relations(stations, ({ many }) => ({
-  firetrucks: many(firetrucks),
-}));
-
-export const firetrucks = sqliteTable("firetrucks", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
-  radioIdentification: text("radio_id").notNull(),
-  stationId: text("station_id"),
-});
-
-export const firetrucksRelations = relations(firetrucks, ({ one }) => ({
-  station: one(stations, {
-    fields: [firetrucks.stationId],
-    references: [stations.id],
-  }),
-}));
-
-type Station = InferSelectModel<typeof stations>;
-type Firetruck = InferSelectModel<typeof firetrucks>;
-
-export { type Station, type Firetruck };
+export * from "./departments/schema";
+export * from "./stations/schema";
+export * from "./firetrucks/schema";
+export * from "./firefighters/schema";
+export * from "./beacons/schema";
+export * from "./qualifications/schema";
+export * from "./crew/schema";
+export * from "./incident/schema";
