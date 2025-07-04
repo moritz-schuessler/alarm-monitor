@@ -14,10 +14,11 @@ const incidents = sqliteTable("incidents", {
 
 const incidentsRelations = relations(incidents, ({ many }) => ({
   firetrucks: many(firetrucks),
+  incidentsToStations: many(incidentsToStations),
 }));
 
-const incidentToStation = sqliteTable(
-  "incidentToStation",
+const incidentsToStations = sqliteTable(
+  "incidentsToStations",
   {
     incidentId: text("incident_id")
       .notNull()
@@ -29,8 +30,27 @@ const incidentToStation = sqliteTable(
   (t) => [primaryKey({ columns: [t.incidentId, t.stationId] })],
 );
 
-type Incidents = InferSelectModel<typeof incidents>;
-type IncidentToStation = InferSelectModel<typeof incidentToStation>;
+const incidentsToStationsRelations = relations(
+  incidentsToStations,
+  ({ one }) => ({
+    incident: one(incidents, {
+      fields: [incidentsToStations.incidentId],
+      references: [incidents.id],
+    }),
+    station: one(stations, {
+      fields: [incidentsToStations.stationId],
+      references: [stations.id],
+    }),
+  }),
+);
 
-export { incidents, incidentsRelations, incidentToStation };
-export { type Incidents, type IncidentToStation };
+type Incidents = InferSelectModel<typeof incidents>;
+type IncidentsToStations = InferSelectModel<typeof incidentsToStations>;
+
+export {
+  incidents,
+  incidentsRelations,
+  incidentsToStations,
+  incidentsToStationsRelations,
+};
+export { type Incidents, type IncidentsToStations };
