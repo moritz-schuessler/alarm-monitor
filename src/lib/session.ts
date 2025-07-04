@@ -1,5 +1,5 @@
 import "server-only";
-import { SignJWT, jwtVerify } from "jose";
+import { JWTPayload, SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { Firetrucks } from "@/data/firetrucks/schema";
 
@@ -10,6 +10,8 @@ type Payload = {
   firetruckId: string;
   firetruck: Firetrucks;
 };
+
+type Session = Payload & JWTPayload;
 
 export async function encrypt(payload: Payload) {
   return new SignJWT(payload)
@@ -24,7 +26,7 @@ export async function decrypt(session: string | undefined = "") {
     const { payload } = await jwtVerify(session, encodedKey, {
       algorithms: ["HS256"],
     });
-    return payload;
+    return payload as Session;
   } catch (error) {
     console.log("Failed to verify session", error);
   }
