@@ -2,6 +2,7 @@
 
 import { IncidentFromStation } from "@/data/incident/getIncidents";
 import { useQuery } from "@tanstack/react-query";
+import Incident from "./incident";
 
 interface Response {
   incidents: IncidentFromStation[];
@@ -22,9 +23,9 @@ const SelectIncident = () => {
 
   if (incidents?.incidents) {
     return (
-      <div className="flex flex-col">
+      <div className="flex gap-4">
         {incidents.incidents.map((incident) => {
-          return <div key={incident.id}>{incident.keyword}</div>;
+          return <Incident key={incident.id} incident={incident} />;
         })}
       </div>
     );
