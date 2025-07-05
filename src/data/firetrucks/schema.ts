@@ -8,7 +8,7 @@ const firetrucks = sqliteTable("firetrucks", {
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   radioIdentification: text("radio_id").notNull(),
-  stationId: text("station_id"),
+  stationId: text("station_id").notNull(),
   activeIncident: text("active_incident"),
 });
 
