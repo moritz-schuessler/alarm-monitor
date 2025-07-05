@@ -20,8 +20,6 @@ const SelectIncident = () => {
     return <div>...Loading</div>;
   }
 
-  console.log(incidents!.incidents);
-
   if (incidents?.incidents) {
     return (
       <div className="flex flex-col">

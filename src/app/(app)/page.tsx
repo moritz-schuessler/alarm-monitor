@@ -1,18 +1,29 @@
 "use client";
 
-import useSession from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import SelectIncident from "./select-incident";
+import { Firetrucks } from "@/data/schema";
+import { useQuery } from "@tanstack/react-query";
+
+interface Response {
+  firetruck: Firetrucks;
+}
 
 const Home = () => {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { data, status } = useQuery({
+    queryKey: ["firetruck/me"],
+    queryFn: async () => {
+      const response = await fetch("/api/me");
+      return (await response.json()) as Response;
+    },
+  });
 
   if (status === "pending") {
     return <div>...Loading</div>;
   }
 
-  if (session!.firetruck.activeIncident !== null) {
+  if (data!.firetruck.activeIncident !== null) {
     router.push("/incident");
   }
 
