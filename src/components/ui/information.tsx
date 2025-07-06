@@ -7,7 +7,7 @@ interface Props {
 
 const Information = ({ description, text }: Props) => {
   return (
-    <div className="flex flex-col justify-center items-center p-4 grow-1 basis-0">
+    <div className="flex flex-col justify-center items-center p-4">
       <div className="text-muted-foreground text-sm">{description}</div>
       <div className="text-nowrap">{text}</div>
     </div>
