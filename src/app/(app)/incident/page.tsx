@@ -22,8 +22,16 @@ const IncidentPage = () => {
   }
 
   return (
-    <div className="flex flex-col justify-start items-center size-full">
+    <div className="grid grid-cols-3 grid-rows-[auto_1fr] flex-col size-full gap-8">
       <ShortInformation incident={data!.incident} />
+      <div className="grid grid-cols-subgrid col-span-3">
+        <div className="w-full divide-y-1 divide-border border-1 border-border rounded-lg text-xl col-span-2">
+          Mannschaft...
+        </div>
+        <div className="w-full divide-y-1 divide-border border-1 border-border rounded-lg text-xl col-span-1">
+          Einheiten...
+        </div>
+      </div>
     </div>
   );
 };
