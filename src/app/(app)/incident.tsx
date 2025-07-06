@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Incidents } from "@/data/schema";
+import { formatDate } from "@/lib/date";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface Props {
@@ -28,10 +29,6 @@ const Incident = ({ incident }: Props) => {
     },
   });
 
-  const date = new Date(incident.alarmTime!).toLocaleString("de-DE", {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
   return (
     <Button
       variant="outline"
@@ -41,7 +38,7 @@ const Incident = ({ incident }: Props) => {
       <div className="flex flex-col gap-2">
         <div className="text-lg">{incident.keyword}</div>
         <div className="text-muted-foreground text-base">
-          <div>{date}</div>
+          <div>{formatDate(incident.alarmTime!)}</div>
           <div>{incident.adress}</div>
         </div>
       </div>
