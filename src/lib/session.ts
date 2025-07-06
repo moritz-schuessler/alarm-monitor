@@ -8,7 +8,6 @@ const encodedKey = new TextEncoder().encode(secretKey);
 
 type Payload = {
   firetruckId: string;
-  firetruck: Firetrucks;
 };
 
 type Session = Payload & JWTPayload;
@@ -34,7 +33,7 @@ export async function decrypt(session: string | undefined = "") {
 
 export async function createSession(firetruck: Firetrucks) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const session = await encrypt({ firetruckId: firetruck.id, firetruck });
+  const session = await encrypt({ firetruckId: firetruck.id });
   const cookieStore = await cookies();
 
   cookieStore.set("session", session, {
