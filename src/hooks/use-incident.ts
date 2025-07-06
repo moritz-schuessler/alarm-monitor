@@ -1,11 +1,8 @@
-import { Firetrucks, Incidents } from "@/data/schema";
+import { Incidents } from "@/data/schema";
 import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getActiveIncident } from "./use-me";
 
 type Response = Incidents;
-
-type MeResponse = {
-  firetruck: Firetrucks;
-};
 
 const useIncident = () => {
   const queryClient = useQueryClient();
@@ -26,14 +23,6 @@ const queryFunction = async (queryClient: QueryClient) => {
 
   const response = await fetch(`/api/incidents/${activeIncident!}`);
   return (await response.json()) as Response;
-};
-
-const getActiveIncident = async () => {
-  const response = await fetch("/api/me");
-
-  const { firetruck } = (await response.json()) as MeResponse;
-
-  return firetruck.activeIncident;
 };
 
 export default useIncident;

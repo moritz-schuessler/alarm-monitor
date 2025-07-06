@@ -25,4 +25,13 @@ const useMe = () => {
   return { ...response };
 };
 
+const getActiveIncident = async () => {
+  const response = await fetch("/api/me");
+
+  const { firetruck } = (await response.json()) as Response;
+
+  return firetruck.activeIncident;
+};
+
 export default useMe;
+export { getActiveIncident };
