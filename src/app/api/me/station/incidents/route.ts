@@ -11,5 +11,5 @@ export async function GET() {
 
   const incidents = await getIncidentsFromStation(session.firetruck.stationId);
 
-  return NextResponse.json({ incidents });
+  return NextResponse.json(incidents);
 }

@@ -3,9 +3,11 @@
 import { IncidentFromStation } from "@/data/incident/getIncidents";
 import { useQuery } from "@tanstack/react-query";
 import Incident from "./incident";
+import { Incidents } from "@/data/schema";
 
 interface Response {
-  incidents: IncidentFromStation[];
+  incidents: Incidents;
+  incidentsToStations: IncidentFromStation;
 }
 
 const SelectIncident = () => {
@@ -13,7 +15,7 @@ const SelectIncident = () => {
     queryKey: ["incidents"],
     queryFn: async () => {
       const response = await fetch("/api/me/station/incidents");
-      return (await response.json()) as Response;
+      return (await response.json()) as Response[];
     },
   });
 
@@ -21,10 +23,10 @@ const SelectIncident = () => {
     return <div>...Loading</div>;
   }
 
-  if (incidents?.incidents) {
+  if (incidents!.length) {
     return (
       <div className="flex gap-4">
-        {incidents.incidents.map((incident) => {
+        {incidents!.map(({ incidents: incident }) => {
           return <Incident key={incident.id} incident={incident} />;
         })}
       </div>

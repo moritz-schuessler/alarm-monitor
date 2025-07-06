@@ -1,19 +1,25 @@
+import { eq } from "drizzle-orm";
 import db from "..";
-import { Incidents, IncidentsToStations } from "./schema";
+import {
+  incidents,
+  Incidents,
+  incidentsToStations,
+  IncidentsToStations,
+} from "./schema";
 
 interface IncidentFromStation extends Incidents {
   incidentsToStations: IncidentsToStations;
 }
 
 const getIncidentsFromStation = async (stationId: string) => {
-  return await db.query.incidents.findMany({
-    with: {
-      incidentsToStations: {
-        where: (incidentsToStations, { eq }) =>
-          eq(incidentsToStations.stationId, stationId),
-      },
-    },
-  });
+  return await db
+    .select()
+    .from(incidents)
+    .innerJoin(
+      incidentsToStations,
+      eq(incidents.id, incidentsToStations.incidentId),
+    )
+    .where(eq(incidentsToStations.stationId, stationId));
 };
 
 export { getIncidentsFromStation };
