@@ -2,6 +2,7 @@
 
 import { Incidents } from "@/data/schema";
 import { useQuery } from "@tanstack/react-query";
+import ShortInformation from "./short-information";
 
 interface Response {
   incident: Incidents;
@@ -20,12 +21,9 @@ const IncidentPage = () => {
     return "...Loading";
   }
 
-  const incident = data!.incident;
-
   return (
-    <div>
-      <div>Aktueller Einsatz:</div>
-      <div>{incident.keyword}</div>
+    <div className="flex flex-col justify-start items-center size-full">
+      <ShortInformation incident={data!.incident} />
     </div>
   );
 };
