@@ -3,14 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { Incidents } from "@/data/schema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 
 interface Props {
   incident: Incidents;
 }
 
 const Incident = ({ incident }: Props) => {
-  const router = useRouter();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -26,9 +24,7 @@ const Incident = ({ incident }: Props) => {
       return await response.json();
     },
     onSuccess: () => {
-      console.log("invalidate...");
       queryClient.invalidateQueries({ queryKey: ["firetruck/me"] });
-      router.push("/");
     },
   });
 
