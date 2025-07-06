@@ -1,3 +1,4 @@
+import { Information } from "@/components/ui/information";
 import { Incidents } from "@/data/schema";
 import { formatDate } from "@/lib/date";
 
@@ -10,18 +11,12 @@ const ShortInformation = ({ incident }: Props) => {
     <div className="h-fit w-full divide-y-1 divide-border border-1 border-border rounded-lg text-xl">
       <h2 className="p-4">Einsatzinformationen</h2>
       <div className="flex justify-center items-center divide-x-1 divide-border">
-        <div className="flex flex-col justify-center items-center p-4 grow-1 basis-0 ">
-          <div className="text-muted-foreground text-sm">Stichwort</div>
-          <div className="text-nowrap">{incident.keyword}</div>
-        </div>
-        <div className="flex flex-col justify-center items-center p-4 grow-1 basis-0 ">
-          <div className="text-muted-foreground text-sm">Adresse</div>
-          <div className="text-nowrap ">{incident.adress}</div>
-        </div>
-        <div className="flex flex-col justify-center items-center p-4 grow-1 basis-0">
-          <div className="text-muted-foreground text-sm">Alarmzeit</div>
-          <div className="text-nowrap">{formatDate(incident.alarmTime!)}</div>
-        </div>
+        <Information description="Stichwort" text={incident.keyword!} />
+        <Information description="Adresse" text={incident.adress!} />
+        <Information
+          description="Alarmzeit"
+          text={formatDate(incident.alarmTime!)}
+        />
       </div>
     </div>
   );
