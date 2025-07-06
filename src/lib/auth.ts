@@ -2,7 +2,7 @@ import "server-only";
 
 import { cookies } from "next/headers";
 import { createSession, decrypt, deleteSession } from "./session";
-import { getFiretruck } from "@/data/getFiretruck";
+import { getFiretruckByRadioIdentification } from "@/data/firetrucks/getFiretruck";
 
 const auth = async () => {
   const cookie = (await cookies()).get("session")?.value;
@@ -10,7 +10,8 @@ const auth = async () => {
 };
 
 const signIn = async (radioIdentification: string) => {
-  const firetruck = await getFiretruck(radioIdentification);
+  const firetruck =
+    await getFiretruckByRadioIdentification(radioIdentification);
 
   if (!firetruck) {
     return {
