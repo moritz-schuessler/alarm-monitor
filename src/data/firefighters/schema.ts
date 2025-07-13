@@ -3,6 +3,7 @@ import { sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { stations } from "../stations/schema";
 import { beacons } from "../beacons/schema";
 import { crews } from "../crew/schema";
+import { qualificationToFirefighter } from "../schema";
 
 const firefighters = sqliteTable("firefighters", {
   id: text("id")
@@ -23,6 +24,7 @@ const firefightersRelations = relations(firefighters, ({ one, many }) => ({
     references: [crews.id],
   }),
   beacons: many(beacons),
+  qualificationToFirefighter: many(qualificationToFirefighter),
 }));
 
 type Firefighters = InferSelectModel<typeof firefighters>;
