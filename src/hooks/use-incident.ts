@@ -9,13 +9,14 @@ const useIncident = () => {
 
   const incidentResponse = useQuery({
     queryKey: ["incident"],
-    queryFn: () => queryFunction(queryClient),
+    queryFn: () => getIncident(queryClient),
+    retry: false,
   });
 
   return incidentResponse;
 };
 
-const queryFunction = async (queryClient: QueryClient) => {
+const getIncident = async (queryClient: QueryClient) => {
   const activeIncident = await queryClient.ensureQueryData({
     queryKey: ["active-incident"],
     queryFn: async () => {
@@ -26,6 +27,10 @@ const queryFunction = async (queryClient: QueryClient) => {
       return response.activeIncident;
     },
   });
+
+  if (!activeIncident) {
+    throw new Error("no-incident");
+  }
 
   const response = await fetch(`/api/incidents/${activeIncident!}`);
   return (await response.json()) as Response;
