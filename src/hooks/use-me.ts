@@ -9,16 +9,13 @@ const useMe = () => {
   const queryClient = useQueryClient();
   const response = useQuery({
     queryKey: ["firetruck/me"],
-    queryFn: async () => {
-      const response = await fetch("/api/me");
-      return (await response.json()) as Response;
-    },
+    queryFn: getMe,
   });
 
   if (response.data) {
     queryClient.setQueryData(
       ["active-incident"],
-      () => response.data.firetruck.activeIncident,
+      () => response.data.activeIncident,
     );
   }
 

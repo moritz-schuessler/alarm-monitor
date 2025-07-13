@@ -6,13 +6,13 @@ import useMe from "@/hooks/use-me";
 
 const Home = () => {
   const router = useRouter();
-  const { data, status } = useMe();
+  const { data: firetruck, status } = useMe();
 
   if (status === "pending") {
     return <div>...Loading</div>;
   }
 
-  if (data!.firetruck.activeIncident !== null) {
+  if (firetruck!.activeIncident !== null) {
     router.push("/incident");
   }
 
