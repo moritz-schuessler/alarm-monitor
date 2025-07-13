@@ -25,13 +25,13 @@ const useMe = () => {
   return { ...response };
 };
 
-const getActiveIncident = async () => {
+const getMe = async () => {
   const response = await fetch("/api/me");
 
   const { firetruck } = (await response.json()) as Response;
 
-  return firetruck.activeIncident;
+  return firetruck;
 };
 
 export default useMe;
-export { getActiveIncident };
+export { getMe };
