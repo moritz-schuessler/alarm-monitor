@@ -1,23 +1,10 @@
 "use client";
 
-import { IncidentFromStation } from "@/data/incident/getIncidents";
-import { useQuery } from "@tanstack/react-query";
 import Incident from "./incident";
-import { Incidents } from "@/data/schema";
-
-interface Response {
-  incidents: Incidents;
-  incidentsToStations: IncidentFromStation;
-}
+import useMeStationIncidents from "@/hooks/use-me-station-incidents";
 
 const SelectIncident = () => {
-  const { data: incidents, status } = useQuery({
-    queryKey: ["incidents"],
-    queryFn: async () => {
-      const response = await fetch("/api/me/station/incidents");
-      return (await response.json()) as Response[];
-    },
-  });
+  const { data: incidents, status } = useMeStationIncidents();
 
   if (status === "pending") {
     return <div>...Loading</div>;
