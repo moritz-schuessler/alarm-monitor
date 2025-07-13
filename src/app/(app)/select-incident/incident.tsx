@@ -26,6 +26,7 @@ const Incident = ({ incident }: Props) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["firetruck/me"] });
+      queryClient.invalidateQueries({ queryKey: ["active-incident"] });
     },
   });
 
