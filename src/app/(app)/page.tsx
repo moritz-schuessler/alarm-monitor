@@ -3,6 +3,7 @@
 import useIncident from "@/hooks/use-incident";
 import ShortInformation from "./short-information";
 import { redirect } from "next/navigation";
+import AssignedUnits from "./assigned-units";
 
 const Page = () => {
   const { data, status } = useIncident();
@@ -19,9 +20,7 @@ const Page = () => {
           <div className="w-full divide-y-1 divide-border border-1 border-border rounded-lg text-xl col-span-2">
             Mannschaft...
           </div>
-          <div className="w-full divide-y-1 divide-border border-1 border-border rounded-lg text-xl col-span-1">
-            Einheiten...
-          </div>
+          <AssignedUnits stations={data.stations} />
         </div>
       </div>
     );
