@@ -23,7 +23,12 @@ const getIncidentById = async (incidentId: string) => {
   const incidentsToStations = await db.query.incidentsToStations.findMany({
     with: {
       station: {
-        with: { firetrucks: true },
+        with: {
+          firetrucks: {
+            where: (firetrucks, { eq }) =>
+              eq(firetrucks.activeIncident, incidentId),
+          },
+        },
       },
     },
     where: (incidentsToStations, { eq }) =>
