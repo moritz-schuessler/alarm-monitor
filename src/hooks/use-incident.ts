@@ -1,8 +1,12 @@
-import { Incidents } from "@/data/schema";
+import { Firetrucks, Incidents, Stations } from "@/data/schema";
 import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getMe } from "./use-me";
 
-type Response = Incidents;
+type Response = {
+  incident: Incidents;
+  firetrucks: Firetrucks[];
+  stations: Stations[];
+};
 
 const useIncident = () => {
   const queryClient = useQueryClient();
