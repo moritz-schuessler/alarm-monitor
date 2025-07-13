@@ -2,15 +2,13 @@
 
 import useIncident from "@/hooks/use-incident";
 import ShortInformation from "./short-information";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 const Page = () => {
-  const router = useRouter();
   const { data: incident, status } = useIncident();
 
   if (status === "error") {
-    router.push("/select-incident");
-    return;
+    redirect("/select-incident");
   }
 
   if (status === "success")

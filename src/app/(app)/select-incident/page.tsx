@@ -1,11 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import SelectIncident from "./select-incident";
 import useMe from "@/hooks/use-me";
 
 const Home = () => {
-  const router = useRouter();
   const { data: firetruck, status } = useMe();
 
   if (status === "pending") {
@@ -13,7 +12,7 @@ const Home = () => {
   }
 
   if (firetruck!.activeIncident !== null) {
-    router.push("/");
+    redirect("/");
   }
 
   return <SelectIncident />;
