@@ -1,5 +1,5 @@
 import { primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { firefighters } from "../firefighters/schema";
+import { firefighters } from "./firefighters";
 import { InferSelectModel, relations } from "drizzle-orm";
 
 const qualifications = sqliteTable("qualifications", {

@@ -1,4 +1,4 @@
-import { getIncidentById } from "@/data/incident/getIncident";
+import incidentService from "@/data/domains/incident/incident.service";
 import { NextRequest, NextResponse } from "next/server";
 
 const GET = async (
@@ -7,7 +7,7 @@ const GET = async (
 ) => {
   const { id } = await params;
 
-  const incident = await getIncidentById(id);
+  const incident = await incidentService.getIncidentDetails(id);
 
   return NextResponse.json(incident);
 };

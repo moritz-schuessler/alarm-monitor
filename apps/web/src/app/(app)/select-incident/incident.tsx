@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Incidents } from "@/data/schema";
+import { Incidents } from "@/data/shared/schema";
 import { formatDate } from "@/lib/date";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 

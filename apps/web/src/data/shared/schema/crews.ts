@@ -1,6 +1,6 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { firetrucks } from "../firetrucks/schema";
-import { firefighters } from "../firefighters/schema";
+import { firetrucks } from "./firetrucks";
+import { firefighters } from "./firefighters";
 import { InferSelectModel, relations } from "drizzle-orm";
 
 const crews = sqliteTable("crews", {

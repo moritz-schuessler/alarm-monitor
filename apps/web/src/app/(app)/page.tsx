@@ -15,7 +15,7 @@ const Page = () => {
   if (status === "success")
     return (
       <div className="grid grid-cols-3 grid-rows-[auto_1fr] flex-col size-full gap-8">
-        <ShortInformation incident={data!.incident} />
+        <ShortInformation incident={data!.incident!} />
         <div className="grid grid-cols-subgrid col-span-3">
           <div className="w-full divide-y-1 divide-border border-1 border-border rounded-lg text-xl col-span-2">
             Mannschaft...
