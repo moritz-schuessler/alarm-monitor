@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import getStations from "@/data/domains/stations/getStations";
+import stationService from "@/data/domains/stations/station.service";
 import { signIn } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
@@ -22,7 +22,7 @@ const SelectUserPage = async () => {
     redirect("/");
   };
 
-  const stations = await getStations();
+  const stations = await stationService.getStations();
 
   return (
     <main className="grid place-items-center h-screen w-screen">
