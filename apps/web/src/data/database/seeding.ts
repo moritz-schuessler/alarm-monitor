@@ -8,7 +8,7 @@ import {
   firefighters as firefightersSchema,
   Firetrucks,
   Firefighters,
-} from "./shared/schema";
+} from "../shared/schema";
 
 async function main() {
   await db.delete(departmentsSchema);

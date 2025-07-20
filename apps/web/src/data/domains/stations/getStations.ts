@@ -1,4 +1,4 @@
-import db from "../../";
+import db from "../../database";
 
 const getStations = async () => {
   const result = await db.query.stations.findMany({

@@ -1,4 +1,4 @@
-import db from "../../";
+import db from "../../database";
 
 const getStationById = async (stationId: string) => {
   db.query.stations.findFirst({
