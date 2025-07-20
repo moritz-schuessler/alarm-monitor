@@ -1,4 +1,4 @@
-import { Firetrucks, Incidents, Stations } from "@/data/schema";
+import { Firetrucks, Incidents, Stations } from "@/data/shared/schema";
 import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getMe } from "./use-me";
 

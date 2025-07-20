@@ -1,4 +1,4 @@
-import { Firetrucks } from "@/data/schema";
+import { Firetrucks } from "@/data/shared/schema";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface Response {

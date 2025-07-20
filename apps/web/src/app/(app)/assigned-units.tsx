@@ -1,4 +1,4 @@
-import { Firetrucks, Stations } from "@/data/schema";
+import { Firetrucks, Stations } from "@/data/shared/schema";
 
 interface Props {
   stations: Stations[];

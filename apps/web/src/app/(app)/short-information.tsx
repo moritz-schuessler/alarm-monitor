@@ -1,5 +1,5 @@
 import { Information } from "@/components/ui/information";
-import { Incidents } from "@/data/schema";
+import { Incidents } from "@/data/shared/schema";
 import { formatDate } from "@/lib/date";
 
 interface Props {
