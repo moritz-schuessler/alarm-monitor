@@ -1,7 +1,7 @@
-import { Firetrucks, Stations } from "@/data/shared/schema";
+import { IncidentDetails } from "@/data/domains/incident/incident.types";
 
 interface Props {
-  stations: Stations[];
+  stations: IncidentDetails["stations"];
 }
 
 const AssignedUnits = ({ stations }: Props) => {
@@ -12,7 +12,7 @@ const AssignedUnits = ({ stations }: Props) => {
           return (
             <div key={station.id} className="flex flex-col">
               <div>{station.name}</div>
-              {station.firetrucks.map((firetruck: Firetrucks) => {
+              {station.firetrucks.map((firetruck) => {
                 return (
                   <div key={firetruck.id}>{firetruck.radioIdentification}</div>
                 );
