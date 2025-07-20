@@ -1,4 +1,4 @@
-import { getIncidentById } from "@/data/incident/getIncident";
+import { getIncidentById } from "@/data/domains/incident/getIncident";
 import { NextRequest, NextResponse } from "next/server";
 
 const GET = async (

@@ -1,7 +1,7 @@
 import "server-only";
 import { JWTPayload, SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
-import { Firetrucks } from "@/data/firetrucks/schema";
+import { Firetrucks } from "@/data/shared/schema";
 
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);

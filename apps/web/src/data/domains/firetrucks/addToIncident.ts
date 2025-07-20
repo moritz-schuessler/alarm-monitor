@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
-import db from "..";
-import { firetrucks } from "./schema";
+import db from "../../";
+import { firetrucks } from "../../shared/schema";
 
 const addToIncident = async (firetruckId: string, incidentId: string) => {
   await db

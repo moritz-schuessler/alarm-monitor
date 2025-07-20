@@ -1,6 +1,6 @@
 import { sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { InferSelectModel, relations } from "drizzle-orm";
-import { stations } from "../stations/schema";
+import { stations } from "./stations";
 
 const departments = sqliteTable("departments", {
   id: text("id")

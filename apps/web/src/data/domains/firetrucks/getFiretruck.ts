@@ -1,4 +1,4 @@
-import db from "..";
+import db from "../../";
 
 const getFiretruckById = async (firetruckId: string) => {
   console.log(firetruckId);

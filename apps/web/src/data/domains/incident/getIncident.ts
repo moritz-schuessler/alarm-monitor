@@ -1,4 +1,4 @@
-import db from "..";
+import db from "../../";
 
 const getIncidentById = async (incidentId: string) => {
   const incident = await db.query.incidents.findFirst({

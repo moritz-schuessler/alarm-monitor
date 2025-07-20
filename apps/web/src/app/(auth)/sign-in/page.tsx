@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import getStations from "@/data/stations/getStations";
+import getStations from "@/data/domains/stations/getStations";
 import { signIn } from "@/lib/auth";
 import { redirect } from "next/navigation";
 

@@ -2,7 +2,7 @@ import "server-only";
 
 import { cookies } from "next/headers";
 import { createSession, decrypt, deleteSession } from "./session";
-import { getFiretruckByRadioIdentification } from "@/data/firetrucks/getFiretruck";
+import { getFiretruckByRadioIdentification } from "@/data/domains/firetrucks/getFiretruck";
 
 const auth = async () => {
   const cookie = (await cookies()).get("session")?.value;

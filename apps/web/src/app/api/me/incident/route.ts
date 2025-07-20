@@ -1,6 +1,6 @@
-import addToIncident from "@/data/firetrucks/addToIncident";
-import { getFiretruckById } from "@/data/firetrucks/getFiretruck";
-import { getIncidentById } from "@/data/incident/getIncident";
+import addToIncident from "@/data/domains/firetrucks/addToIncident";
+import { getFiretruckById } from "@/data/domains/firetrucks/getFiretruck";
+import { getIncidentById } from "@/data/domains/incident/getIncident";
 import { auth } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 

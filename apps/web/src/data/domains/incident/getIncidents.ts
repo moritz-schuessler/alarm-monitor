@@ -1,11 +1,11 @@
 import { eq } from "drizzle-orm";
-import db from "..";
+import db from "../../";
 import {
   incidents,
   Incidents,
   incidentsToStations,
   IncidentsToStations,
-} from "./schema";
+} from "../../shared/schema";
 
 interface IncidentFromStation extends Incidents {
   incidentsToStations: IncidentsToStations;

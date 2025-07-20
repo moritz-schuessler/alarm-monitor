@@ -1,4 +1,4 @@
-import { getFiretruckById } from "@/data/firetrucks/getFiretruck";
+import { getFiretruckById } from "@/data/domains/firetrucks/getFiretruck";
 import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 

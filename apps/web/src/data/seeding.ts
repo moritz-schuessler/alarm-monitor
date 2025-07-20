@@ -1,6 +1,6 @@
 import { fakerDE as faker } from "@faker-js/faker";
 
-import db from ".";
+import db from "./index";
 import {
   departments as departmentsSchema,
   stations as stationsSchema,
@@ -8,7 +8,7 @@ import {
   firefighters as firefightersSchema,
   Firetrucks,
   Firefighters,
-} from "./schema";
+} from "./shared/schema";
 
 async function main() {
   await db.delete(departmentsSchema);
