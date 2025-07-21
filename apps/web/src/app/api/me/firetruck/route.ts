@@ -14,7 +14,5 @@ export async function GET() {
     session.firetruckId,
   );
 
-  console.log(firetruck);
-
   return NextResponse.json({ firetruck });
 }

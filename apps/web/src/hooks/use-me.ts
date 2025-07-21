@@ -23,7 +23,7 @@ const useMe = () => {
 };
 
 const getMe = async () => {
-  const response = await fetch("/api/me");
+  const response = await fetch("/api/me/firetruck");
 
   const { firetruck } = (await response.json()) as Response;
 
