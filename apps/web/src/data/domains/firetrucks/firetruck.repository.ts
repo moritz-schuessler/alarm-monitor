@@ -5,6 +5,17 @@ import { eq } from "drizzle-orm";
 const firetruckRepository = {
   async findById(firetruckId: string) {
     return await db.query.firetrucks.findFirst({
+      with: {
+        crew: {
+          with: {
+            firefighters: {
+              with: {
+                qualificationToFirefighter: { with: { qualification: true } },
+              },
+            },
+          },
+        },
+      },
       where: (firetruck, { eq }) => eq(firetruck.id, firetruckId),
     });
   },

@@ -1,4 +1,7 @@
-import { IncidentDetails } from "@/data/domains/incident/incident.types";
+import { type FiretruckDetails } from "@/data/domains/firetrucks/firetruck.types";
+import { type IncidentDetails } from "@/data/domains/incident/incident.types";
+import { Firetrucks } from "@/data/shared/schema";
+import useGetFiretruck from "@/hooks/use-get-firetruck";
 
 interface Props {
   stations: IncidentDetails["stations"];
@@ -13,9 +16,7 @@ const AssignedUnits = ({ stations }: Props) => {
             <div key={station.id} className="flex flex-col p-4 gap-1">
               <div>{station.name}</div>
               {station.firetrucks.map((firetruck) => {
-                return (
-                  <div key={firetruck.id}>{firetruck.radioIdentification}</div>
-                );
+                return <Firetruck key={firetruck.id} firetruck={firetruck} />;
               })}
             </div>
           );
@@ -23,6 +24,44 @@ const AssignedUnits = ({ stations }: Props) => {
       </div>
     </div>
   );
+};
+
+const Firetruck = ({ firetruck }: { firetruck: Firetrucks }) => {
+  const { data: firetruckDetails, isLoading } = useGetFiretruck(firetruck.id);
+
+  if (isLoading) {
+    return "...Loading";
+  }
+
+  const crewStats = crewStatsFormatter(firetruckDetails!.crew);
+
+  return (
+    <div className="flex justify-between">
+      <div>{firetruck.radioIdentification}</div>
+      <div className="flex gap-1 items-center">
+        {crewStats && crewStats![0] + " / " + crewStats![1]}
+      </div>
+    </div>
+  );
+};
+
+const crewStatsFormatter = (crew: NonNullable<FiretruckDetails>["crew"]) => {
+  console.log(crew);
+  if (!crew?.firefighters) {
+    return [0, 0];
+  }
+
+  const hasLeadership = crew?.firefighters.some((firefighter) => {
+    return firefighter.qualificationToFirefighter.some((qualifications) => {
+      return qualifications.qualification.name === "Gruppenführer";
+    });
+  });
+
+  if (hasLeadership) {
+    return [1, crew!.firefighters.length - 1];
+  }
+
+  return [0, crew!.firefighters.length];
 };
 
 export default AssignedUnits;

@@ -8,7 +8,7 @@ const crews = sqliteTable("crews", {
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   isLocked: integer("is_locked", { mode: "boolean" }),
-  firetruckId: text("firetruck_id"),
+  firetruckId: text("firetruck_id").notNull(),
 });
 
 const crewsRelations = relations(crews, ({ one, many }) => ({
