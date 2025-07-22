@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Incidents } from "@/data/shared/schema";
 import useAddFiretruckToIncident from "@/hooks/use-add-firetruck-to-incident";
-import useMe from "@/hooks/use-me";
+import useGetMe from "@/hooks/use-get-me";
 import { formatDate } from "@/lib/date";
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Incident = ({ incident }: Props) => {
-  const { data: firetruck } = useMe();
+  const { data } = useGetMe();
   const mutation = useAddFiretruckToIncident();
 
   return (
@@ -20,7 +20,7 @@ const Incident = ({ incident }: Props) => {
       className="flex group size-fit p-4 text-left"
       onClick={() =>
         mutation.mutate({
-          firetruckId: firetruck!.id!,
+          firetruckId: data!.firetruck!.id!,
           incidentId: incident.id,
         })
       }

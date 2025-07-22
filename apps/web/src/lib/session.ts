@@ -1,13 +1,13 @@
 import "server-only";
 import { JWTPayload, SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
-import { Firetrucks } from "@/data/shared/schema";
 
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
 
 type Payload = {
   firetruckId: string;
+  stationId: string;
 };
 
 type Session = Payload & JWTPayload;
@@ -31,9 +31,9 @@ export async function decrypt(session: string | undefined = "") {
   }
 }
 
-export async function createSession(firetruck: Firetrucks) {
+export async function createSession(firetruckId: string, stationId: string) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const session = await encrypt({ firetruckId: firetruck.id });
+  const session = await encrypt({ firetruckId, stationId });
   const cookieStore = await cookies();
 
   cookieStore.set("session", session, {

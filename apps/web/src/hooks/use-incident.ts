@@ -1,7 +1,7 @@
 import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { getMe } from "./use-me";
 import { type IncidentDetails } from "@/data/domains/incident/incident.types";
+import { getMe } from "./use-get-me";
 
 const useIncident = () => {
   const queryClient = useQueryClient();
@@ -21,9 +21,9 @@ const getIncident = async (queryClient: QueryClient) => {
     queryFn: async () => {
       const response = await getMe();
 
-      queryClient.setQueryData(["firetruck/me"], () => response);
+      queryClient.setQueryData(["me"], () => response);
 
-      return response.activeIncident;
+      return response.firetruck.activeIncident;
     },
   });
 

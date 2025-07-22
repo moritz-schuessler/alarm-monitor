@@ -21,7 +21,7 @@ const signIn = async (radioIdentification: string) => {
     };
   }
 
-  await createSession(firetruck);
+  await createSession(firetruck.id, firetruck.stationId);
 };
 
 const signOut = async () => {

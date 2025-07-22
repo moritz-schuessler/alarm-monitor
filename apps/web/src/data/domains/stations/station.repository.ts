@@ -9,6 +9,13 @@ const stationRepository = {
     });
   },
 
+  async findById(stationId: string) {
+    return await db.query.stations.findFirst({
+      with: { firetrucks: true },
+      where: (stations, { eq }) => eq(stations.id, stationId),
+    });
+  },
+
   async findByIncident(incidentId: string) {
     const incidentsToStations = await db.query.incidentsToStations.findMany({
       with: {
