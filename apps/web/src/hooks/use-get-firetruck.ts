@@ -5,6 +5,7 @@ const useGetFiretruck = (firetruckId: string) => {
   const incidentResponse = useQuery({
     queryKey: ["firetruck", firetruckId],
     queryFn: () => getFiretruck(firetruckId),
+    enabled: !!firetruckId,
     retry: false,
   });
 

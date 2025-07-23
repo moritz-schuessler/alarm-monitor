@@ -4,6 +4,7 @@ import useIncident from "@/hooks/use-incident";
 import ShortInformation from "./short-information";
 import { redirect } from "next/navigation";
 import AssignedUnits from "./assigned-units";
+import CrewOverview from "./crew-overview";
 
 const Page = () => {
   const { data, status } = useIncident();
@@ -17,9 +18,7 @@ const Page = () => {
       <div className="grid grid-cols-3 grid-rows-[auto_1fr] flex-col size-full gap-8">
         <ShortInformation incident={data!.incident!} />
         <div className="grid grid-cols-subgrid col-span-3">
-          <div className="w-full divide-y-1 divide-border border-1 border-border rounded-lg text-xl col-span-2">
-            Mannschaft...
-          </div>
+          <CrewOverview />
           <AssignedUnits stations={data.stations} />
         </div>
       </div>
