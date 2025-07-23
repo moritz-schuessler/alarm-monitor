@@ -1,6 +1,7 @@
 import { Information } from "@/components/ui/information";
 import useGetFiretruck from "@/hooks/use-get-firetruck";
 import useGetMe from "@/hooks/use-get-me";
+import formatCrew from "@/utils/formatCrew";
 
 const CrewOverviewWrapper = () => {
   const { data: session } = useGetMe();
@@ -25,7 +26,7 @@ const CrewOverviewWrapper = () => {
         </div>
         <Information
           description="Besatzung"
-          text={firetruck!.crew!.firefighters.length.toString()}
+          text={formatCrew(firetruck!.crew)}
         />
       </div>
       <div className="grid grid-cols-subgrid col-span-3 h-full divide-border divide-x-1 divide-y-1">

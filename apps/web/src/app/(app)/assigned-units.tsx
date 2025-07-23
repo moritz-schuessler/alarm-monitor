@@ -1,7 +1,7 @@
-import { type FiretruckDetails } from "@/data/domains/firetrucks/firetruck.types";
 import { type IncidentDetails } from "@/data/domains/incident/incident.types";
 import { Firetrucks } from "@/data/shared/schema";
 import useGetFiretruck from "@/hooks/use-get-firetruck";
+import formatCrew from "@/utils/formatCrew";
 
 interface Props {
   stations: IncidentDetails["stations"];
@@ -33,35 +33,14 @@ const Firetruck = ({ firetruck }: { firetruck: Firetrucks }) => {
     return "...Loading";
   }
 
-  const crewStats = crewStatsFormatter(firetruckDetails!.crew);
-
   return (
     <div className="flex justify-between">
       <div>{firetruck.radioIdentification}</div>
       <div className="flex gap-1 items-center">
-        {crewStats && crewStats![0] + " / " + crewStats![1]}
+        {formatCrew(firetruckDetails!.crew)}
       </div>
     </div>
   );
-};
-
-const crewStatsFormatter = (crew: NonNullable<FiretruckDetails>["crew"]) => {
-  console.log(crew);
-  if (!crew?.firefighters) {
-    return [0, 0];
-  }
-
-  const hasLeadership = crew?.firefighters.some((firefighter) => {
-    return firefighter.qualificationToFirefighter.some((qualifications) => {
-      return qualifications.qualification.name === "Gruppenführer";
-    });
-  });
-
-  if (hasLeadership) {
-    return [1, crew!.firefighters.length - 1];
-  }
-
-  return [0, crew!.firefighters.length];
 };
 
 export default AssignedUnits;
