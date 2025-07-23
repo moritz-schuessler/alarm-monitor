@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "db:push": "npx drizzle-kit push",
-    "db:seed": "npx tsx ./src/data/seeding.ts",
+    "db:seed": "npx tsx ./src/data/database/seeding.ts",
     "db:studio": "npx drizzle-kit studio"
   },
   "dependencies": {
