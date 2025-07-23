@@ -11,10 +11,10 @@ import {
 } from "../shared/schema";
 
 async function main() {
-  await db.delete(departmentsSchema);
-  await db.delete(stationsSchema);
-  await db.delete(firetrucksSchema);
   await db.delete(firefightersSchema);
+  await db.delete(firetrucksSchema);
+  await db.delete(stationsSchema);
+  await db.delete(departmentsSchema);
 
   const departments = await db
     .insert(departmentsSchema)
@@ -40,18 +40,22 @@ async function main() {
       {
         radioIdentification: "Mustergemeinde 1-30-1",
         stationId: stationsMustergemeinde[0].id,
+        seats: 3,
       },
       {
         radioIdentification: "Mustergemeinde 1-44-1",
         stationId: stationsMustergemeinde[0].id,
+        seats: 9,
       },
       {
-        radioIdentification: "Mustergemeinde 1-12-1",
+        radioIdentification: "Mustergemeinde 1-11-1",
         stationId: stationsMustergemeinde[0].id,
+        seats: 1,
       },
       {
         radioIdentification: "Mustergemeinde 1-51-1",
         stationId: stationsMustergemeinde[0].id,
+        seats: 3,
       },
     ])
     .returning();
@@ -62,10 +66,12 @@ async function main() {
       {
         radioIdentification: "Mustergemeinde 2-46-1",
         stationId: stationsMustergemeinde[1].id,
+        seats: 9,
       },
       {
         radioIdentification: "Mustergemeinde 2-19-1",
         stationId: stationsMustergemeinde[1].id,
+        seats: 8,
       },
     ])
     .returning();
@@ -76,6 +82,7 @@ async function main() {
       {
         radioIdentification: "Mustergemeinde 3-48-1",
         stationId: stationsMustergemeinde[2].id,
+        seats: 6,
       },
     ])
     .returning();
