@@ -14,7 +14,7 @@ const CrewOverviewWrapper = () => {
   }
 
   return (
-    <div className="w-full divide-y-1 divide-border border-1 border-border rounded-lg text-xl col-span-2 grid grid-cols-3 grid-rows-[auto_auto_1fr]">
+    <div className="w-full divide-y-1 divide-border border-1 border-border rounded-lg text-xl col-span-2 grid grid-cols-3 grid-rows-[auto_auto_1fr] overflow-hidden">
       <div className="grid-cols-subgrid col-span-3 grid h-fit">
         <div className="p-4 grid-cols-subgrid col-span-2">
           <div className="text-muted-foreground">{session?.station?.name}</div>
