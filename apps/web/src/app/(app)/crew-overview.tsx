@@ -2,6 +2,7 @@ import { Information } from "@/components/ui/information";
 import useGetFiretruck from "@/hooks/use-get-firetruck";
 import useGetMe from "@/hooks/use-get-me";
 import formatCrew from "@/utils/formatCrew";
+import Crew from "./crew";
 
 const CrewOverviewWrapper = () => {
   const { data: session } = useGetMe();
@@ -29,15 +30,7 @@ const CrewOverviewWrapper = () => {
           text={formatCrew(firetruck!.crew)}
         />
       </div>
-      <div className="grid grid-cols-subgrid col-span-3 h-full divide-border divide-x-1 divide-y-1">
-        {firetruck?.crew?.firefighters.map((firefighter) => {
-          return (
-            <div key={firefighter.id} className="p-4">
-              {firefighter.name}
-            </div>
-          );
-        })}
-      </div>
+      <Crew firetruck={firetruck} />
     </div>
   );
 };

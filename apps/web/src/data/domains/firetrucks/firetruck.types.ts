@@ -4,4 +4,7 @@ type FiretruckDetails = Awaited<
   ReturnType<typeof firetruckService.getFiretruckById>
 >;
 
-export { type FiretruckDetails };
+type CrewDetails = NonNullable<FiretruckDetails>["crew"];
+type FirefighterDetails = NonNullable<CrewDetails>["firefighters"][number];
+
+export { type FiretruckDetails, type CrewDetails, type FirefighterDetails };
