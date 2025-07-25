@@ -11,7 +11,7 @@ const stationRepository = {
 
   async findById(stationId: string) {
     return await db.query.stations.findFirst({
-      with: { firetrucks: true },
+      with: { firetrucks: true, firefighters: true },
       where: (stations, { eq }) => eq(stations.id, stationId),
     });
   },
