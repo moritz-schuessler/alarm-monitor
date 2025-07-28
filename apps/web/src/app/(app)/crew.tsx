@@ -62,7 +62,7 @@ const Crew = ({ firetruck }: Props) => {
   });
 
   return (
-    <div className="grid grid-cols-3 auto-rows-fr h-full">
+    <div className="grid grid-cols-3 auto-rows-fr h-full bg-secondary gap-0.25">
       {[...crewElements, ...emptySeatElements]}
     </div>
   );
@@ -76,9 +76,9 @@ const Seat = (props: SeatProps) => {
   if (props.type === "empty") {
     if (data) {
       return (
-        <div className="bg-background justify-center items-center ring ring-border size-full">
+        <div className="bg-background justify-center items-center size-full ring ring-border">
           <Dialog>
-            <DialogTrigger className="flex size-full justify-center items-center ">
+            <DialogTrigger className="flex size-full justify-center items-center">
               {props.children}
             </DialogTrigger>
             <DialogContent>
@@ -112,7 +112,7 @@ const Seat = (props: SeatProps) => {
 
   if (props.type === "firefighter") {
     return (
-      <div className="p-4 bg-background ring ring-border ">
+      <div className="p-4 bg-background ring ring-border">
         {props.firefighter.name}
       </div>
     );
