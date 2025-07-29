@@ -1,0 +1,23 @@
+{
+  "name": "@alarm-monitor/backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --loader=ts-node/esm --env-file=.env.local --watch src/index.ts",
+    "build": "npx tsc",
+    "start": "node --env-file=.env.local dist/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
