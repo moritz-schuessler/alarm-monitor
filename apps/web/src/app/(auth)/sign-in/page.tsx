@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import stationService from "@/data/domains/stations/station.service";
-import { signIn } from "@/lib/auth";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 const SelectUserPage = async () => {
@@ -17,7 +17,29 @@ const SelectUserPage = async () => {
     "use server";
     const radioIdentification = formData.get("radioIdentification") as string;
 
-    await signIn(radioIdentification);
+    const cookieStore = await cookies();
+
+    const response = await fetch("http://localhost:3001/signin", {
+      method: "POST",
+      body: JSON.stringify({ radioIdentification }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!response.ok) {
+      return;
+    }
+
+    const { access_token } = await response.json();
+
+    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
+    cookieStore.set("session", access_token, {
+      httpOnly: true,
+      secure: true,
+      expires: expiresAt,
+      sameSite: "lax",
+      path: "/",
+    });
 
     redirect("/");
   };
