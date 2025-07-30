@@ -1,13 +1,20 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, Router } from "express";
 import cookieParser from "cookie-parser";
 import sessionService from "./lib/auth/session.service.js";
 import firetruckService from "./data/domains/firetrucks/firetruck.service.js";
+import meRouter from "./modules/me/me.router.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cookieParser());
+
+const apiRouter = Router();
+
+app.use("/api", apiRouter);
+
+apiRouter.use("/me", meRouter);
 
 app.post("/signin", async (req: Request, res: Response) => {
   const radioIdentification = req.body.radioIdentification;

@@ -27,7 +27,8 @@ const useGetMe = () => {
 };
 
 const getMe = async () => {
-  const response = await fetch("/api/me");
+  const response = await fetch("/api/backend/me");
+  console.log("test");
 
   return (await response.json()) as MeResponse;
 };
