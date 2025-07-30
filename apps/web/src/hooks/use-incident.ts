@@ -31,7 +31,7 @@ const getIncident = async (queryClient: QueryClient) => {
     throw new Error("no-incident");
   }
 
-  const response = await fetch(`/api/incidents/${activeIncident!}`);
+  const response = await fetch(`/api/backend/incidents/${activeIncident!}`);
   return (await response.json()) as IncidentDetails;
 };
 
