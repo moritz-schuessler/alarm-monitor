@@ -1,13 +1,13 @@
 "use client";
 
-import useIncident from "@/hooks/use-incident";
+import useGetIncident from "@/hooks/use-get-incident";
 import ShortInformation from "./short-information";
 import { redirect } from "next/navigation";
 import AssignedUnits from "./assigned-units";
 import CrewOverview from "./crew-overview";
 
 const Page = () => {
-  const { data, status } = useIncident();
+  const { data, status } = useGetIncident();
 
   if (status === "error") {
     redirect("/select-incident");
