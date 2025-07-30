@@ -4,6 +4,7 @@ import sessionService from "./lib/auth/session.service.js";
 import firetruckService from "./data/domains/firetrucks/firetruck.service.js";
 import meRouter from "./modules/me/me.router.js";
 import stationRouter from "./modules/stations/station.router.js";
+import firetruckRouter from "./modules/firetrucks/firetruck.router.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,6 +18,7 @@ app.use("/api", apiRouter);
 
 apiRouter.use("/me", meRouter);
 apiRouter.use("/stations", stationRouter);
+apiRouter.use("/firetrucks", firetruckRouter);
 
 app.post("/signin", async (req: Request, res: Response) => {
   const radioIdentification = req.body.radioIdentification;
