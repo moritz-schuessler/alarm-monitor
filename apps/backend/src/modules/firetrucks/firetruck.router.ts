@@ -27,4 +27,19 @@ firetruckRouter.post(
   },
 );
 
+firetruckRouter.post(
+  "/:firetruckId/firefighter",
+  async (request: Request, response: Response) => {
+    const { firetruckId } = request.params;
+    const { firefighterId } = request.body;
+
+    await firetruckService.addFirefighterToFiretruck(
+      firetruckId,
+      firefighterId,
+    );
+
+    return response.json({ success: true });
+  },
+);
+
 export default firetruckRouter;

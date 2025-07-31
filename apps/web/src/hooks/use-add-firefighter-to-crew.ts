@@ -12,7 +12,7 @@ const useAddFiretruckToIncident = () => {
       firefighterId: string;
     }) => {
       const response = await fetch(
-        `/api/firetrucks/${firetruckId}/firefighter`,
+        `/api/backend/firetrucks/${firetruckId}/firefighter`,
         {
           method: "POST",
           body: JSON.stringify({
