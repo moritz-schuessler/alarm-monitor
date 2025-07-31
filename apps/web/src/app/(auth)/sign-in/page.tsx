@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import stationService from "@/data/domains/stations/station.service";
+import { StationDetails } from "@/data/domains/stations/station.types";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -44,7 +44,8 @@ const SelectUserPage = async () => {
     redirect("/");
   };
 
-  const stations = await stationService.getStations();
+  const reponse = await fetch("http://localhost:3001/api/stations");
+  const stations = (await reponse.json()) as StationDetails[];
 
   return (
     <main className="grid place-items-center h-screen w-screen">
@@ -54,23 +55,24 @@ const SelectUserPage = async () => {
             <SelectValue placeholder="Feuerwehrauto" />
           </SelectTrigger>
           <SelectContent>
-            {stations.map((station) => {
-              return (
-                <SelectGroup key={station.id}>
-                  <SelectLabel>{station.name}</SelectLabel>
-                  {station.firetrucks.map((firetruck) => {
-                    return (
-                      <SelectItem
-                        value={firetruck.radioIdentification}
-                        key={firetruck.id}
-                      >
-                        {firetruck.radioIdentification}
-                      </SelectItem>
-                    );
-                  })}
-                </SelectGroup>
-              );
-            })}
+            {stations &&
+              stations.map((station) => {
+                return (
+                  <SelectGroup key={station!.id}>
+                    <SelectLabel>{station!.name}</SelectLabel>
+                    {station!.firetrucks.map((firetruck) => {
+                      return (
+                        <SelectItem
+                          value={firetruck.radioIdentification}
+                          key={firetruck.id}
+                        >
+                          {firetruck.radioIdentification}
+                        </SelectItem>
+                      );
+                    })}
+                  </SelectGroup>
+                );
+              })}
           </SelectContent>
         </Select>
         <Button type="submit">Sign in</Button>
