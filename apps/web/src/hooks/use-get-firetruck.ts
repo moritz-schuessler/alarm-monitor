@@ -13,7 +13,7 @@ const useGetFiretruck = (firetruckId: string) => {
 };
 
 const getFiretruck = async (firetruckId: string) => {
-  const response = await fetch(`/api/firetrucks/${firetruckId!}`);
+  const response = await fetch(`/api/backend/firetrucks/${firetruckId!}`);
   return (await response.json()) as FiretruckDetails;
 };
 

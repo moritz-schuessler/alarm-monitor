@@ -1,7 +1,19 @@
-import { Request, Response, Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 import incidentService from "../../data/domains/incident/incident.service.js";
+import firetruckService from "../../data/domains/firetrucks/firetruck.service.js";
 
 const firetruckRouter = Router();
+
+firetruckRouter.get(
+  "/:firetruckId",
+  async (request: Request, reponse: Response, next: NextFunction) => {
+    const { firetruckId } = request.params;
+
+    const firetruck = await firetruckService.getFiretruckById(firetruckId);
+
+    return reponse.json(firetruck);
+  },
+);
 
 firetruckRouter.post(
   "/:firetruckId/incident",
