@@ -1,9 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { FiretrucksRepository } from './firetrucks.repository';
+import { CrewsService } from 'src/crews/crews.service';
+import { FirefightersService } from 'src/firefighters/firefighters.service';
 
 @Injectable()
 export class FiretrucksService {
-  constructor(private readonly firetrucksRepository: FiretrucksRepository) {}
+  constructor(
+    private readonly firetrucksRepository: FiretrucksRepository,
+    private readonly crewsService: CrewsService,
+    private readonly firefighterService: FirefightersService,
+  ) {}
 
   async getById(firetruckId: string) {
     const firetruck = await this.firetrucksRepository.findById(firetruckId);
@@ -45,5 +51,24 @@ export class FiretrucksService {
     }
 
     return firetruck;
+  }
+
+  async addFirefighterToFiretruck(firetruckId: string, firefighterId: string) {
+    const crew = await this.crewsService.getByFiretruckId(firetruckId);
+
+    if (!crew) {
+      throw new NotFoundException(
+        `Crew for firetruck ${firetruckId} not found`,
+      );
+    }
+
+    const firetruck = await this.firefighterService.assignToCrew(
+      firefighterId,
+      crew.id,
+    );
+
+    if (!crew.isLocked && firetruck) {
+      await this.crewsService.lock(crew.id);
+    }
   }
 }
