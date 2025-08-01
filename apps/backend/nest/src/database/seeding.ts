@@ -17,6 +17,11 @@ import {
 const db = drizzle(process.env.DATABASE_URL!, { schema });
 
 async function main() {
+  await db.delete(firefightersSchema);
+  await db.delete(firetrucksSchema);
+  await db.delete(stationsSchema);
+  await db.delete(departmentsSchema);
+
   const departments = await db
     .insert(departmentsSchema)
     .values([{ name: 'Feuerwehr Mustergemeinde' }])
