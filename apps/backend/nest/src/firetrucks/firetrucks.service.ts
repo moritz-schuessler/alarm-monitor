@@ -6,13 +6,28 @@ export class FiretrucksService {
   constructor(private readonly firetrucksRepository: FiretrucksRepository) {}
 
   async getById(firetruckId: string) {
-    return await this.firetrucksRepository.findById(firetruckId);
+    const firetruck = await this.firetrucksRepository.findById(firetruckId);
+
+    if (!firetruck) {
+      throw new NotFoundException(`Firetruck ${firetruckId} not found`);
+    }
+
+    return firetruck;
   }
 
   async getFiretruckByRadioIdentification(radioIdentification: string) {
-    return await this.firetrucksRepository.findByRadioIdentification(
-      radioIdentification,
-    );
+    const firetruck =
+      await this.firetrucksRepository.findByRadioIdentification(
+        radioIdentification,
+      );
+
+    if (!firetruck) {
+      throw new NotFoundException(
+        `Firetruck with radioIdentification ${radioIdentification} not found`,
+      );
+    }
+
+    return firetruck;
   }
 
   async getByIncident(incidentId: string) {
@@ -28,6 +43,7 @@ export class FiretrucksService {
     if (!firetruck) {
       throw new NotFoundException(`Firetruck ${firetruckId} not found`);
     }
+
     return firetruck;
   }
 }
