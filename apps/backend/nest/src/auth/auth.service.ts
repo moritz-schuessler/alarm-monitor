@@ -1,18 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { FiretrucksService } from 'src/firetrucks/firetrucks.service';
-
-interface Payload {
-  sub: string;
-  firertuckId: string;
-  stationId: string;
-}
+import { SessionService } from './session.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly firetrucksService: FiretrucksService,
     private readonly jwtService: JwtService,
+    private readonly sessionService: SessionService,
+    private readonly firetrucksService: FiretrucksService,
   ) {}
 
   async signIn(radioIdentification: string) {
@@ -25,14 +21,12 @@ export class AuthService {
       throw new NotFoundException();
     }
 
-    const payload: Payload = {
-      sub: firetruck.id,
-      firertuckId: firetruck.id,
-      stationId: firetruck.stationId,
-    };
-
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      access_token: await this.sessionService.encrypt({
+        sub: firetruck.id,
+        firetruckId: firetruck.id,
+        stationId: firetruck.stationId,
+      }),
     };
   }
 }
