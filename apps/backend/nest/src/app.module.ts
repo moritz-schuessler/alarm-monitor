@@ -7,6 +7,7 @@ import { IncidentsModule } from './incidents/incidents.module';
 import { FiretrucksModule } from './firetrucks/firetrucks.module';
 import { CrewsModule } from './crews/crews.module';
 import { FirefightersModule } from './firefighters/firefighters.module';
+import { MeModule } from './me/me.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { FirefightersModule } from './firefighters/firefighters.module';
     FiretrucksModule,
     CrewsModule,
     FirefightersModule,
+    MeModule,
   ],
   controllers: [],
   providers: [],
