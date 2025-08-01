@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
+import { StationsModule } from './stations/stations.module';
+import { IncidentsService } from './incidents/incidents.service';
+import { IncidentsModule } from './incidents/incidents.module';
 
 @Module({
   imports: [
@@ -9,8 +12,10 @@ import { DatabaseModule } from './database/database.module';
       envFilePath: ['.env', '.env.local'],
     }),
     DatabaseModule,
+    StationsModule,
+    IncidentsModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [IncidentsService],
 })
 export class AppModule {}

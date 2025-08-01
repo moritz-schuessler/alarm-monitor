@@ -1,10 +1,13 @@
+import { Inject } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { createClient } from '@libsql/client';
-import { drizzle } from 'drizzle-orm/libsql';
+import { drizzle, LibSQLDatabase } from 'drizzle-orm/libsql';
 
 import * as schema from './schema';
 
 export const DRIZZLE_PROVIDER = 'DRIZZLE_PROVIDER';
+
+export const InjectDb = () => Inject(DRIZZLE_PROVIDER);
 
 const drizzleProvider = {
   provide: DRIZZLE_PROVIDER,
@@ -19,4 +22,7 @@ const drizzleProvider = {
   inject: [ConfigService],
 };
 
+type Database = LibSQLDatabase<typeof schema>;
+
 export { drizzleProvider };
+export { type Database };
