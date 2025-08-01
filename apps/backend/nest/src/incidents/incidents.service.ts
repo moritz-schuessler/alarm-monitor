@@ -1,4 +1,9 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { IncidentsRepository } from './incidents.repository';
 import { StationsService } from 'src/stations/stations.service';
 import { FiretrucksService } from 'src/firetrucks/firetrucks.service';
@@ -14,11 +19,14 @@ export class IncidentsService {
 
   async getIncidentDetails(incidentId: string) {
     const incident = await this.incidentsRepository.findById(incidentId);
+    if (!incident) {
+      throw new NotFoundException(`Incident ${incidentId} not found`);
+    }
 
-    const firetrucks = await this.firetrucksService.getByIncident(incidentId);
-
-    const stations =
-      await this.stationsService.getStationsByIncident(incidentId);
+    const [firetrucks, stations] = await Promise.all([
+      this.firetrucksService.getByIncident(incidentId),
+      this.stationsService.getStationsByIncident(incidentId),
+    ]);
 
     return {
       incident,
