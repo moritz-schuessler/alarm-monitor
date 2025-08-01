@@ -10,6 +10,12 @@ export class IncidentsRepository {
     private readonly database: Database,
   ) {}
 
+  async findById(incidentId: string) {
+    return await this.database.query.incidents.findFirst({
+      where: (incident, { eq }) => eq(incident.id, incidentId),
+    });
+  }
+
   async findByStationId(stationId: string) {
     const result = await this.database
       .select()

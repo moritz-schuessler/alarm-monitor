@@ -1,11 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { IncidentsRepository } from './incidents.repository';
+import { StationsService } from 'src/stations/stations.service';
+import { FiretrucksService } from 'src/firetrucks/firetrucks.service';
 
 @Injectable()
 export class IncidentsService {
-  constructor(private readonly incidentsRepository: IncidentsRepository) {}
+  constructor(
+    private readonly incidentsRepository: IncidentsRepository,
+    private readonly firetrucksService: FiretrucksService,
+    @Inject(forwardRef(() => StationsService))
+    private readonly stationsService: StationsService,
+  ) {}
+
+  async getIncidentDetails(incidentId: string) {
+    const incident = await this.incidentsRepository.findById(incidentId);
+
+    const firetrucks = await this.firetrucksService.getByIncident(incidentId);
+
+    const stations =
+      await this.stationsService.getStationsByIncident(incidentId);
+
+    return {
+      incident,
+      stations,
+      firetrucks,
+    };
+  }
 
   async getIncidentsFromStation(stationId: string) {
     return this.incidentsRepository.findByStationId(stationId);
+  }
+
+  async addFiretruckToIncident(firetruckId: string, incidentId: string) {
+    return await this.firetrucksService.assignToIncident(
+      firetruckId,
+      incidentId,
+    );
   }
 }
