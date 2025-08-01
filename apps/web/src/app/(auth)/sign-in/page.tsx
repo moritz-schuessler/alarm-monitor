@@ -19,7 +19,9 @@ const SelectUserPage = async () => {
 
     const cookieStore = await cookies();
 
-    const response = await fetch("http://localhost:3001/signin", {
+    console.log("test");
+
+    const response = await fetch("http://localhost:3001/api/auth", {
       method: "POST",
       body: JSON.stringify({ radioIdentification }),
       headers: { "Content-Type": "application/json" },
