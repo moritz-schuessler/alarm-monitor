@@ -5,6 +5,8 @@ import { AuthModule } from './auth/auth.module';
 import { StationsModule } from './stations/stations.module';
 import { IncidentsModule } from './incidents/incidents.module';
 import { FiretrucksModule } from './firetrucks/firetrucks.module';
+import { CrewsModule } from './crews/crews.module';
+import { FirefightersModule } from './firefighters/firefighters.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { FiretrucksModule } from './firetrucks/firetrucks.module';
     StationsModule,
     IncidentsModule,
     FiretrucksModule,
+    CrewsModule,
+    FirefightersModule,
   ],
   controllers: [],
   providers: [],
