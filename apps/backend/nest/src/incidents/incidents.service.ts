@@ -38,11 +38,4 @@ export class IncidentsService {
   async getIncidentsFromStation(stationId: string) {
     return this.incidentsRepository.findByStationId(stationId);
   }
-
-  async addFiretruckToIncident(firetruckId: string, incidentId: string) {
-    return await this.firetrucksService.assignToIncident(
-      firetruckId,
-      incidentId,
-    );
-  }
 }
