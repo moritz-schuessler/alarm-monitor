@@ -1,4 +1,9 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { StationsRepository } from './stations.repository';
 import { IncidentsService } from 'src/incidents/incidents.service';
 
@@ -10,12 +15,20 @@ export class StationsService {
     private readonly incidentsService: IncidentsService,
   ) {}
 
-  async getStations() {
-    return this.stationsRepository.findAll();
+  async getStationById(stationId: string) {
+    const station = await this.stationsRepository.findById(stationId);
+
+    if (!station) {
+      throw new NotFoundException(
+        `Firetruck with stationId ${stationId} not found`,
+      );
+    }
+
+    return station;
   }
 
-  async getStationById(stationId: string) {
-    return this.stationsRepository.findById(stationId);
+  async getStations() {
+    return this.stationsRepository.findAll();
   }
 
   getStationsByIncident(incidentId: string) {
