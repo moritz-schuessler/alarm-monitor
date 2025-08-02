@@ -1,6 +1,6 @@
 import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
+import { IncidentDetails } from "@alarm-monitor/shared/src";
 
-import { type IncidentDetails } from "@/data/domains/incident/incident.types";
 import { getMe } from "./use-get-me";
 
 const useIncident = () => {

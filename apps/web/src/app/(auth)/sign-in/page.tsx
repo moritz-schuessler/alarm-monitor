@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { StationDetails } from "@/data/domains/stations/station.types";
+import { StationDetails } from "@alarm-monitor/shared/src";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 

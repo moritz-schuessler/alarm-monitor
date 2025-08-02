@@ -1,7 +1,6 @@
-import { type IncidentDetails } from "@/data/domains/incident/incident.types";
-import { Firetrucks } from "@/data/shared/schema";
 import useGetFiretruck from "@/hooks/use-get-firetruck";
 import formatCrew from "@/utils/formatCrew";
+import { Firetrucks, IncidentDetails } from "@alarm-monitor/shared/src";
 
 interface Props {
   stations: IncidentDetails["stations"];

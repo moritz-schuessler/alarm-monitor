@@ -1,4 +1,4 @@
-import { FiretruckDetails } from "@/data/domains/firetrucks/firetruck.types";
+import { FiretruckDetails } from "@alarm-monitor/shared/src";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetFiretruck = (firetruckId: string) => {

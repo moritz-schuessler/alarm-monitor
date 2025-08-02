@@ -1,4 +1,4 @@
-import { Incidents, IncidentsToStations } from "@/data/shared/schema";
+import { Incidents, IncidentsToStations } from "@alarm-monitor/shared/src";
 import { useQuery } from "@tanstack/react-query";
 
 interface Response {

@@ -1,5 +1,4 @@
-import { StationDetails } from "@/data/domains/stations/station.types";
-import { Firetrucks } from "@/data/shared/schema";
+import { Firetrucks, StationDetails } from "@alarm-monitor/shared/src";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface MeResponse {

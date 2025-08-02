@@ -42,6 +42,9 @@ const qualificationToFirefighterRelations = relations(
 );
 
 type Qualifications = InferSelectModel<typeof qualifications>;
+type QualificationToFirefighter = InferSelectModel<
+  typeof qualificationToFirefighter
+>;
 
 export {
   qualifications,
@@ -49,4 +52,4 @@ export {
   qualificationToFirefighter,
   qualificationToFirefighterRelations,
 };
-export { type Qualifications };
+export { type Qualifications, type QualificationToFirefighter };

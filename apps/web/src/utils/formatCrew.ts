@@ -1,4 +1,4 @@
-import { FiretruckDetails } from "@/data/domains/firetrucks/firetruck.types";
+import { FiretruckDetails } from "@alarm-monitor/shared/src";
 
 const formatCrew = (crew: NonNullable<FiretruckDetails>["crew"]) => {
   if (!crew?.firefighters) {
@@ -6,8 +6,8 @@ const formatCrew = (crew: NonNullable<FiretruckDetails>["crew"]) => {
   }
 
   const hasLeadership = crew?.firefighters.some((firefighter) => {
-    return firefighter.qualificationToFirefighter.some((qualifications) => {
-      return qualifications.qualification.name === "Gruppenführer";
+    return firefighter.qualificationToFirefighter.some(({ qualification }) => {
+      return qualification.name === "Gruppenführer";
     });
   });
 
