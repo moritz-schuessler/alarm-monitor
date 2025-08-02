@@ -1,0 +1,16 @@
+{
+  "name": "@alarm-monitor/shared",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@alarm-monitor/backend": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  }
+}

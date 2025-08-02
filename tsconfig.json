@@ -1,0 +1,17 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/shared" },
+    { "path": "apps/backend" },
+    { "path": "apps/web" }
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@alarm-monitor/shared": ["packages/shared/src"],
+      "@alarm-monitor/shared/*": ["packages/shared/src/*"],
+      "@alarm-monitor/backend": ["packages/shared/src"],
+      "@alarm-monitor/backend/*": ["packages/shared/src/*"]
+    }
+  }
+}
