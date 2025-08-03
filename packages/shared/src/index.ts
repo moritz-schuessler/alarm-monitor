@@ -8,11 +8,11 @@ import {
   QualificationEntity,
 } from "@alarm-monitor/backend/src/database/schema";
 
-type IncidentDetails = {
+interface IncidentDetails {
   incident: IncidentEntity;
   stations: StationDetails[];
   firetrucks: FiretruckDetails[];
-};
+}
 
 interface StationDetails extends StationEntity {
   firetrucks: FiretruckEntity[];
