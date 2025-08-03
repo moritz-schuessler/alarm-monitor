@@ -104,8 +104,6 @@ const filterFirefighter = (
   firefighters: FirefighterDetails[],
   qualification: string,
 ) => {
-  console.log(firefighters);
-
   return firefighters?.filter((firefighter) => {
     return firefighter.qualificationToFirefighter.some((qualifications) => {
       return qualifications.qualification.name === qualification;

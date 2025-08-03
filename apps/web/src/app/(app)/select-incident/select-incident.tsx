@@ -11,7 +11,6 @@ const SelectIncident = () => {
   if (status === "pending") {
     return <div>...Loading</div>;
   }
-  console.log("incidents", incidents);
 
   if (incidents!.length) {
     return (
