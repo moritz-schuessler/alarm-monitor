@@ -1,13 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Incidents } from "@/data/shared/schema";
 import useAddFiretruckToIncident from "@/hooks/use-add-firetruck-to-incident";
 import useGetMe from "@/hooks/use-get-me";
 import { formatDate } from "@/lib/date";
+import { IncidentEntity } from "@alarm-monitor/shared/src";
 
 interface Props {
-  incident: Incidents;
+  incident: IncidentEntity;
 }
 
 const Incident = ({ incident }: Props) => {

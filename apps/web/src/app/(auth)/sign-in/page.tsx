@@ -8,8 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import stationService from "@/data/domains/stations/station.service";
-import { signIn } from "@/lib/auth";
+import { StationDetails } from "@alarm-monitor/shared/src";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 const SelectUserPage = async () => {
@@ -17,12 +17,37 @@ const SelectUserPage = async () => {
     "use server";
     const radioIdentification = formData.get("radioIdentification") as string;
 
-    await signIn(radioIdentification);
+    const cookieStore = await cookies();
+
+    console.log("test");
+
+    const response = await fetch("http://localhost:3001/api/auth", {
+      method: "POST",
+      body: JSON.stringify({ radioIdentification }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!response.ok) {
+      return;
+    }
+
+    const { access_token } = await response.json();
+
+    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
+    cookieStore.set("session", access_token, {
+      httpOnly: true,
+      secure: true,
+      expires: expiresAt,
+      sameSite: "lax",
+      path: "/",
+    });
 
     redirect("/");
   };
 
-  const stations = await stationService.getStations();
+  const reponse = await fetch("http://localhost:3001/api/stations");
+  const stations = (await reponse.json()) as StationDetails[];
 
   return (
     <main className="grid place-items-center h-screen w-screen">
@@ -32,23 +57,24 @@ const SelectUserPage = async () => {
             <SelectValue placeholder="Feuerwehrauto" />
           </SelectTrigger>
           <SelectContent>
-            {stations.map((station) => {
-              return (
-                <SelectGroup key={station.id}>
-                  <SelectLabel>{station.name}</SelectLabel>
-                  {station.firetrucks.map((firetruck) => {
-                    return (
-                      <SelectItem
-                        value={firetruck.radioIdentification}
-                        key={firetruck.id}
-                      >
-                        {firetruck.radioIdentification}
-                      </SelectItem>
-                    );
-                  })}
-                </SelectGroup>
-              );
-            })}
+            {stations &&
+              stations.map((station) => {
+                return (
+                  <SelectGroup key={station!.id}>
+                    <SelectLabel>{station!.name}</SelectLabel>
+                    {station!.firetrucks.map((firetruck) => {
+                      return (
+                        <SelectItem
+                          value={firetruck.radioIdentification}
+                          key={firetruck.id}
+                        >
+                          {firetruck.radioIdentification}
+                        </SelectItem>
+                      );
+                    })}
+                  </SelectGroup>
+                );
+              })}
           </SelectContent>
         </Select>
         <Button type="submit">Sign in</Button>

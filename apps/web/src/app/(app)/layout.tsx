@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { auth, signOut } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 const AppLayout = async ({
@@ -7,7 +8,7 @@ const AppLayout = async ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const session = await auth();
+  const session = await getSession();
 
   if (!session) {
     redirect("/sign-in");
@@ -15,7 +16,8 @@ const AppLayout = async ({
 
   const signOutAction = async () => {
     "use server";
-    await signOut();
+    const cookieStore = await cookies();
+    cookieStore.delete("session");
   };
 
   return (

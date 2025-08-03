@@ -2,7 +2,7 @@ import { Information } from "@/components/ui/information";
 import {
   FirefighterDetails,
   FiretruckDetails,
-} from "@/data/domains/firetrucks/firetruck.types";
+} from "@alarm-monitor/shared/src";
 
 interface Props {
   firetruck: FiretruckDetails;

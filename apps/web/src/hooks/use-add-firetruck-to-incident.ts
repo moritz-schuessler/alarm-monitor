@@ -11,13 +11,16 @@ const useAddFiretruckToIncident = () => {
       firetruckId: string;
       incidentId: string;
     }) => {
-      const response = await fetch(`/api/firetrucks/${firetruckId}/incident`, {
-        method: "POST",
-        body: JSON.stringify({
-          incidentId: incidentId,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
+      const response = await fetch(
+        `/api/backend/firetrucks/${firetruckId}/incident`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            incidentId: incidentId,
+          }),
+          headers: { "Content-Type": "application/json" },
+        },
+      );
       if (!response.ok) {
         throw new Error("Something went wrong.");
       }

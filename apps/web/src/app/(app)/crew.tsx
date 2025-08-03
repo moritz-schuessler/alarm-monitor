@@ -7,12 +7,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import useAddFiretruckToIncident from "@/hooks/use-add-firefighter-to-crew";
+import useGetMe from "@/hooks/use-get-me";
 import {
   FirefighterDetails,
   FiretruckDetails,
-} from "@/data/domains/firetrucks/firetruck.types";
-import useAddFiretruckToIncident from "@/hooks/use-add-firefighter-to-crew";
-import useGetMe from "@/hooks/use-get-me";
+} from "@alarm-monitor/shared/src";
 import { ReactNode } from "react";
 
 interface Props {

@@ -1,4 +1,4 @@
-import { FiretruckDetails } from "@/data/domains/firetrucks/firetruck.types";
+import { FiretruckDetails } from "@alarm-monitor/shared/src";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetFiretruck = (firetruckId: string) => {
@@ -13,7 +13,7 @@ const useGetFiretruck = (firetruckId: string) => {
 };
 
 const getFiretruck = async (firetruckId: string) => {
-  const response = await fetch(`/api/firetrucks/${firetruckId!}`);
+  const response = await fetch(`/api/backend/firetrucks/${firetruckId!}`);
   return (await response.json()) as FiretruckDetails;
 };
 

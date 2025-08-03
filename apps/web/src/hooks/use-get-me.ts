@@ -1,10 +1,12 @@
-import { StationDetails } from "@/data/domains/stations/station.types";
-import { Firetrucks } from "@/data/shared/schema";
+import {
+  FiretruckEntity,
+  StationWithFirefighters,
+} from "@alarm-monitor/shared/src";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface MeResponse {
-  firetruck: Firetrucks;
-  station: StationDetails;
+  firetruck: FiretruckEntity;
+  station: StationWithFirefighters;
 }
 
 const useGetMe = () => {
@@ -27,8 +29,7 @@ const useGetMe = () => {
 };
 
 const getMe = async () => {
-  const response = await fetch("/api/me");
-
+  const response = await fetch("/api/backend/me");
   return (await response.json()) as MeResponse;
 };
 

@@ -1,9 +1,9 @@
 import { Information } from "@/components/ui/information";
-import { Incidents } from "@/data/shared/schema";
+import { IncidentEntity } from "@alarm-monitor/shared/src";
 import { formatDate } from "@/lib/date";
 
 interface Props {
-  incident: Incidents;
+  incident: IncidentEntity;
 }
 
 const ShortInformation = ({ incident }: Props) => {
