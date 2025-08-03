@@ -18,6 +18,10 @@ interface StationDetails extends StationEntity {
   firetrucks: FiretruckEntity[];
 }
 
+interface StationWithFirefighters extends StationDetails {
+  firefighters: FirefighterEntity[];
+}
+
 interface FiretruckDetails extends FiretruckEntity {
   crew: CrewDetails;
 }
@@ -41,4 +45,5 @@ export type {
   StationDetails,
   FiretruckDetails,
   FirefighterDetails,
+  StationWithFirefighters,
 };
