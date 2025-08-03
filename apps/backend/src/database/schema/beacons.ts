@@ -14,7 +14,7 @@ const beaconsRelations = relations(beacons, ({ one }) => ({
   }),
 }));
 
-type Beacons = InferSelectModel<typeof beacons>;
+type BeaconEntity = InferSelectModel<typeof beacons>;
 
 export { beacons, beaconsRelations };
-export { type Beacons };
+export { type BeaconEntity };

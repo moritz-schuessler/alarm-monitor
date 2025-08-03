@@ -23,7 +23,7 @@ const stationsRelations = relations(stations, ({ one, many }) => ({
   incidentsToStations: many(incidentsToStations),
 }));
 
-type Stations = InferSelectModel<typeof stations>;
+type StationEntity = InferSelectModel<typeof stations>;
 
 export { stations, stationsRelations };
-export { type Stations };
+export { type StationEntity };

@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import useAddFiretruckToIncident from "@/hooks/use-add-firetruck-to-incident";
 import useGetMe from "@/hooks/use-get-me";
 import { formatDate } from "@/lib/date";
-import { Incidents } from "@alarm-monitor/shared/src";
+import { IncidentEntity } from "@alarm-monitor/shared/src";
 
 interface Props {
-  incident: Incidents;
+  incident: IncidentEntity;
 }
 
 const Incident = ({ incident }: Props) => {

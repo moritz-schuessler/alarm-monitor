@@ -27,7 +27,7 @@ const firefightersRelations = relations(firefighters, ({ one, many }) => ({
   qualificationToFirefighter: many(qualificationToFirefighter),
 }));
 
-type Firefighters = InferSelectModel<typeof firefighters>;
+type FirefighterEntity = InferSelectModel<typeof firefighters>;
 
 export { firefighters, firefightersRelations };
-export { type Firefighters };
+export { type FirefighterEntity };

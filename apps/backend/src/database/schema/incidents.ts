@@ -44,8 +44,8 @@ const incidentsToStationsRelations = relations(
   }),
 );
 
-type Incidents = InferSelectModel<typeof incidents>;
-type IncidentsToStations = InferSelectModel<typeof incidentsToStations>;
+type IncidentEntity = InferSelectModel<typeof incidents>;
+type IncidentToStationEntity = InferSelectModel<typeof incidentsToStations>;
 
 export {
   incidents,
@@ -53,4 +53,4 @@ export {
   incidentsToStations,
   incidentsToStationsRelations,
 };
-export { type Incidents, type IncidentsToStations };
+export { type IncidentEntity, type IncidentToStationEntity };

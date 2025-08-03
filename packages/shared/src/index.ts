@@ -1,37 +1,38 @@
 import {
-  Crews,
-  Firefighters,
-  Firetrucks,
-  Incidents,
-  Stations,
-  QualificationToFirefighter,
-  Qualifications,
+  CrewEntity,
+  FirefighterEntity,
+  FiretruckEntity,
+  IncidentEntity,
+  StationEntity,
+  QualificationToFirefighterEntity,
+  QualificationEntity,
 } from "@alarm-monitor/backend/src/database/schema";
 
 type IncidentDetails = {
-  incident: Incidents;
+  incident: IncidentEntity;
   stations: StationDetails[];
   firetrucks: FiretruckDetails[];
 };
 
-interface StationDetails extends Stations {
-  firetrucks: Firetrucks[];
+interface StationDetails extends StationEntity {
+  firetrucks: FiretruckEntity[];
 }
 
-interface FiretruckDetails extends Firetrucks {
+interface FiretruckDetails extends FiretruckEntity {
   crew: CrewDetails;
 }
 
-interface CrewDetails extends Crews {
+interface CrewDetails extends CrewEntity {
   firefighters: FirefighterDetails[];
 }
 
-interface FirefighterDetails extends Firefighters {
+interface FirefighterDetails extends FirefighterEntity {
   qualificationToFirefighter: QualificationToFirefighterDetails[];
 }
 
-interface QualificationToFirefighterDetails extends QualificationToFirefighter {
-  qualification: Qualifications;
+interface QualificationToFirefighterDetails
+  extends QualificationToFirefighterEntity {
+  qualification: QualificationEntity;
 }
 
 export * from "@alarm-monitor/backend/src/database/schema";

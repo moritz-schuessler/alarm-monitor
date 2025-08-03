@@ -10,8 +10,8 @@ import {
   stations as stationsSchema,
   firetrucks as firetrucksSchema,
   firefighters as firefightersSchema,
-  Firetrucks,
-  Firefighters,
+  FiretruckEntity,
+  FirefighterEntity,
 } from './schema';
 
 const db = drizzle(process.env.DATABASE_URL!, { schema });
@@ -37,7 +37,7 @@ async function main() {
     .returning();
 
   const firetrucksByStation: {
-    [station: string]: null | Firetrucks[];
+    [station: string]: null | FiretruckEntity[];
   } = {};
 
   firetrucksByStation.mitte = await db
@@ -93,7 +93,9 @@ async function main() {
     ])
     .returning();
 
-  const firefighersByStation: { [station: string]: null | Firefighters[] } = {};
+  const firefighersByStation: {
+    [station: string]: null | FirefighterEntity[];
+  } = {};
 
   firefighersByStation.mitte = await db
     .insert(firefightersSchema)

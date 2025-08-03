@@ -1,8 +1,8 @@
-import { Firetrucks, StationDetails } from "@alarm-monitor/shared/src";
+import { FiretruckEntity, StationDetails } from "@alarm-monitor/shared/src";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface MeResponse {
-  firetruck: Firetrucks;
+  firetruck: FiretruckEntity;
   station: StationDetails;
 }
 

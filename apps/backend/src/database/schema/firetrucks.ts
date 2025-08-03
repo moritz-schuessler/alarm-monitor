@@ -26,7 +26,7 @@ const firetrucksRelations = relations(firetrucks, ({ one }) => ({
   crew: one(crews),
 }));
 
-type Firetrucks = InferSelectModel<typeof firetrucks>;
+type FiretruckEntity = InferSelectModel<typeof firetrucks>;
 
 export { firetrucks, firetrucksRelations };
-export { type Firetrucks };
+export { type FiretruckEntity };

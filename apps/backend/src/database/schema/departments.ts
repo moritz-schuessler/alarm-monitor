@@ -13,7 +13,7 @@ const departmentsRelations = relations(departments, ({ many }) => ({
   stations: many(stations),
 }));
 
-type Departments = InferSelectModel<typeof departments>;
+type DepartmentEntity = InferSelectModel<typeof departments>;
 
 export { departments, departmentsRelations };
-export { type Departments };
+export { type DepartmentEntity };

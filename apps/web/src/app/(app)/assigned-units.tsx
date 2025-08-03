@@ -1,6 +1,6 @@
 import useGetFiretruck from "@/hooks/use-get-firetruck";
 import formatCrew from "@/utils/formatCrew";
-import { Firetrucks, IncidentDetails } from "@alarm-monitor/shared/src";
+import { FiretruckEntity, IncidentDetails } from "@alarm-monitor/shared/src";
 
 interface Props {
   stations: IncidentDetails["stations"];
@@ -25,7 +25,7 @@ const AssignedUnits = ({ stations }: Props) => {
   );
 };
 
-const Firetruck = ({ firetruck }: { firetruck: Firetrucks }) => {
+const Firetruck = ({ firetruck }: { firetruck: FiretruckEntity }) => {
   const { data: firetruckDetails, isLoading } = useGetFiretruck(firetruck.id);
 
   if (isLoading) {

@@ -1,9 +1,12 @@
-import { Incidents, IncidentsToStations } from "@alarm-monitor/shared/src";
+import {
+  IncidentEntity,
+  IncidentToStationEntity,
+} from "@alarm-monitor/shared/src";
 import { useQuery } from "@tanstack/react-query";
 
 interface Response {
-  incidents: Incidents;
-  incidentsToStations: IncidentsToStations;
+  incidents: IncidentEntity;
+  incidentsToStations: IncidentToStationEntity;
 }
 
 const useGetStationIncidents = (stationId: string | undefined) => {
