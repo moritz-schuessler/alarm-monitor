@@ -21,7 +21,7 @@ export class FiretrucksController {
     );
   }
 
-  @Post(':firetruckId/firefighters')
+  @Post(':firetruckId/firefighter')
   async addFirefighterToFiretruck(
     @Param('firetruckId') firetruckId: string,
     @Body() { firefighterId }: { firefighterId: string },
