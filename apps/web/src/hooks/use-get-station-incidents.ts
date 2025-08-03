@@ -1,13 +1,5 @@
-import {
-  IncidentEntity,
-  IncidentToStationEntity,
-} from "@alarm-monitor/shared/src";
+import { IncidentEntity } from "@alarm-monitor/shared/src";
 import { useQuery } from "@tanstack/react-query";
-
-interface Response {
-  incidents: IncidentEntity;
-  incidentsToStations: IncidentToStationEntity;
-}
 
 const useGetStationIncidents = (stationId: string | undefined) => {
   return useQuery({
@@ -16,7 +8,7 @@ const useGetStationIncidents = (stationId: string | undefined) => {
       const response = await fetch(
         `/api/backend/stations/${stationId!}/incidents`,
       );
-      return (await response.json()) as Response[];
+      return (await response.json()) as IncidentEntity[];
     },
     enabled: !!stationId,
   });

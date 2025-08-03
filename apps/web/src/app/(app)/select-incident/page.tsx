@@ -11,6 +11,8 @@ const Home = () => {
     return <div>...Loading</div>;
   }
 
+  console.log(data);
+
   if (data!.firetruck!.activeIncident !== null) {
     redirect("/");
   }

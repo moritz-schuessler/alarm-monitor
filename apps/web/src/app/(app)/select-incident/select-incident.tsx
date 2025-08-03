@@ -11,13 +11,16 @@ const SelectIncident = () => {
   if (status === "pending") {
     return <div>...Loading</div>;
   }
+  console.log("incidents", incidents);
 
   if (incidents!.length) {
     return (
       <div className="flex gap-4">
-        {incidents!.map(({ incidents: incident }) => {
-          return <Incident key={incident.id} incident={incident} />;
-        })}
+        {incidents &&
+          incidents!.map((incident) => {
+            console.log("test", incident);
+            return <Incident key={incident.id} incident={incident} />;
+          })}
       </div>
     );
   }
