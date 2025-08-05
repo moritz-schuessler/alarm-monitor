@@ -1,4 +1,4 @@
-import { Information } from "@/components/ui/information";
+import { StatCard } from "@/components/ui/card/stat-card";
 import {
   FirefighterDetails,
   FiretruckDetails,
@@ -30,6 +30,8 @@ const Stats = ({ firetruck }: Props) => {
 
   used.push(...gruppenfuehrer);
 
+  const fuehrungskraft = [...verbandsfuehrer, ...zugfuehrer, ...gruppenfuehrer];
+
   const truppfuehrer = filterFirefighter(firefighters!, "Truppführer").filter(
     (firefighter) => !used.includes(firefighter),
   );
@@ -52,45 +54,69 @@ const Stats = ({ firetruck }: Props) => {
       </div>
       <div className="h-full grid grid-cols-3 bg-secondary gap-0.25">
         <div className="flex bg-background ring ring-border *:w-full">
-          <Information
-            text={grundlehrgang ? grundlehrgang?.length.toString() : "0"}
+          <StatCard
             description="Grundausbildung"
+            value={grundlehrgang.length}
+            thresholds={{ success: 4 }}
+            bordered
           />
-          <Information
-            text={truppfuehrer ? truppfuehrer?.length.toString() : "0"}
+          <StatCard
             description="Truppführer"
-          />
+            value={truppfuehrer.length}
+            thresholds={{ success: 4 }}
+            bordered
+          >
+            {truppfuehrer?.length.toString()}
+          </StatCard>
         </div>
         <div className="flex  bg-background ring ring-border *:w-full">
-          <Information
-            text={gruppenfuehrer ? gruppenfuehrer?.length.toString() : "0"}
+          <StatCard
             description="Gruppenführer"
+            value={gruppenfuehrer?.length}
+            thresholds={{
+              success: 1,
+              warning: 1,
+            }}
+            valueForThreshold={fuehrungskraft.length}
+            bordered
           />
         </div>
         <div className="flex bg-background ring ring-border *:w-full">
-          <Information
-            text={zugfuehrer ? zugfuehrer?.length.toString() : "0"}
+          <StatCard
             description="Zugführer"
+            value={zugfuehrer?.length}
+            thresholds={{ success: 1 }}
+            valueForThreshold={fuehrungskraft.length}
+            bordered
           />
-          <Information
-            text={verbandsfuehrer ? verbandsfuehrer?.length.toString() : "0"}
+          <StatCard
             description="Verbandsführer"
+            value={verbandsfuehrer?.length}
+            thresholds={{ success: 1 }}
+            valueForThreshold={fuehrungskraft.length}
+            bordered
           />
         </div>
         <div className="flex bg-background ring ring-border *:w-full">
-          <Information
-            text={agt ? agt?.length.toString() : "0"}
+          <StatCard
             description="AGT"
+            value={agt.length}
+            thresholds={{ success: 4, warning: 2 }}
+            bordered
           />
         </div>
         <div className="flex bg-background ring ring-border *:w-full">
-          <Information
-            text={maschinist ? maschinist?.length.toString() : "0"}
+          <StatCard
             description="Maschinisten"
+            value={maschinist.length}
+            thresholds={{ success: 1 }}
+            bordered
           />
-          <Information
-            text={lkw ? lkw?.length.toString() : "0"}
+          <StatCard
             description="LKW-Füherschein"
+            value={lkw.length}
+            thresholds={{ success: 1 }}
+            bordered
           />
         </div>
       </div>
