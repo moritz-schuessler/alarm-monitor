@@ -1,4 +1,3 @@
-import { Information } from "@/components/ui/information";
 import useGetFiretruck from "@/hooks/use-get-firetruck";
 import useGetMe from "@/hooks/use-get-me";
 import formatCrew from "@/utils/formatCrew";
@@ -20,6 +19,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Stats from "./stats";
+import { InfoCard } from "@/components/ui/card/info-card";
 
 const CrewOverviewWrapper = () => {
   const { data: session } = useGetMe();
@@ -64,9 +64,9 @@ const CrewOverviewWrapper = () => {
             </div>
             <div className="flex gap-0.25 ">
               <div className="w-full ring ring-border">
-                <Information
+                <InfoCard
                   description="Besatzung"
-                  text={formatCrew(firetruck!.crew)}
+                  value={formatCrew(firetruck!.crew)}
                 />
               </div>
               <AccordionTrigger className="p-4 bg-secondary justify-center items-center rounded-none hover:bg-border ring ring-border" />
