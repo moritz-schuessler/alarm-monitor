@@ -6,7 +6,7 @@ import {
   StationEntity,
   QualificationToFirefighterEntity,
   QualificationEntity,
-} from "@alarm-monitor/backend/src/database/schema";
+} from "@alarm-monitor/backend/src/data/shared/schema";
 
 interface IncidentDetails {
   incident: IncidentEntity;
@@ -39,7 +39,7 @@ interface QualificationToFirefighterDetails
   qualification: QualificationEntity;
 }
 
-export * from "@alarm-monitor/backend/src/database/schema";
+export * from "@alarm-monitor/backend/src/data/shared/schema";
 export type {
   IncidentDetails,
   StationDetails,

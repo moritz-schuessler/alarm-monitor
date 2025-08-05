@@ -4,7 +4,7 @@ dotenv.config({ path: ['.env.local', '.env'] });
 import { drizzle } from 'drizzle-orm/libsql';
 import { fakerDE as faker } from '@faker-js/faker';
 
-import * as schema from './schema';
+import * as schema from 'src/data/shared/schema';
 import {
   departments as departmentsSchema,
   stations as stationsSchema,
@@ -12,7 +12,7 @@ import {
   firefighters as firefightersSchema,
   FiretruckEntity,
   FirefighterEntity,
-} from './schema';
+} from 'src/data/shared/schema';
 
 const db = drizzle(process.env.DATABASE_URL!, { schema });
 

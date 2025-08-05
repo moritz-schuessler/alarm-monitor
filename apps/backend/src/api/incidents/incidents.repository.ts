@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { eq } from 'drizzle-orm';
 import { Database, InjectDb } from 'src/data/database/drizzle.provider';
-import { incidents, incidentsToStations } from 'src/data/database/schema';
+import { incidents, incidentsToStations } from 'src/data/shared/schema';
 
 @Injectable()
 export class IncidentsRepository {

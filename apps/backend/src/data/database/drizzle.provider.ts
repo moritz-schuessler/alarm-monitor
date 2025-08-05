@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { createClient } from '@libsql/client';
 import { drizzle, LibSQLDatabase } from 'drizzle-orm/libsql';
 
-import * as schema from './schema';
+import * as schema from 'src/data/shared/schema';
 
 export const DRIZZLE_PROVIDER = 'DRIZZLE_PROVIDER';
 
