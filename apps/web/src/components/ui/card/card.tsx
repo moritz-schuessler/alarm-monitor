@@ -7,6 +7,8 @@ type CardProps = {
 } & ComponentProps<"div"> &
   VariantProps<typeof cardVariants>;
 
+type Status = VariantProps<typeof cardVariants>["status"];
+
 const cardVariants = cva(
   "flex flex-col justify-center items-center p-4 text-center",
   {
@@ -41,3 +43,4 @@ function Card({ children, status, bordered, className, ...props }: CardProps) {
 }
 
 export { Card, cardVariants };
+export type { Status };

@@ -13,9 +13,11 @@ function InfoCard({
   value,
   status,
   bordered = true,
+  className,
+  ...props
 }: InfoCardProps) {
   return (
-    <Card status={status} bordered={bordered}>
+    <Card status={status} bordered={bordered} className={className} {...props}>
       <div className="text-muted-foreground text-sm">{description}</div>
       <div className="text-nowrap">{value}</div>
     </Card>
