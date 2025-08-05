@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { StationsRepository } from './stations.repository';
-import { IncidentsService } from 'src/incidents/incidents.service';
+import { IncidentsService } from '../incidents/incidents.service';
 
 @Injectable()
 export class StationsService {

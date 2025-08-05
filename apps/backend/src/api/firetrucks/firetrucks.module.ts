@@ -3,8 +3,8 @@ import { DatabaseModule } from 'src/database/database.module';
 import { FiretrucksService } from './firetrucks.service';
 import { FiretrucksRepository } from './firetrucks.repository';
 import { CrewsModule } from 'src/crews/crews.module';
-import { FirefightersModule } from 'src/firefighters/firefighters.module';
 import { FiretrucksController } from './firetrucks.controller';
+import { FirefightersModule } from '../firefighters/firefighters.module';
 
 @Module({
   imports: [DatabaseModule, CrewsModule, FirefightersModule],

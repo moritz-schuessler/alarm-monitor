@@ -5,8 +5,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { IncidentsRepository } from './incidents.repository';
-import { StationsService } from 'src/stations/stations.service';
-import { FiretrucksService } from 'src/firetrucks/firetrucks.service';
+import { StationsService } from '../stations/stations.service';
+import { FiretrucksService } from '../firetrucks/firetrucks.service';
 
 @Injectable()
 export class IncidentsService {

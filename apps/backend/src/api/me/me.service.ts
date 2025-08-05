@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { FiretrucksService } from 'src/firetrucks/firetrucks.service';
-import { StationsService } from 'src/stations/stations.service';
+import { FiretrucksService } from '../firetrucks/firetrucks.service';
+import { StationsService } from '../stations/stations.service';
 
 @Injectable()
 export class MeService {
