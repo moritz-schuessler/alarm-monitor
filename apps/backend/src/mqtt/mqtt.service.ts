@@ -17,6 +17,10 @@ export class MQTTService {
         radioIdentification,
       );
 
+    if (firetruck.crew?.isLocked) {
+      return;
+    }
+
     const firefighters = await Promise.all(
       crewWithDashes.map((beaconId) => {
         try {
