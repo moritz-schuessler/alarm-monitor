@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { eq, getTableColumns } from 'drizzle-orm';
-import { Database, InjectDb } from 'src/database/drizzle.provider';
-import { beacons, firefighters } from 'src/database/schema';
+import { Database, InjectDb } from 'src/data/database/drizzle.provider';
+import { beacons, firefighters } from 'src/data/database/schema';
 
 @Injectable()
 export class FirefightersRepository {

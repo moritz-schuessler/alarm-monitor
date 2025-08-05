@@ -1,5 +1,5 @@
 import { forwardRef, Module } from '@nestjs/common';
-import { DatabaseModule } from 'src/database/database.module';
+import { DatabaseModule } from 'src/data/database/database.module';
 import { IncidentsService } from './incidents.service';
 import { IncidentsRepository } from './incidents.repository';
 

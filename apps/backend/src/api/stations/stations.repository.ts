@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Database, InjectDb } from 'src/database/drizzle.provider';
+import { Database, InjectDb } from 'src/data/database/drizzle.provider';
 
 @Injectable()
 export class StationsRepository {
