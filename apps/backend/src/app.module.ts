@@ -8,6 +8,7 @@ import { FiretrucksModule } from './firetrucks/firetrucks.module';
 import { CrewsModule } from './crews/crews.module';
 import { FirefightersModule } from './firefighters/firefighters.module';
 import { MeModule } from './me/me.module';
+import { MqttModule } from './mqtt/mqtt.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { MeModule } from './me/me.module';
     CrewsModule,
     FirefightersModule,
     MeModule,
+    MqttModule,
   ],
   controllers: [],
   providers: [],

@@ -3,8 +3,10 @@ import { sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { firefighters } from './firefighters';
 
 const beacons = sqliteTable('beacons', {
-  id: text('id').primaryKey(),
-  firefighterId: text('firefighter_id'),
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  firefighterId: text('firefighter_id').notNull(),
 });
 
 const beaconsRelations = relations(beacons, ({ one }) => ({

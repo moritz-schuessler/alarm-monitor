@@ -7,6 +7,19 @@ export class FirefightersService {
     private readonly firefightersRepository: FirefightersRepository,
   ) {}
 
+  async getByBeaconId(beaconId: string) {
+    const firefighter =
+      await this.firefightersRepository.findByBeaconId(beaconId);
+
+    if (!firefighter) {
+      throw new NotFoundException(
+        `Firefighter with beaconId ${beaconId} not found`,
+      );
+    }
+
+    return firefighter;
+  }
+
   async assignToCrew(firefighterId: string, crewId: string) {
     const firefighter = await this.firefightersRepository.addToFiretruck(
       firefighterId,
@@ -14,7 +27,22 @@ export class FirefightersService {
     );
 
     if (!firefighter) {
-      throw new NotFoundException(`Firefighter ${firefighterId} not found`);
+      throw new NotFoundException(
+        `Firefighter with firefighterId ${firefighterId} not found`,
+      );
+    }
+
+    return firefighter;
+  }
+
+  async removeFromCrew(firefighterId: string) {
+    const firefighter =
+      await this.firefightersRepository.removeFromFiretruck(firefighterId);
+
+    if (!firefighter) {
+      throw new NotFoundException(
+        `Firefighter with firefighterId ${firefighterId} not found`,
+      );
     }
 
     return firefighter;
