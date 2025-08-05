@@ -11,9 +11,7 @@ async function bootstrap() {
 
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.MQTT,
-    options: {
-      url: 'mqtt://localhost:1883',
-    },
+    options: { url: process.env.MQTT_URL },
   });
 
   await app.startAllMicroservices();

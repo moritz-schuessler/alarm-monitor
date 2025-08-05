@@ -4,16 +4,21 @@ import { MqttController } from './mqtt.controller';
 import { MQTTService } from './mqtt.service';
 import { FiretrucksModule } from 'src/firetrucks/firetrucks.module';
 import { FirefightersModule } from 'src/firefighters/firefighters.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    ClientsModule.register([
+    ClientsModule.registerAsync([
       {
         name: 'MQTT_CLIENT',
-        transport: Transport.MQTT,
-        options: {
-          url: 'mqtt://localhost:1883',
-        },
+        imports: [ConfigModule],
+        inject: [ConfigService],
+        useFactory: (configService: ConfigService) => ({
+          transport: Transport.MQTT,
+          options: {
+            url: configService.getOrThrow<string>('MQTT_URL'),
+          },
+        }),
       },
     ]),
     FiretrucksModule,
