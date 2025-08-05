@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { FiretrucksService } from 'src/firetrucks/firetrucks.service';
 import { SessionService } from './session.service';
+import { FiretrucksService } from 'src/data/domains/firetrucks/firetrucks.service';
 
 @Injectable()
 export class AuthService {

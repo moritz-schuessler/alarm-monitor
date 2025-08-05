@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { MqttController } from './mqtt.controller';
 import { MQTTService } from './mqtt.service';
-import { FiretrucksModule } from 'src/firetrucks/firetrucks.module';
-import { FirefightersModule } from 'src/firefighters/firefighters.module';
+
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { FiretrucksModule } from 'src/data/domains/firetrucks/firetrucks.module';
+import { FirefightersModule } from 'src/data/domains/firefighters/firefighters.module';
 
 @Module({
   imports: [
@@ -21,8 +22,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         }),
       },
     ]),
-    FiretrucksModule,
     FirefightersModule,
+    FiretrucksModule,
   ],
   controllers: [MqttController],
   providers: [MQTTService],
