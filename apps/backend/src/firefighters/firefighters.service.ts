@@ -34,4 +34,17 @@ export class FirefightersService {
 
     return firefighter;
   }
+
+  async removeFromCrew(firefighterId: string) {
+    const firefighter =
+      await this.firefightersRepository.removeFromFiretruck(firefighterId);
+
+    if (!firefighter) {
+      throw new NotFoundException(
+        `Firefighter with firefighterId ${firefighterId} not found`,
+      );
+    }
+
+    return firefighter;
+  }
 }

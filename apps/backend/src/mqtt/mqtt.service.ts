@@ -31,22 +31,25 @@ export class MQTTService {
       }),
     );
 
+    const newCrewIds = firefighters
+      .filter((firefighter) => !!firefighter)
+      .map((f) => f.id);
     const currentCrewIds = firetruck.crew!.firefighters.map((f) => f.id);
 
-    const newToCrew = firefighters
-      .filter((firefighter) => !!firefighter)
-      .filter((firefighter) => !currentCrewIds.includes(firefighter.id));
+    const toRemove = currentCrewIds.filter((id) => !newCrewIds.includes(id));
+    const toAdd = newCrewIds.filter((id) => !currentCrewIds.includes(id));
 
-    newToCrew.forEach((firefighter) => {
-      void this.firefightersService.assignToCrew(
-        firefighter.id,
-        firetruck.crew!.id,
-      );
+    toRemove.forEach((id) => {
+      void this.firefightersService.removeFromCrew(id);
+    });
+
+    toAdd.forEach((id) => {
+      void this.firefightersService.assignToCrew(id, firetruck.crew!.id);
     });
   }
 }
 
 function addDashesToUuid(uuid: string): string {
-  // Erwartet: 32 Zeichen, z.B. '123e4567e89b12d3a456426614174000'
-  return uuid.replace(/^(.{8})(.{4})(.{4})(.{4})(.{12})$/, '$1-$2-$3-$4-$5');
+  const clean = uuid.replace(/-/g, '');
+  return clean.replace(/^(.{8})(.{4})(.{4})(.{4})(.{12})$/, '$1-$2-$3-$4-$5');
 }

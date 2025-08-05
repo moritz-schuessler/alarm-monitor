@@ -26,4 +26,14 @@ export class FirefightersRepository {
 
     return firefighter;
   }
+
+  async removeFromFiretruck(firefighterId: string) {
+    const [firefighter] = await this.database
+      .update(firefighters)
+      .set({ crewId: null })
+      .where(eq(firefighters.id, firefighterId))
+      .returning();
+
+    return firefighter;
+  }
 }
