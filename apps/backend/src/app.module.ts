@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { MqttModule } from './mqtt/mqtt.module';
 import { ApiModule } from './api/api.module';
-import { DatabaseModule } from './data/database/database.module';
+import { DataModule } from './data/data.module';
 
 @Module({
   imports: [
@@ -11,7 +11,7 @@ import { DatabaseModule } from './data/database/database.module';
       isGlobal: true,
       envFilePath: ['.env', '.env.local'],
     }),
-    DatabaseModule,
+    DataModule,
     AuthModule,
     ApiModule,
     MqttModule,

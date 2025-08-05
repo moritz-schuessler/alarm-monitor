@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 
 import { MeModule } from './me/me.module';
 import { FirefightersModule } from './firefighters/firefighters.module';
-import { CrewsModule } from 'src/crews/crews.module';
 import { FiretrucksModule } from './firetrucks/firetrucks.module';
 import { IncidentsModule } from './incidents/incidents.module';
 import { StationsModule } from './stations/stations.module';
@@ -12,7 +11,6 @@ import { StationsModule } from './stations/stations.module';
     StationsModule,
     IncidentsModule,
     FiretrucksModule,
-    CrewsModule,
     FirefightersModule,
     MeModule,
   ],
