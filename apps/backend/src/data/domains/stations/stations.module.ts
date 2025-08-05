@@ -1,14 +1,12 @@
 import { forwardRef, Module } from '@nestjs/common';
 
-import { DatabaseModule } from 'src/data/database/database.module';
 import { StationsService } from './stations.service';
-import { StationsController } from './stations.controller';
 import { StationsRepository } from './stations.repository';
 import { IncidentsModule } from '../incidents/incidents.module';
+import { DatabaseModule } from 'src/data/database/database.module';
 
 @Module({
   imports: [DatabaseModule, forwardRef(() => IncidentsModule)],
-  controllers: [StationsController],
   providers: [StationsRepository, StationsService],
   exports: [StationsRepository, StationsService],
 })

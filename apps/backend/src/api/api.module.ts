@@ -1,20 +1,17 @@
 import { Module } from '@nestjs/common';
 
-import { MeModule } from './me/me.module';
-import { FirefightersModule } from './firefighters/firefighters.module';
-import { FiretrucksModule } from './firetrucks/firetrucks.module';
-import { IncidentsModule } from './incidents/incidents.module';
-import { StationsModule } from './stations/stations.module';
+import { MeApiModule } from './me/me.api.module';
+
+import { FiretrucksApiModule } from './firetrucks/firetrucks.api.module';
+import { IncidentsApiModule } from './incidents/incidents.api.module';
+import { StationsApiModule } from './stations/stations.api.module';
 
 @Module({
   imports: [
-    StationsModule,
-    IncidentsModule,
-    FiretrucksModule,
-    FirefightersModule,
-    MeModule,
+    FiretrucksApiModule,
+    IncidentsApiModule,
+    MeApiModule,
+    StationsApiModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class ApiModule {}

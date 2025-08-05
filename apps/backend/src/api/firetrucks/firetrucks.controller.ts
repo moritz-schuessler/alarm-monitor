@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { FiretrucksService } from './firetrucks.service';
+import { FiretrucksService } from 'src/data/domains/firetrucks/firetrucks.service';
 
 @Controller('firetrucks')
 export class FiretrucksController {

@@ -4,8 +4,8 @@ import { MqttController } from './mqtt.controller';
 import { MQTTService } from './mqtt.service';
 
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { FiretrucksModule } from 'src/api/firetrucks/firetrucks.module';
-import { FirefightersModule } from 'src/api/firefighters/firefighters.module';
+import { FiretrucksModule } from 'src/data/domains/firetrucks/firetrucks.module';
+import { FirefightersModule } from 'src/data/domains/firefighters/firefighters.module';
 
 @Module({
   imports: [
@@ -22,8 +22,8 @@ import { FirefightersModule } from 'src/api/firefighters/firefighters.module';
         }),
       },
     ]),
-    FiretrucksModule,
     FirefightersModule,
+    FiretrucksModule,
   ],
   controllers: [MqttController],
   providers: [MQTTService],

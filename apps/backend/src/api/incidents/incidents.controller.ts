@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { IncidentsService } from './incidents.service';
+import { IncidentsService } from 'src/data/domains/incidents/incidents.service';
 
 @Controller('incidents')
 export class IncidentsController {

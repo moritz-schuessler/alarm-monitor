@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { FirefightersService } from 'src/api/firefighters/firefighters.service';
-import { FiretrucksService } from 'src/api/firetrucks/firetrucks.service';
+import { FirefightersService } from 'src/data/domains/firefighters/firefighters.service';
+import { FiretrucksService } from 'src/data/domains/firetrucks/firetrucks.service';
 
 @Injectable()
 export class MQTTService {

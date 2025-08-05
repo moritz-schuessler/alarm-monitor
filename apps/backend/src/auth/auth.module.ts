@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SessionService } from './session.service';
-import { FiretrucksModule } from 'src/api/firetrucks/firetrucks.module';
+import { FiretrucksModule } from 'src/data/domains/firetrucks/firetrucks.module';
 
 @Global()
 @Module({

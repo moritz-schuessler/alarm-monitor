@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { FiretrucksRepository } from './firetrucks.repository';
-import { FirefightersService } from '../firefighters/firefighters.service';
 import { CrewsService } from 'src/data/domains/crews/crews.service';
+import { FirefightersService } from '../firefighters/firefighters.service';
 
 @Injectable()
 export class FiretrucksService {
