@@ -29,7 +29,15 @@ export class FiretrucksRepository {
       where: (firetrucks, { eq }) =>
         eq(firetrucks.radioIdentification, radioIdentification),
       with: {
-        station: true,
+        crew: {
+          with: {
+            firefighters: {
+              with: {
+                qualificationToFirefighter: { with: { qualification: true } },
+              },
+            },
+          },
+        },
       },
     });
   }
