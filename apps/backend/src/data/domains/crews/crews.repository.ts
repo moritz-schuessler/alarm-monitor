@@ -19,4 +19,11 @@ export class CrewsRepository {
       .set({ isLocked: true })
       .where(eq(crews.id, crewId));
   }
+
+  async unlock(crewId: string) {
+    await this.database
+      .update(crews)
+      .set({ isLocked: false })
+      .where(eq(crews.id, crewId));
+  }
 }

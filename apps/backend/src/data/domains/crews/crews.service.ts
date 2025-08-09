@@ -18,4 +18,8 @@ export class CrewsService {
   async lock(crewId: string) {
     await this.crewsRepository.lock(crewId);
   }
+
+  async unlock(crewId: string) {
+    await this.crewsRepository.unlock(crewId);
+  }
 }

@@ -20,8 +20,12 @@ import {
 } from "@/components/ui/accordion";
 import Stats from "./stats";
 import { InfoCard } from "@/components/ui/card/info-card";
+import { Lock, LockOpen } from "lucide-react";
+import useUpdateCrewLocked from "@/hooks/use-update-crew-locked";
 
 const CrewOverviewWrapper = () => {
+  const updateCrewLockedMutation = useUpdateCrewLocked();
+
   const { data: session } = useGetMe();
 
   const [selectedFiretruck, setSelectedFiretruck] = useState("");
@@ -59,15 +63,32 @@ const CrewOverviewWrapper = () => {
 
         <AccordionItem value="crew" className="gap-0.25">
           <div className="grid grid-cols-3 gap-0.25 justify-center ring ring-border">
-            <div className="text-xl p-4 col-span-2 h-full flex items-center">
-              Mannschaft
+            <div className="col-span-2 h-full flex items-center justify-between">
+              <div className="text-xl p-4">Mannschaft</div>
             </div>
             <div className="flex gap-0.25 ">
-              <div className="w-full ring ring-border">
+              <div className="flex w-full ring ring-border justify-between gap-0.25">
                 <InfoCard
                   description="Besatzung"
                   value={formatCrew(firetruck!.crew)}
+                  className="w-full"
                 />
+                <Button
+                  size="none"
+                  onClick={() => {
+                    updateCrewLockedMutation.mutate({
+                      firetruckId: firetruck.id,
+                      locked: !firetruck.crew.isLocked,
+                    });
+                  }}
+                  className="flex h-full rounded-none p-4 justify-center items-center ring ring-border bg-secondary hover:bg-border"
+                >
+                  {firetruck.crew.isLocked ? (
+                    <Lock className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5" />
+                  ) : (
+                    <LockOpen className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5" />
+                  )}
+                </Button>
               </div>
               <AccordionTrigger className="p-4 bg-secondary justify-center items-center rounded-none hover:bg-border ring ring-border" />
             </div>
