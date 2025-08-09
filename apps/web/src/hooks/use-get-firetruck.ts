@@ -6,7 +6,7 @@ const useGetFiretruck = (firetruckId: string) => {
     queryKey: ["firetruck", firetruckId],
     queryFn: () => getFiretruck(firetruckId),
     enabled: !!firetruckId,
-    retry: false,
+    refetchInterval: 5000,
   });
 
   return incidentResponse;
