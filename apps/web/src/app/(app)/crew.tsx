@@ -9,10 +9,12 @@ import {
 } from "@/components/ui/dialog";
 import useAddFiretruckToIncident from "@/hooks/use-add-firefighter-to-crew";
 import useGetMe from "@/hooks/use-get-me";
+import useRemoveFirefighterFromCrew from "@/hooks/use-remove-firefighter-from-crew";
 import {
   FirefighterDetails,
   FiretruckDetails,
 } from "@alarm-monitor/shared/src";
+import { UserRoundMinus } from "lucide-react";
 import { ReactNode } from "react";
 
 interface Props {
@@ -21,6 +23,7 @@ interface Props {
 
 interface FirefighterSeatProps {
   type: "firefighter";
+  firetruckId: string;
   firefighter: FirefighterDetails;
 }
 
@@ -36,7 +39,12 @@ const Crew = ({ firetruck }: Props) => {
   const emptySeats = firetruck!.seats - firetruck!.crew!.firefighters.length;
 
   const crewElements = firetruck!.crew!.firefighters.map((firefighter) => (
-    <Seat key={firefighter.id} type="firefighter" firefighter={firefighter} />
+    <Seat
+      key={firefighter.id}
+      type="firefighter"
+      firefighter={firefighter}
+      firetruckId={firetruck.id}
+    />
   ));
 
   const emptySeatElements = Array.from({ length: emptySeats }, (_, index) => {
@@ -69,7 +77,8 @@ const Crew = ({ firetruck }: Props) => {
 };
 
 const Seat = (props: SeatProps) => {
-  const mutation = useAddFiretruckToIncident();
+  const addFirefighterMutation = useAddFiretruckToIncident();
+  const removeFirefighterMutation = useRemoveFirefighterFromCrew();
 
   const { data } = useGetMe();
 
@@ -92,7 +101,7 @@ const Seat = (props: SeatProps) => {
                     <Button
                       variant="secondary"
                       onClick={() => {
-                        mutation.mutate({
+                        addFirefighterMutation.mutate({
                           firetruckId: props.firetruckId,
                           firefighterId: firefighter.id,
                         });
@@ -112,8 +121,24 @@ const Seat = (props: SeatProps) => {
 
   if (props.type === "firefighter") {
     return (
-      <div className="p-4 bg-background ring ring-border">
-        {props.firefighter.name}
+      <div className="flex flex-col ring ring-border gap-0.25 bg-background">
+        <div className="flex justify-between">
+          <div className="flex items-center p-4 w-full">
+            {props.firefighter.name}
+          </div>
+          <Button
+            size="none"
+            onClick={() => {
+              removeFirefighterMutation.mutate({
+                firetruckId: props.firetruckId,
+                firefighterId: props.firefighter.id,
+              });
+            }}
+            className="rounded-none p-4 bg-secondary justify-center items-center hover:bg-border ring ring-border rounded-bl-lg"
+          >
+            <UserRoundMinus className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
+          </Button>
+        </div>
       </div>
     );
   }
