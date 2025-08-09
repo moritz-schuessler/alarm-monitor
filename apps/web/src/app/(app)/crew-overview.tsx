@@ -21,8 +21,11 @@ import {
 import Stats from "./stats";
 import { InfoCard } from "@/components/ui/card/info-card";
 import { Lock, LockOpen } from "lucide-react";
+import useUpdateCrewLocked from "@/hooks/use-update-crew-locked";
 
 const CrewOverviewWrapper = () => {
+  const updateCrewLockedMutation = useUpdateCrewLocked();
+
   const { data: session } = useGetMe();
 
   const [selectedFiretruck, setSelectedFiretruck] = useState("");
@@ -70,13 +73,22 @@ const CrewOverviewWrapper = () => {
                   value={formatCrew(firetruck!.crew)}
                   className="w-full"
                 />
-                <div className="flex h-full rounded-none p-4 justify-center items-center ring ring-border">
+                <Button
+                  size="none"
+                  onClick={() => {
+                    updateCrewLockedMutation.mutate({
+                      firetruckId: firetruck.id,
+                      locked: !firetruck.crew.isLocked,
+                    });
+                  }}
+                  className="flex h-full rounded-none p-4 justify-center items-center ring ring-border bg-secondary hover:bg-border"
+                >
                   {firetruck.crew.isLocked ? (
                     <Lock className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5" />
                   ) : (
                     <LockOpen className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5" />
                   )}
-                </div>
+                </Button>
               </div>
               <AccordionTrigger className="p-4 bg-secondary justify-center items-center rounded-none hover:bg-border ring ring-border" />
             </div>
