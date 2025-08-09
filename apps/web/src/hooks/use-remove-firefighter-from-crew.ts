@@ -18,10 +18,12 @@ const useRemoveFirefighterFromCrew = () => {
           headers: { "Content-Type": "application/json" },
         },
       );
+
       if (!response.ok) {
         throw new Error("Something went wrong.");
       }
-      return await response.json();
+
+      return;
     },
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({
