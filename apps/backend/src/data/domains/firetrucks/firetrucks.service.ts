@@ -71,4 +71,24 @@ export class FiretrucksService {
       await this.crewsService.lock(crew.id);
     }
   }
+
+  async removeFirefighterFromFiretruck(
+    firetruckId: string,
+    firefighterId: string,
+  ) {
+    const crew = await this.crewsService.getByFiretruckId(firetruckId);
+
+    if (!crew) {
+      throw new NotFoundException(
+        `Crew for firetruck ${firetruckId} not found`,
+      );
+    }
+
+    const firefighter =
+      await this.firefighterService.removeFromCrew(firefighterId);
+
+    if (!crew.isLocked && firefighter) {
+      await this.crewsService.lock(crew.id);
+    }
+  }
 }
