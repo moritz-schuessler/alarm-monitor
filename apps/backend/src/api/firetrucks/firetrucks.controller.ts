@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { FiretrucksService } from 'src/data/domains/firetrucks/firetrucks.service';
 
 @Controller('firetrucks')
@@ -41,5 +49,15 @@ export class FiretrucksController {
       firetruckId,
       firefighterId,
     );
+  }
+
+  @Patch(':firetruckId/crew')
+  async updateCrewLocked(
+    @Param('firetruckId') firetruckId: string,
+    @Body() { locked }: { locked?: boolean },
+  ) {
+    if (locked !== undefined) {
+      await this.firetrucksService.updateCrewLocked(firetruckId, locked);
+    }
   }
 }
