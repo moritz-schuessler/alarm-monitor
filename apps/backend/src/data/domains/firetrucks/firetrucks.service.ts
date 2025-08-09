@@ -92,7 +92,7 @@ export class FiretrucksService {
     }
   }
 
-  async updateCrew(firetruckId: string, locked: boolean) {
+  async updateCrewLocked(firetruckId: string, locked: boolean) {
     const crew = await this.crewsService.getByFiretruckId(firetruckId);
 
     if (!crew) {
