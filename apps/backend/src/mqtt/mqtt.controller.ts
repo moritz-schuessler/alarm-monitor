@@ -11,7 +11,7 @@ interface Payload {
   crew: string[];
 }
 
-@Controller('mqtt')
+@Controller()
 export class MqttController {
   constructor(private readonly mqttService: MQTTService) {}
 
