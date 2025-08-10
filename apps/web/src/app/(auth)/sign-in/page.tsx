@@ -21,7 +21,7 @@ const SelectUserPage = async () => {
 
     console.log("test");
 
-    const response = await fetch("http://localhost:3001/api/auth", {
+    const response = await fetch("http://localhost:3000/api/backend/auth", {
       method: "POST",
       body: JSON.stringify({ radioIdentification }),
       headers: { "Content-Type": "application/json" },
@@ -46,7 +46,7 @@ const SelectUserPage = async () => {
     redirect("/");
   };
 
-  const reponse = await fetch("http://localhost:3001/api/stations");
+  const reponse = await fetch("http://localhost:3000/api/backend/stations");
   const stations = (await reponse.json()) as StationDetails[];
 
   return (
