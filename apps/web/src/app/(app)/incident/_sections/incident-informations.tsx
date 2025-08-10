@@ -10,7 +10,7 @@ const IncidentInformations = () => {
   const incident = data?.incident;
 
   return (
-    <div className="h-fit w-full divide-y-1 divide-border border-1 border-border rounded-lg text-xl col-span-3">
+    <div className="h-fit w-full divide-y-1 divide-border border-1 border-border rounded-lg text-xl col-span-3 overflow-hidden">
       <h2 className="p-4">Einsatzinformationen</h2>
       <div className="grid grid-cols-[repeat(3,minmax(auto,1fr))] gap-0.25">
         <InfoCard description="Stichwort" value={incident?.keyword} />
