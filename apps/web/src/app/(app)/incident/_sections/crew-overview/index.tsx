@@ -14,11 +14,12 @@ import {
 import { InfoCard } from "@/components/ui/card/info-card";
 import { Lock, LockOpen } from "lucide-react";
 import useUpdateCrewLocked from "@/hooks/use-update-crew-locked";
-import Stats from "../stats";
-import Crew from "../crew";
+
 import { Skeleton } from "@/components/ui/skeleton";
-import SelectFiretruck from "../_components/select-firetruck";
 import useSelectedFiretruck from "@/hooks/utils/use-selected-firetruck";
+import Stats from "./stats";
+import SelectFiretruck from "../../_components/select-firetruck";
+import Crew from "../../crew";
 
 const CrewOverview = () => {
   const updateCrewLockedMutation = useUpdateCrewLocked();
@@ -52,9 +53,7 @@ const CrewOverview = () => {
             <AccordionTrigger className="p-4 bg-secondary justify-center items-center rounded-none hover:bg-border ring ring-border" />
           </div>
         </div>
-        <AccordionContent>
-          {firetruck && <Stats firetruck={firetruck} />}
-        </AccordionContent>
+        <AccordionContent>{firetruck && <Stats />}</AccordionContent>
       </AccordionItem>
 
       <AccordionItem value="crew" className="gap-0.25">
