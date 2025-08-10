@@ -7,7 +7,7 @@ import Section from "@/components/ui/section";
 const Page = () => {
   return (
     <IncidentGuard>
-      <div className="grid grid-cols-3 grid-rows-[auto_1fr] flex-col size-full gap-8">
+      <div className="grid grid-cols-3 grid-rows-[auto_1fr] size-full gap-4">
         <Section className="col-span-3">
           <IncidentInformations />
         </Section>
