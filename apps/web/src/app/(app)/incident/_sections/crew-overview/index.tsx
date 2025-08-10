@@ -19,7 +19,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import useSelectedFiretruck from "@/hooks/utils/use-selected-firetruck";
 import Stats from "./stats";
 import SelectFiretruck from "../../_components/select-firetruck";
-import Crew from "../../crew";
+import Crew from "./crew";
 
 const CrewOverview = () => {
   const updateCrewLockedMutation = useUpdateCrewLocked();

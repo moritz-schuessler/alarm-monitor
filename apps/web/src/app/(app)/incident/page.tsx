@@ -1,8 +1,8 @@
 import IncidentGuard from "./_components/incident-guard";
 import IncidentInformations from "./_sections/incident-informations";
 import AssignedResources from "./_sections/assigned-resources";
-import CrewOverview from "./_sections/crew-overview";
 import Section from "@/components/ui/section";
+import CrewOverview from "./_sections/crew-overview";
 
 const Page = () => {
   return (
