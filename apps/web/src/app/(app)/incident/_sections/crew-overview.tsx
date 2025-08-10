@@ -39,7 +39,9 @@ const CrewOverview = () => {
   }
 
   if (!firetruck) {
-    return "...Loading";
+    return (
+      <div className="flex flex-col h-full border border-border rounded-lg col-span-2 overflow-hidden"></div>
+    );
   }
 
   return (
