@@ -2,7 +2,7 @@ import {
   FiretruckEntity,
   StationWithFirefighters,
 } from "@alarm-monitor/shared/src";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface MeResponse {
   firetruck: FiretruckEntity;
@@ -33,5 +33,12 @@ const getMe = async () => {
   return (await response.json()) as MeResponse;
 };
 
+const ensureMe = async (queryClient: QueryClient) => {
+  return await queryClient.ensureQueryData<MeResponse>({
+    queryKey: ["me"],
+    queryFn: getMe,
+  });
+};
+
 export default useGetMe;
-export { getMe };
+export { getMe, ensureMe };
