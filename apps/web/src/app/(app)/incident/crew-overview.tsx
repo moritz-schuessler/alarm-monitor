@@ -1,3 +1,5 @@
+"use client";
+
 import useGetFiretruck from "@/hooks/use-get-firetruck";
 import useGetMe from "@/hooks/use-get-me";
 import formatCrew from "@/utils/formatCrew";

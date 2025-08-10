@@ -1,12 +1,19 @@
+"use client";
+
 import useGetFiretruck from "@/hooks/use-get-firetruck";
+import useIncident from "@/hooks/use-get-incident";
 import formatCrew from "@/utils/formatCrew";
-import { FiretruckEntity, IncidentDetails } from "@alarm-monitor/shared/src";
+import { FiretruckEntity } from "@alarm-monitor/shared/src";
 
-interface Props {
-  stations: IncidentDetails["stations"];
-}
+const AssignedUnits = () => {
+  const { data } = useIncident();
 
-const AssignedUnits = ({ stations }: Props) => {
+  if (!data) {
+    return "...Loading";
+  }
+
+  const { stations } = data;
+
   return (
     <div className="w-full divide-y-1 divide-border border-1 border-border rounded-lg text-xl col-span-1">
       <div className="flex flex-col divide-border divide-y-1">
