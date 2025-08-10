@@ -11,7 +11,7 @@ const AssignedResources = () => {
   const stations = data?.stations;
 
   return (
-    <div className="w-full divide-y-1 divide-border border-1 border-border rounded-lg text-xl col-span-1">
+    <>
       <div className="flex flex-col divide-border divide-y-1">
         {stations &&
           stations.map((station) => {
@@ -25,7 +25,7 @@ const AssignedResources = () => {
             );
           })}
       </div>
-    </div>
+    </>
   );
 };
 

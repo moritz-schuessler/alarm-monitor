@@ -39,13 +39,11 @@ const CrewOverview = () => {
   }
 
   if (!firetruck) {
-    return (
-      <div className="flex flex-col h-full border border-border rounded-lg col-span-2 overflow-hidden"></div>
-    );
+    return;
   }
 
   return (
-    <div className="flex flex-col h-full border border-border rounded-lg col-span-2 overflow-hidden">
+    <>
       <Accordion type="single" defaultValue="crew" className="gap-0.25">
         <AccordionItem value="stats" className="gap-0.25">
           <div className="grid grid-cols-3 gap-0.25 ring ring-border">
@@ -102,7 +100,7 @@ const CrewOverview = () => {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
-    </div>
+    </>
   );
 };
 
