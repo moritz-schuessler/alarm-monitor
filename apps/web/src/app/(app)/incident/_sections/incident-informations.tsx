@@ -4,7 +4,7 @@ import { formatDate } from "@/lib/date";
 import { InfoCard } from "@/components/ui/card/info-card";
 import useIncident from "@/hooks/use-get-incident";
 
-const ShortInformation = () => {
+const IncidentInformations = () => {
   const { data } = useIncident();
 
   const incident = data?.incident;
@@ -24,4 +24,4 @@ const ShortInformation = () => {
   );
 };
 
-export default ShortInformation;
+export default IncidentInformations;
