@@ -1,10 +1,10 @@
 "use client";
 
 import CrewOverview from "./crew-overview";
-import AssignedUnits from "./assigned-units";
 
 import IncidentGuard from "./_components/incident-guard";
 import IncidentInformations from "./_sections/incident-informations";
+import AssignedResources from "./_sections/assigned-resources";
 
 const Page = () => {
   return (
@@ -13,7 +13,7 @@ const Page = () => {
         <IncidentInformations />
         <div className="grid grid-cols-subgrid col-span-3">
           <CrewOverview />
-          <AssignedUnits />
+          <AssignedResources />
         </div>
       </div>
     </IncidentGuard>

@@ -5,7 +5,7 @@ import useIncident from "@/hooks/use-get-incident";
 import formatCrew from "@/utils/formatCrew";
 import { FiretruckEntity } from "@alarm-monitor/shared/src";
 
-const AssignedUnits = () => {
+const AssignedResources = () => {
   const { data } = useIncident();
 
   if (!data) {
@@ -49,4 +49,4 @@ const Firetruck = ({ firetruck }: { firetruck: FiretruckEntity }) => {
   );
 };
 
-export default AssignedUnits;
+export default AssignedResources;
