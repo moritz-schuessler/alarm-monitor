@@ -3,7 +3,6 @@
 import useGetFiretruck from "@/hooks/use-get-firetruck";
 import useGetMe from "@/hooks/use-get-me";
 import formatCrew from "@/utils/formatCrew";
-import Crew from "./crew";
 import {
   Dialog,
   DialogClose,
@@ -20,12 +19,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import Stats from "./stats";
 import { InfoCard } from "@/components/ui/card/info-card";
 import { Lock, LockOpen } from "lucide-react";
 import useUpdateCrewLocked from "@/hooks/use-update-crew-locked";
+import Stats from "../stats";
+import Crew from "../crew";
 
-const CrewOverviewWrapper = () => {
+const CrewOverview = () => {
   const updateCrewLockedMutation = useUpdateCrewLocked();
 
   const { data: session } = useGetMe();
@@ -137,4 +137,4 @@ const SelectFiretruck = ({
   );
 };
 
-export default CrewOverviewWrapper;
+export default CrewOverview;
