@@ -1,5 +1,3 @@
-"use client";
-
 import IncidentGuard from "./_components/incident-guard";
 import IncidentInformations from "./_sections/incident-informations";
 import AssignedResources from "./_sections/assigned-resources";
