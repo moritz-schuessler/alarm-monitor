@@ -32,7 +32,7 @@ const AssignedResources = () => {
               key={station.id}
               className="flex flex-col p-4 ring ring-border"
             >
-              <div>{station.name}</div>
+              <div className="text-muted-foreground">{station.name}</div>
               {station.firetrucks.map((firetruck) => {
                 return <Firetruck key={firetruck.id} firetruck={firetruck} />;
               })}
