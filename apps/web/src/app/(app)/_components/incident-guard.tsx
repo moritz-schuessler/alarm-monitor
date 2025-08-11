@@ -1,18 +1,20 @@
 "use client";
 
 import useIncident from "@/hooks/use-get-incident";
-import { useRouter } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 
 interface IncidentGuardProps {
   children: React.ReactNode;
 }
 
 const IncidentGuard = ({ children }: IncidentGuardProps) => {
-  const router = useRouter();
+  const pathname = usePathname();
   const { status } = useIncident();
 
-  if (status === "error") {
-    router.push("/select-incident");
+  if (status === "error" && pathname === "/incident") {
+    redirect("/select-incident");
+  } else if (status === "success" && pathname === "/select-incident") {
+    redirect("/incident");
   }
 
   return <>{children}</>;
