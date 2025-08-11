@@ -21,16 +21,16 @@ const AppLayout = async ({
   };
 
   return (
-    <div className="flex flex-col h-screen">
-      <header className="flex w-screen justify-between p-4">
-        <h1>Einsatzmonitor</h1>
+    <div className="flex flex-col h-screen p-4 gap-4 ">
+      <header className="flex justify-between items-center">
+        <h1 className="text-xl">Einsatzmonitor</h1>
         <form action={signOutAction}>
           <Button type="submit" variant="outline">
             Abmelden
           </Button>
         </form>
       </header>
-      <main className="flex justify-center items-center p-4 h-full ">
+      <main className="flex justify-center items-center placeholder-chart h-full ">
         {children}
       </main>
     </div>
