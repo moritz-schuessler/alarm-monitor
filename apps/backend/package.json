@@ -14,7 +14,7 @@
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "db:push": "npx drizzle-kit push",
-    "db:seed": "npx tsx ./src/database/seeding.ts",
+    "db:seed": "npx tsx ./src/data/database/seeding.ts",
     "db:studio": "npx drizzle-kit studio"
   },
   "dependencies": {
