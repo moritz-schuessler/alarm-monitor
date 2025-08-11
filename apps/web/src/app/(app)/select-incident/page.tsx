@@ -12,7 +12,7 @@ const Home = () => {
   }
 
   if (data!.firetruck!.activeIncident !== null) {
-    redirect("/");
+    redirect("/incident");
   }
 
   return <SelectIncident />;

@@ -43,7 +43,7 @@ const SelectUserPage = async () => {
       path: "/",
     });
 
-    redirect("/");
+    redirect("/incident");
   };
 
   const reponse = await fetch("http://localhost:3000/api/backend/stations");
