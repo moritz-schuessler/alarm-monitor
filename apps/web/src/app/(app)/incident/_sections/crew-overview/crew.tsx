@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import useAddFiretruckToIncident from "@/hooks/use-add-firefighter-to-crew";
+import useAddFirefighterToCrew from "@/hooks/use-add-firefighter-to-crew";
 import useGetMe from "@/hooks/use-get-me";
 import useRemoveFirefighterFromCrew from "@/hooks/use-remove-firefighter-from-crew";
 import {
@@ -77,7 +77,7 @@ const Crew = ({ firetruck }: Props) => {
 };
 
 const Seat = (props: SeatProps) => {
-  const addFirefighterMutation = useAddFiretruckToIncident();
+  const addFirefighterMutation = useAddFirefighterToCrew();
   const removeFirefighterMutation = useRemoveFirefighterFromCrew();
 
   const { data } = useGetMe();
