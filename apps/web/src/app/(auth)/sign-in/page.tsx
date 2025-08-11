@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { getBaseUrl } from "@/lib/url-helper";
 import { StationDetails } from "@alarm-monitor/shared/src";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -19,9 +20,7 @@ const SelectUserPage = async () => {
 
     const cookieStore = await cookies();
 
-    console.log("test");
-
-    const response = await fetch("http://localhost:3000/api/backend/auth", {
+    const response = await fetch(`${getBaseUrl()}/api/backend/auth`, {
       method: "POST",
       body: JSON.stringify({ radioIdentification }),
       headers: { "Content-Type": "application/json" },
@@ -46,7 +45,7 @@ const SelectUserPage = async () => {
     redirect("/incident");
   };
 
-  const reponse = await fetch("http://localhost:3000/api/backend/stations");
+  const reponse = await fetch(`${getBaseUrl()}/api/backend/stations`);
   const stations = (await reponse.json()) as StationDetails[];
 
   return (
