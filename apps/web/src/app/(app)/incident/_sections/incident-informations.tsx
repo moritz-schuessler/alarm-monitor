@@ -5,11 +5,14 @@ import { InfoCard } from "@/components/ui/card/info-card";
 import useIncident from "@/hooks/use-get-incident";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 const IncidentInformations = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const view = searchParams.get("view") ?? "firetruck";
+
+  const queryClient = useQueryClient();
 
   const { data } = useIncident();
 
@@ -30,6 +33,8 @@ const IncidentInformations = () => {
                 const params = new URLSearchParams(searchParams.toString());
                 params.set("view", value);
                 router.replace(`?${params}`, { scroll: false });
+
+                queryClient.setQueryData(["view"], value);
               }
             }}
             className="size-full rounded-none"
