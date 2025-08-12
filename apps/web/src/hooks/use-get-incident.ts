@@ -9,7 +9,6 @@ const useIncident = () => {
   const incidentResponse = useQuery({
     queryKey: ["incident"],
     queryFn: () => getIncident(queryClient),
-    refetchInterval: 5000,
   });
 
   return incidentResponse;
