@@ -6,12 +6,22 @@ const qualifications = sqliteTable('qualifications', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
-  type: text('type'),
+  type: text('type', {
+    enum: [
+      'Lehrgang',
+      'Führerschein',
+      'Medizinische Untersuchung',
+      'Voraussetzung',
+      'Führungsposition',
+      'Fachgebiet',
+      'Beruf',
+    ],
+  }),
   name: text('name'),
 });
 
 const qualificationsRelations = relations(qualifications, ({ many }) => ({
-  incidentsToStations: many(qualificationToFirefighter),
+  qualificationToFirefighter: many(qualificationToFirefighter),
 }));
 
 const qualificationToFirefighter = sqliteTable(
@@ -23,6 +33,9 @@ const qualificationToFirefighter = sqliteTable(
     firefighterId: text('firefighter_id')
       .notNull()
       .references(() => firefighters.id),
+    status: text('status', {
+      enum: ['active', 'expired'],
+    }).default('active'),
   },
   (t) => [primaryKey({ columns: [t.qualificationId, t.firefighterId] })],
 );
