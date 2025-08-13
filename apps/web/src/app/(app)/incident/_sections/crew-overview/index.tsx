@@ -20,6 +20,8 @@ import useSelectedFiretruck from "@/hooks/utils/use-selected-firetruck";
 import Stats from "./stats";
 import SelectFiretruck from "../../_components/select-firetruck";
 import Crew from "./crew";
+import useIncident from "@/hooks/use-get-incident";
+import FiretruckNotAssigned from "./firetruck-not-assigned";
 
 const CrewOverview = () => {
   const updateCrewLockedMutation = useUpdateCrewLocked();
@@ -27,9 +29,17 @@ const CrewOverview = () => {
   const { data: selectedFiretruck } = useSelectedFiretruck();
 
   const { data: me } = useGetMe();
-  const { data: firetruck, isPending } = useGetFiretruck(
+  const { data: firetruck, isPending: firetruckIsPending } = useGetFiretruck(
     selectedFiretruck || "",
   );
+  const { data: incident, isPending: incidentIsPending } = useIncident();
+
+  const isPending = incidentIsPending || firetruckIsPending;
+  const isAssignedToIncident =
+    !isPending &&
+    incident?.firetrucks.some((firetruckElement) => {
+      return firetruckElement.id === firetruck?.id;
+    });
 
   return (
     <Accordion type="single" defaultValue="crew" className="gap-0.25">
@@ -90,7 +100,9 @@ const CrewOverview = () => {
           </div>
         </div>
         <AccordionContent className="ring ring-border">
-          {firetruck && <Crew firetruck={firetruck} />}
+          {isAssignedToIncident
+            ? firetruck && <Crew firetruck={firetruck!} />
+            : firetruck && <FiretruckNotAssigned firetruck={firetruck!} />}
         </AccordionContent>
       </AccordionItem>
     </Accordion>
