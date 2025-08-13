@@ -25,7 +25,7 @@ const IncidentOverview = () => {
     <div className="grid grid-cols-3 gap-0.25 ring ring-border h-full auto-rows-[auto_1fr] ">
       <div className="grid grid-cols-subgrid col-span-3 gap-0.25">
         <div className="text-xl p-4 col-span-3 ring ring-border">
-          Einsatzstatisiken
+          Einsatzstatistiken
         </div>
       </div>
       <div className="grid grid-cols-subgrid col-span-3 h-full bg-secondary">
