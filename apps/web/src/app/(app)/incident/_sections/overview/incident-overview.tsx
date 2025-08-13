@@ -1,6 +1,6 @@
 import { StatCard } from "@/components/ui/card/stat-card";
 import useIncident from "@/hooks/use-get-incident";
-import { FirefighterDetails } from "@alarm-monitor/shared/src";
+import { queryFirefighters } from "@/lib/firefighter-helper";
 
 const IncidentOverview = () => {
   const { data: incident } = useIncident();
@@ -9,15 +9,19 @@ const IncidentOverview = () => {
     ? incident?.firetrucks.flatMap((truck) => truck.crew.firefighters)
     : [];
 
-  const agt = firefighterQuery(firefighters)
-    .filterByQualification("Atemschutzgeräteträger")
+  const agt = queryFirefighters(firefighters)
+    .filterByAnyQualification("Atemschutzgeräteträger")
+    .filterByActiveQualification("G26.3")
+    .filterByActiveQualification("Atemschutz/Unterweisung")
+    .filterByActiveQualification("Atemschutz/Atemschutzstrecke")
+    .filterByActiveQualification("Atemschutz/Einsatz/Übung")
     .toArray();
 
-  const fgAgt = firefighterQuery(firefighters)
+  const fgAgt = queryFirefighters(firefighters)
     .filterByQualification("Fachgebiet Atemschutz")
     .toArray();
 
-  const presse = firefighterQuery(firefighters)
+  const presse = queryFirefighters(firefighters)
     .filterByQualification("Fachgebiet Presse")
     .toArray();
 
@@ -35,7 +39,7 @@ const IncidentOverview = () => {
           className="bg-background"
         />
         <StatCard
-          description="AGT"
+          description="Taugliche AGT"
           value={agt.length}
           className="bg-background"
         />
@@ -53,27 +57,5 @@ const IncidentOverview = () => {
     </div>
   );
 };
-
-function firefighterQuery(list: FirefighterDetails[]) {
-  return {
-    list,
-    filterByQualification(name: string) {
-      return firefighterQuery(
-        list.filter((f) =>
-          f.qualificationToFirefighter.some(
-            (q) => q.qualification.name === name,
-          ),
-        ),
-      );
-    },
-    filterByFirefighters(allowed: FirefighterDetails[]) {
-      const allowedIds = new Set(allowed.map((f) => f.id));
-      return firefighterQuery(list.filter((f) => allowedIds.has(f.id)));
-    },
-    toArray() {
-      return list;
-    },
-  };
-}
 
 export default IncidentOverview;
