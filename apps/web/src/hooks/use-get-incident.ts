@@ -8,14 +8,13 @@ const useIncident = () => {
 
   const incidentResponse = useQuery({
     queryKey: ["incident"],
-    queryFn: () => getIncident(queryClient),
-    retry: false,
+    queryFn: () => queryFn(queryClient),
   });
 
   return incidentResponse;
 };
 
-const getIncident = async (queryClient: QueryClient) => {
+const queryFn = async (queryClient: QueryClient) => {
   const activeIncident = await queryClient.ensureQueryData({
     queryKey: ["active-incident"],
     queryFn: async () => {
@@ -31,7 +30,17 @@ const getIncident = async (queryClient: QueryClient) => {
     throw new Error("no-incident");
   }
 
-  const response = await fetch(`/api/backend/incidents/${activeIncident!}`);
+  const incident = await getIncident(activeIncident);
+
+  incident.firetrucks.forEach((firetruck) => {
+    queryClient.setQueryData(["firetruck", firetruck.id], firetruck);
+  });
+
+  return incident;
+};
+
+const getIncident = async (incidentId: string) => {
+  const response = await fetch(`/api/backend/incidents/${incidentId!}`);
   return (await response.json()) as IncidentDetails;
 };
 
