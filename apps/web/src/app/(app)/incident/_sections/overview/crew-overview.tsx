@@ -17,11 +17,11 @@ import useUpdateCrewLocked from "@/hooks/use-update-crew-locked";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import useSelectedFiretruck from "@/hooks/utils/use-selected-firetruck";
-import Stats from "./stats";
 import SelectFiretruck from "../../_components/select-firetruck";
-import Crew from "./crew";
 import useIncident from "@/hooks/use-get-incident";
-import FiretruckNotAssigned from "./firetruck-not-assigned";
+import Stats from "../../_components/stats";
+import Crew from "../../_components/crew";
+import FiretruckNotAssigned from "../../_components/firetruck-not-assigned";
 
 const CrewOverview = () => {
   const updateCrewLockedMutation = useUpdateCrewLocked();
