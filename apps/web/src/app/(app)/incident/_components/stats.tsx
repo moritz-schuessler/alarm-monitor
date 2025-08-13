@@ -30,10 +30,9 @@ const Stats = () => {
   usedFirefighters.push(...gruppenfuehrer);
 
   const fuehrungskraft = [...usedFirefighters];
-  console.log(fuehrungskraft);
 
   const truppfuehrer = queryFirefighters(firefighters)
-    .filterByActiveQualification("Truppfuehrer")
+    .filterByActiveQualification("Truppführer")
     .excludeFirefighters(usedFirefighters)
     .toArray();
 
@@ -74,18 +73,10 @@ const Stats = () => {
       </div>
       <div className="h-full grid grid-cols-3 bg-secondary gap-0.25 ">
         <div className="flex bg-background ring ring-border *:w-full">
-          <StatCard
-            description="Grundlehrgang"
-            value={grundlehrgang.length}
-            className="bg-background"
-          />
+          <StatCard description="Grundlehrgang" value={grundlehrgang.length} />
         </div>
         <div className="flex bg-background ring ring-border *:w-full">
-          <StatCard
-            description="Truppführer"
-            value={truppfuehrer.length}
-            className="bg-background"
-          />
+          <StatCard description="Truppführer" value={truppfuehrer.length} />
         </div>
         <div className="flex bg-background ring ring-border *:w-1/2 gap-0.25">
           <StatCard
@@ -120,7 +111,10 @@ const Stats = () => {
             value={tauglicheAgt.length}
             thresholds={{ success: 4, warning: 2 }}
           />
-          <StatCard description="Taugliche AGT" value={untauglicheAGT.length} />
+          <StatCard
+            description="Untaugliche AGT"
+            value={untauglicheAGT.length}
+          />
         </div>
         <div className="flex bg-background ring ring-border *:w-full gap-0.25">
           <StatCard
