@@ -1,6 +1,7 @@
 import { VariantProps } from "class-variance-authority";
 import { ComponentProps } from "react";
 import { Card, cardVariants, Status } from "./card";
+import { Skeleton } from "../skeleton";
 
 type Thresholds = { success: number; warning?: number };
 
@@ -24,7 +25,7 @@ type WithoutThresholdsOrStatus = {
 
 type StatCardProps = {
   description: string;
-  value: number;
+  value: number | undefined;
 } & (WithThresholds | WithStatus | WithoutThresholdsOrStatus) &
   ComponentProps<"div"> &
   VariantProps<typeof cardVariants>;
@@ -40,7 +41,7 @@ function StatCard({
   ...props
 }: StatCardProps) {
   const computedStatus = computeStatus(
-    valueForThreshold ?? value,
+    valueForThreshold ?? value ?? 0,
     status,
     thresholds,
   );
@@ -53,7 +54,9 @@ function StatCard({
       {...props}
     >
       <div className="text-muted-foreground text-sm">{description}</div>
-      <div className="text-nowrap">{value}</div>
+      <div className="flex justify-center items-center text-nowrap w-full">
+        {value ?? <Skeleton className="h-[20px] w-1/2 m-1 rounded-sm" />}
+      </div>
     </Card>
   );
 }
