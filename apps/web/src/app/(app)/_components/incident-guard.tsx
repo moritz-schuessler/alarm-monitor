@@ -9,12 +9,19 @@ interface IncidentGuardProps {
 
 const IncidentGuard = ({ children }: IncidentGuardProps) => {
   const pathname = usePathname();
-  const { data: activeIncident } = useActiveIncident();
 
-  if (!activeIncident && pathname === "/incident") {
-    redirect("/select-incident");
-  } else if (activeIncident && pathname === "/select-incident") {
-    redirect("/incident");
+  const { data: activeIncident, isPending } = useActiveIncident();
+
+  if (!isPending && pathname === "/incident") {
+    if (!activeIncident) {
+      redirect("/select-incident");
+    }
+  }
+
+  if (!isPending && pathname === "/select-incident") {
+    if (activeIncident) {
+      redirect("/incident");
+    }
   }
 
   return <>{children}</>;
