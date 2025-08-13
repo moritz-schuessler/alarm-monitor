@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const useAddFiretruckToIncident = () => {
+const useAddFirefighterToCrew = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -34,4 +34,4 @@ const useAddFiretruckToIncident = () => {
   });
 };
 
-export default useAddFiretruckToIncident;
+export default useAddFirefighterToCrew ;

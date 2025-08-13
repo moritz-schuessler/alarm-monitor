@@ -1,6 +1,6 @@
 "use client";
 
-import useIncident from "@/hooks/use-get-incident";
+import useActiveIncident from "@/hooks/utils/use-active-incident";
 import { redirect, usePathname } from "next/navigation";
 
 interface IncidentGuardProps {
@@ -9,11 +9,11 @@ interface IncidentGuardProps {
 
 const IncidentGuard = ({ children }: IncidentGuardProps) => {
   const pathname = usePathname();
-  const { status } = useIncident();
+  const { data: activeIncident } = useActiveIncident();
 
-  if (status === "error" && pathname === "/incident") {
+  if (!activeIncident && pathname === "/incident") {
     redirect("/select-incident");
-  } else if (status === "success" && pathname === "/select-incident") {
+  } else if (activeIncident && pathname === "/select-incident") {
     redirect("/incident");
   }
 
