@@ -13,14 +13,21 @@ import {
   FiretruckEntity,
   FirefighterEntity,
 } from 'src/data/shared/schema';
+import seedQualifications from './seeding/qualifications';
 
 const db = drizzle(process.env.DATABASE_URL!, { schema });
 
 async function main() {
+  await db.delete(schema.incidentsToStations);
+  await db.delete(schema.incidents);
+  await db.delete(schema.beacons);
+  await db.delete(schema.qualificationToFirefighter);
   await db.delete(firefightersSchema);
+  await db.delete(schema.crews);
   await db.delete(firetrucksSchema);
   await db.delete(stationsSchema);
   await db.delete(departmentsSchema);
+  await db.delete(schema.qualifications);
 
   const departments = await db
     .insert(departmentsSchema)
@@ -182,6 +189,8 @@ async function main() {
       },
     ])
     .returning();
+
+  await seedQualifications();
 }
 
 void main();
