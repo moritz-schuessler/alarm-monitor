@@ -6,3 +6,4 @@ export * from './beacons';
 export * from './qualifications';
 export * from './crews';
 export * from './incidents';
+export * from './external-resource';

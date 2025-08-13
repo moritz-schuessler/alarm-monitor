@@ -15,6 +15,7 @@ const incidents = sqliteTable('incidents', {
 const incidentsRelations = relations(incidents, ({ many }) => ({
   firetrucks: many(firetrucks),
   incidentsToStations: many(incidentsToStations),
+  externalResources: many(incidentsToStations),
 }));
 
 const incidentsToStations = sqliteTable(
