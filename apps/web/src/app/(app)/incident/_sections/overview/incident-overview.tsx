@@ -10,7 +10,11 @@ const IncidentOverview = () => {
     : [];
 
   const agt = firefighterQuery(firefighters)
-    .filterByQualification("Atemschutzgeräteträger")
+    .filterByAnyQualification("Atemschutzgeräteträger")
+    .filterByActiveQualification("G26.3")
+    .filterByActiveQualification("Atemschutz/Unterweisung")
+    .filterByActiveQualification("Atemschutz/Atemschutzstrecke")
+    .filterByActiveQualification("Atemschutz/Einsatz/Übung")
     .toArray();
 
   const fgAgt = firefighterQuery(firefighters)
@@ -35,7 +39,7 @@ const IncidentOverview = () => {
           className="bg-background"
         />
         <StatCard
-          description="AGT"
+          description="Taugliche AGT"
           value={agt.length}
           className="bg-background"
         />
@@ -57,14 +61,28 @@ const IncidentOverview = () => {
 function firefighterQuery(list: FirefighterDetails[]) {
   return {
     list,
-    filterByQualification(name: string) {
+    filterByQualification(
+      name: string,
+      status: "active" | "expired" | "all" = "active",
+    ) {
       return firefighterQuery(
         list.filter((f) =>
-          f.qualificationToFirefighter.some(
-            (q) => q.qualification.name === name,
-          ),
+          f.qualificationToFirefighter.some((q) => {
+            const nameMatch = q.qualification.name === name;
+            if (status === "all") return nameMatch;
+            return nameMatch && q.status === status;
+          }),
         ),
       );
+    },
+    filterByActiveQualification(name: string) {
+      return this.filterByQualification(name, "active");
+    },
+    filterByExpiredQualification(name: string) {
+      return this.filterByQualification(name, "expired");
+    },
+    filterByAnyQualification(name: string) {
+      return this.filterByQualification(name, "all");
     },
     filterByFirefighters(allowed: FirefighterDetails[]) {
       const allowedIds = new Set(allowed.map((f) => f.id));
