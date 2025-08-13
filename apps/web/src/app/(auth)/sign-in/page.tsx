@@ -40,6 +40,7 @@ const SelectUserPage = async () => {
       expires: expiresAt,
       sameSite: "lax",
       path: "/",
+      domain: process.env.COOKIE_DOMAIN,
     });
 
     redirect("/incident");
@@ -49,10 +50,13 @@ const SelectUserPage = async () => {
   const stations = (await reponse.json()) as StationDetails[];
 
   return (
-    <main className="grid place-items-center h-screen w-screen">
-      <form action={signInAction} className="flex gap-4 justify-center">
+    <main className="flex justify-center items-center w-dvw h-dvh">
+      <form
+        action={signInAction}
+        className="flex gap-4 justify-center w-full p-4"
+      >
         <Select name="radioIdentification">
-          <SelectTrigger className=" w-[40ch]">
+          <SelectTrigger className="max-w-full w-[40ch]">
             <SelectValue placeholder="Feuerwehrauto" />
           </SelectTrigger>
           <SelectContent>
