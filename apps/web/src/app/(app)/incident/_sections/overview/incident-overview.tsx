@@ -1,6 +1,6 @@
 import { StatCard } from "@/components/ui/card/stat-card";
 import useIncident from "@/hooks/use-get-incident";
-import { FirefighterDetails } from "@alarm-monitor/shared/src";
+import { queryFirefighters } from "@/lib/firefighter-helper";
 
 const IncidentOverview = () => {
   const { data: incident } = useIncident();
@@ -9,7 +9,7 @@ const IncidentOverview = () => {
     ? incident?.firetrucks.flatMap((truck) => truck.crew.firefighters)
     : [];
 
-  const agt = firefighterQuery(firefighters)
+  const agt = queryFirefighters(firefighters)
     .filterByAnyQualification("Atemschutzgeräteträger")
     .filterByActiveQualification("G26.3")
     .filterByActiveQualification("Atemschutz/Unterweisung")
@@ -17,11 +17,11 @@ const IncidentOverview = () => {
     .filterByActiveQualification("Atemschutz/Einsatz/Übung")
     .toArray();
 
-  const fgAgt = firefighterQuery(firefighters)
+  const fgAgt = queryFirefighters(firefighters)
     .filterByQualification("Fachgebiet Atemschutz")
     .toArray();
 
-  const presse = firefighterQuery(firefighters)
+  const presse = queryFirefighters(firefighters)
     .filterByQualification("Fachgebiet Presse")
     .toArray();
 
@@ -57,41 +57,5 @@ const IncidentOverview = () => {
     </div>
   );
 };
-
-function firefighterQuery(list: FirefighterDetails[]) {
-  return {
-    list,
-    filterByQualification(
-      name: string,
-      status: "active" | "expired" | "all" = "active",
-    ) {
-      return firefighterQuery(
-        list.filter((f) =>
-          f.qualificationToFirefighter.some((q) => {
-            const nameMatch = q.qualification.name === name;
-            if (status === "all") return nameMatch;
-            return nameMatch && q.status === status;
-          }),
-        ),
-      );
-    },
-    filterByActiveQualification(name: string) {
-      return this.filterByQualification(name, "active");
-    },
-    filterByExpiredQualification(name: string) {
-      return this.filterByQualification(name, "expired");
-    },
-    filterByAnyQualification(name: string) {
-      return this.filterByQualification(name, "all");
-    },
-    filterByFirefighters(allowed: FirefighterDetails[]) {
-      const allowedIds = new Set(allowed.map((f) => f.id));
-      return firefighterQuery(list.filter((f) => allowedIds.has(f.id)));
-    },
-    toArray() {
-      return list;
-    },
-  };
-}
 
 export default IncidentOverview;
