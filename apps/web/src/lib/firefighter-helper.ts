@@ -26,9 +26,9 @@ function queryFirefighters(list: FirefighterDetails[]) {
     filterByAnyQualification(name: string) {
       return this.filterByQualification(name, "all");
     },
-    filterByFirefighters(allowed: FirefighterDetails[]) {
-      const allowedIds = new Set(allowed.map((f) => f.id));
-      return queryFirefighters(list.filter((f) => allowedIds.has(f.id)));
+    excludeFirefighters(excluded: FirefighterDetails[]) {
+      const excludedIds = new Set(excluded.map((f) => f.id));
+      return queryFirefighters(list.filter((f) => !excludedIds.has(f.id)));
     },
     toArray() {
       return list;
