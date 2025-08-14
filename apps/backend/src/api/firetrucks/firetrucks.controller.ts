@@ -29,6 +29,11 @@ export class FiretrucksController {
     );
   }
 
+  @Delete(':firetruckId/incident')
+  removeFromIncident(@Param('firetruckId') firetruckId: string) {
+    return this.firetrucksService.removeFromIncident(firetruckId);
+  }
+
   @Post(':firetruckId/firefighter')
   async addFirefighterToFiretruck(
     @Param('firetruckId') firetruckId: string,
