@@ -53,6 +53,17 @@ export class FiretrucksService {
     return firetruck;
   }
 
+  async removeFromIncident(firetruckId: string) {
+    const firetruck =
+      await this.firetrucksRepository.removeFromIncident(firetruckId);
+
+    if (!firetruck) {
+      throw new NotFoundException(`Firetruck ${firetruckId} not found`);
+    }
+
+    return firetruck;
+  }
+
   async addFirefighterToFiretruck(firetruckId: string, firefighterId: string) {
     const crew = await this.crewsService.getByFiretruckId(firetruckId);
 
