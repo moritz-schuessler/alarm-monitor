@@ -26,11 +26,19 @@ const useAddFiretruckToIncident = () => {
       }
       return await response.json();
     },
-    onSuccess: (data) => {
+    onSuccess: (data, parameter) => {
+      queryClient.invalidateQueries({
+        queryKey: ["firetruck", parameter.firetruckId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["incident"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["active-incident"],
+      });
       queryClient.invalidateQueries({
         queryKey: ["me"],
       });
-      queryClient.setQueryData(["active-incident"], data.activeIncident);
     },
   });
 };
