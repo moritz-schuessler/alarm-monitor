@@ -52,7 +52,7 @@ const IncidentOverview = () => {
       <div className="grid grid-cols-subgrid col-span-3 h-full bg-secondary">
         <StatCard
           description="Einsatzkräfte"
-          value={firefighters.length}
+          value={!isPending ? firefighters.length : undefined}
           className="bg-background"
         />
         <StatCard
@@ -62,17 +62,17 @@ const IncidentOverview = () => {
         />
         <StatCard
           description="Fachgebiet Presse"
-          value={presse.length}
+          value={!isPending ? presse.length : undefined}
           className="bg-background"
         />
         <StatCard
           description="Taugliche AGT"
-          value={agt.length}
+          value={!isPending ? agt.length : undefined}
           className="bg-background"
         />
         <StatCard
           description="Fachgebiet Atemschutz"
-          value={fgAgt.length}
+          value={!isPending ? fgAgt.length : undefined}
           className="bg-background"
         />
       </div>
