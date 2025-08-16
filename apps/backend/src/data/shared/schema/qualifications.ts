@@ -16,7 +16,7 @@ const qualifications = sqliteTable('qualifications', {
       'Fachgebiet',
       'Beruf',
     ],
-  }),
+  }).notNull(),
   name: text('name'),
 });
 
