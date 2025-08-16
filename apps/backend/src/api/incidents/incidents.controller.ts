@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { IncidentsService } from 'src/data/domains/incidents/incidents.service';
 
 @Controller('incidents')
@@ -13,5 +13,13 @@ export class IncidentsController {
   @Get(':incidentId')
   async findByIncidentId(@Param('incidentId') incidentId: string) {
     return await this.incidentsService.getIncidentDetails(incidentId);
+  }
+
+  @Post(':incidentId/stations')
+  async assignStation(
+    @Param('incidentId') incidentId: string,
+    @Body() { stationId }: { stationId: string },
+  ) {
+    return await this.incidentsService.assignStation(incidentId, stationId);
   }
 }

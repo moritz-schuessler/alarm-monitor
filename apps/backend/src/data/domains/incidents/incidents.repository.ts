@@ -38,4 +38,10 @@ export class IncidentsRepository {
 
     return result.map((row) => row.incidents);
   }
+
+  async assignStation(incidentId: string, stationId: string) {
+    return await this.database
+      .insert(incidentsToStations)
+      .values({ incidentId, stationId });
+  }
 }

@@ -39,6 +39,10 @@ export class IncidentsService {
     };
   }
 
+  async assignStation(incidentId: string, stationId: string) {
+    return this.incidentsRepository.assignStation(incidentId, stationId);
+  }
+
   async getIncidentsFromStation(stationId: string) {
     return this.incidentsRepository.findByStationId(stationId);
   }
