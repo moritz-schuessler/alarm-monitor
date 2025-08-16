@@ -28,7 +28,8 @@ const SelectQualification = () => {
   const { data, isPending } = useSelectedStats();
   const { data: incident } = useIncident();
 
-  const qualifications = incident ? getQualifications(incident) : [];
+  const qualifications =
+    incident && data ? getQualifications(incident, data) : [];
   const firefighters = incident
     ? incident?.firetrucks.flatMap((truck) => truck.crew.firefighters)
     : [];
@@ -132,30 +133,28 @@ const SelectQualification = () => {
   );
 };
 
-const getQualifications = (incident: IncidentDetails) => {
-  const qualificationsArray = incident.firetrucks.flatMap((firetruck) => {
-    return firetruck.crew.firefighters.flatMap((firefighter) => {
-      return firefighter.qualificationToFirefighter.flatMap(
-        (qualifications) => {
-          return qualifications.qualification;
-        },
-      );
-    });
-  });
+const getQualifications = (
+  incident: IncidentDetails,
+  selectedStats: string[],
+) => {
+  const qualificationsArray = incident.firetrucks.flatMap((firetruck) =>
+    firetruck.crew.firefighters.flatMap((firefighter) =>
+      firefighter.qualificationToFirefighter
+        .filter((q) => !selectedStats.includes(q.qualification.name))
+        .map((q) => q.qualification),
+    ),
+  );
 
   const qualifications = Array.from(
     new Map(
       qualificationsArray.map((qualification) => [
-        qualification.id,
+        qualification.name,
         qualification,
       ]),
     ).values(),
   );
 
-  const groupedQualifications: Record<
-    QualificationEntity["type"],
-    QualificationEntity[]
-  > = qualifications.reduce(
+  const groupedQualifications = qualifications.reduce(
     (grouped, qualification) => {
       if (!grouped[qualification.type]) {
         grouped[qualification.type] = [];
