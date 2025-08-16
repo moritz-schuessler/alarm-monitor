@@ -10,6 +10,16 @@ export class IncidentsRepository {
     private readonly database: Database,
   ) {}
 
+  async find() {
+    return await this.database.query.incidents.findMany({
+      with: {
+        incidentsToStations: {
+          with: { station: true },
+        },
+      },
+    });
+  }
+
   async findById(incidentId: string) {
     return await this.database.query.incidents.findFirst({
       where: (incident, { eq }) => eq(incident.id, incidentId),

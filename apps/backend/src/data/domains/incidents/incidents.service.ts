@@ -17,6 +17,10 @@ export class IncidentsService {
     private readonly stationsService: StationsService,
   ) {}
 
+  async getIncidents() {
+    return await this.incidentsRepository.find();
+  }
+
   async getIncidentDetails(incidentId: string) {
     const incident = await this.incidentsRepository.findById(incidentId);
     if (!incident) {

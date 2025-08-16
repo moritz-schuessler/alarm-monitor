@@ -6,12 +6,21 @@ import {
   StationEntity,
   QualificationToFirefighterEntity,
   QualificationEntity,
+  IncidentToStationEntity,
 } from "@alarm-monitor/backend/src/data/shared/schema";
 
 interface IncidentDetails {
   incident: IncidentEntity;
   stations: StationDetails[];
   firetrucks: FiretruckDetails[];
+}
+
+interface IncidentWithStation extends IncidentEntity {
+  incidentsToStations: IncidentToStationEntityWithStation[];
+}
+
+interface IncidentToStationEntityWithStation extends IncidentToStationEntity {
+  station: StationEntity;
 }
 
 interface StationDetails extends StationEntity {
@@ -42,6 +51,7 @@ interface QualificationToFirefighterDetails
 export * from "@alarm-monitor/backend/src/data/shared/schema";
 export type {
   IncidentDetails,
+  IncidentWithStation,
   StationDetails,
   FiretruckDetails,
   FirefighterDetails,
