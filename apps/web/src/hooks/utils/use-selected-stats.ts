@@ -7,7 +7,8 @@ const useSelectedStats = () => {
   return useQuery<string[]>({
     queryKey: ["selected-stats"],
     queryFn: () => {
-      return searchParams.get("stats")?.split(",") ?? [];
+      const stats = searchParams.get("stats");
+      return stats ? stats.split(",") : [];
     },
   });
 };
