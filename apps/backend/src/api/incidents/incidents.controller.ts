@@ -10,6 +10,13 @@ export class IncidentsController {
     return await this.incidentsService.getIncidents();
   }
 
+  @Post()
+  async createStation(
+    @Body() { keyword, adress }: { keyword: string; adress: string },
+  ) {
+    return await this.incidentsService.createIncident(keyword, adress);
+  }
+
   @Get(':incidentId')
   async findByIncidentId(@Param('incidentId') incidentId: string) {
     return await this.incidentsService.getIncidentDetails(incidentId);

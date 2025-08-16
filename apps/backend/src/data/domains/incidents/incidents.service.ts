@@ -21,6 +21,10 @@ export class IncidentsService {
     return await this.incidentsRepository.find();
   }
 
+  async createIncident(keyword: string, adress: string) {
+    return await this.incidentsRepository.create(keyword, adress);
+  }
+
   async getIncidentDetails(incidentId: string) {
     const incident = await this.incidentsRepository.findById(incidentId);
     if (!incident) {

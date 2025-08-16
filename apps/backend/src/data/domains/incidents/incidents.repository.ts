@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { and, eq } from 'drizzle-orm';
+import { and, eq, sql } from 'drizzle-orm';
 import { Database, InjectDb } from 'src/data/database/drizzle.provider';
 import { incidents, incidentsToStations } from 'src/data/shared/schema';
 
@@ -17,6 +17,14 @@ export class IncidentsRepository {
           with: { station: true },
         },
       },
+    });
+  }
+
+  async create(keyword: string, adress: string) {
+    return this.database.insert(incidents).values({
+      keyword,
+      alarmTime: sql`datetime('now', 'localtime')`,
+      adress,
     });
   }
 

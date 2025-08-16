@@ -16,6 +16,7 @@ import useRemoveStationFromIncident from "@/hooks/incidents/use-remove-station-f
 import useGetStations from "@/hooks/stations/use-get-stations";
 import { formatDate } from "@/lib/date";
 import { Plus, X } from "lucide-react";
+import CreateIncident from "./_components/create-incident";
 
 const MockPage = () => {
   const { data: incidents } = useGetIncidents();
@@ -88,6 +89,7 @@ const MockPage = () => {
           </section>
         );
       })}
+      <CreateIncident />
     </div>
   );
 };
