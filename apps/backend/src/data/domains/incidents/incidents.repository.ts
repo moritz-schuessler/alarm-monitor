@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { Database, InjectDb } from 'src/data/database/drizzle.provider';
 import { incidents, incidentsToStations } from 'src/data/shared/schema';
 
@@ -43,5 +43,16 @@ export class IncidentsRepository {
     return await this.database
       .insert(incidentsToStations)
       .values({ incidentId, stationId });
+  }
+
+  async removeStation(incidentId: string, stationId: string) {
+    return await this.database
+      .delete(incidentsToStations)
+      .where(
+        and(
+          eq(incidentsToStations.incidentId, incidentId),
+          eq(incidentsToStations.stationId, stationId),
+        ),
+      );
   }
 }

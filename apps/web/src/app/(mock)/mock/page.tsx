@@ -12,14 +12,16 @@ import {
 } from "@/components/ui/dialog";
 import useAddStationToIncident from "@/hooks/incidents/use-add-station-to-incident";
 import useGetIncidents from "@/hooks/incidents/use-get-incidents";
+import useRemoveStationFromIncident from "@/hooks/incidents/use-remove-station-from-incident";
 import useGetStations from "@/hooks/stations/use-get-stations";
 import { formatDate } from "@/lib/date";
-import { Plus } from "lucide-react";
+import { Plus, X } from "lucide-react";
 
 const MockPage = () => {
   const { data: incidents } = useGetIncidents();
   const { data: stations } = useGetStations();
   const addStationMutation = useAddStationToIncident();
+  const removeStationMutation = useRemoveStationFromIncident();
 
   return (
     <div className="flex flex-col p-4 gap-8">
@@ -34,13 +36,20 @@ const MockPage = () => {
             <div className="flex gap-4 text-lg font-medium">
               {incident.incidentsToStations.map((incidentToStation) => {
                 return (
-                  <Badge
+                  <Button
                     key={incidentToStation.stationId}
-                    variant="secondary"
                     className="flex gap-2"
+                    variant="secondary"
+                    onClick={() => {
+                      removeStationMutation.mutate({
+                        incidentId: incident.id,
+                        stationId: incidentToStation.stationId,
+                      });
+                    }}
                   >
                     <div>{incidentToStation.station.name}</div>
-                  </Badge>
+                    <X />
+                  </Button>
                 );
               })}
               <Dialog>
@@ -54,23 +63,24 @@ const MockPage = () => {
                     <DialogTitle>Stations</DialogTitle>
                   </DialogHeader>
                   <div className="flex gap-2">
-                    {stations!.map((station) => {
-                      return (
-                        <DialogClose key={station.id} asChild>
-                          <Button
-                            onClick={() => {
-                              addStationMutation.mutate({
-                                incidentId: incident.id,
-                                stationId: station.id,
-                              });
-                            }}
-                            variant="secondary"
-                          >
-                            {station.name}
-                          </Button>
-                        </DialogClose>
-                      );
-                    })}
+                    {stations &&
+                      stations!.map((station) => {
+                        return (
+                          <DialogClose key={station.id} asChild>
+                            <Button
+                              onClick={() => {
+                                addStationMutation.mutate({
+                                  incidentId: incident.id,
+                                  stationId: station.id,
+                                });
+                              }}
+                              variant="secondary"
+                            >
+                              {station.name}
+                            </Button>
+                          </DialogClose>
+                        );
+                      })}
                   </div>
                 </DialogContent>
               </Dialog>

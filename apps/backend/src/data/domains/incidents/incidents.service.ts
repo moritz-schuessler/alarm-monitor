@@ -43,6 +43,10 @@ export class IncidentsService {
     return this.incidentsRepository.assignStation(incidentId, stationId);
   }
 
+  async removeStation(incidentId: string, stationId: string) {
+    return this.incidentsRepository.removeStation(incidentId, stationId);
+  }
+
   async getIncidentsFromStation(stationId: string) {
     return this.incidentsRepository.findByStationId(stationId);
   }

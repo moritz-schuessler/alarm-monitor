@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { IncidentsService } from 'src/data/domains/incidents/incidents.service';
 
 @Controller('incidents')
@@ -21,5 +21,13 @@ export class IncidentsController {
     @Body() { stationId }: { stationId: string },
   ) {
     return await this.incidentsService.assignStation(incidentId, stationId);
+  }
+
+  @Delete(':incidentId/stations/:stationId')
+  async removeStation(
+    @Param('incidentId') incidentId: string,
+    @Param('stationId') stationId: string,
+  ) {
+    return await this.incidentsService.removeStation(incidentId, stationId);
   }
 }
