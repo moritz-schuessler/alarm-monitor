@@ -22,6 +22,11 @@ export class IncidentsController {
     return await this.incidentsService.getIncidentDetails(incidentId);
   }
 
+  @Delete(':incidentId')
+  async removeIncident(@Param('incidentId') incidentId: string) {
+    return await this.incidentsService.deleteIncident(incidentId);
+  }
+
   @Post(':incidentId/stations')
   async assignStation(
     @Param('incidentId') incidentId: string,

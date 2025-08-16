@@ -1,6 +1,5 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -17,11 +16,13 @@ import useGetStations from "@/hooks/stations/use-get-stations";
 import { formatDate } from "@/lib/date";
 import { Plus, X } from "lucide-react";
 import CreateIncident from "./_components/create-incident";
+import useDeleteIncident from "@/hooks/incidents/use-delete-incident";
 
 const MockPage = () => {
   const { data: incidents } = useGetIncidents();
   const { data: stations } = useGetStations();
   const addStationMutation = useAddStationToIncident();
+  const deleteStationMutation = useDeleteIncident();
   const removeStationMutation = useRemoveStationFromIncident();
 
   return (
@@ -33,6 +34,14 @@ const MockPage = () => {
               <div>{incident?.keyword}</div>
               <div>{incident.adress}</div>
               <div>{formatDate(incident.alarmTime)}</div>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  deleteStationMutation.mutate({ incidentId: incident.id });
+                }}
+              >
+                Einsatz löschen
+              </Button>
             </h2>
             <div className="flex gap-4 text-lg font-medium">
               {incident.incidentsToStations.map((incidentToStation) => {

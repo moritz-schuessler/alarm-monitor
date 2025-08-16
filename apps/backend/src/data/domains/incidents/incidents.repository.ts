@@ -28,6 +28,10 @@ export class IncidentsRepository {
     });
   }
 
+  async delete(incidentId: string) {
+    return this.database.delete(incidents).where(eq(incidents.id, incidentId));
+  }
+
   async findById(incidentId: string) {
     return await this.database.query.incidents.findFirst({
       where: (incident, { eq }) => eq(incident.id, incidentId),

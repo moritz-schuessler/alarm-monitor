@@ -25,6 +25,10 @@ export class IncidentsService {
     return await this.incidentsRepository.create(keyword, adress);
   }
 
+  async deleteIncident(incidentId: string) {
+    return await this.incidentsRepository.delete(incidentId);
+  }
+
   async getIncidentDetails(incidentId: string) {
     const incident = await this.incidentsRepository.findById(incidentId);
     if (!incident) {
