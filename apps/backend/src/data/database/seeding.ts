@@ -1,6 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config({ path: ['.env.local', '.env'] });
-
 import { drizzle } from 'drizzle-orm/libsql';
 import { fakerDE as faker } from '@faker-js/faker';
 

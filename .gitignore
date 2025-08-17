@@ -14,5 +14,6 @@
 .env.test.local
 .env.production.local
 .env.local
+.env.mock
 
 **/local.db

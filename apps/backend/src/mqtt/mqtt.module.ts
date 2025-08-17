@@ -17,7 +17,7 @@ import { FirefightersModule } from 'src/data/domains/firefighters/firefighters.m
         useFactory: (configService: ConfigService) => ({
           transport: Transport.MQTT,
           options: {
-            url: configService.getOrThrow<string>('MQTT_URL'),
+            url: configService.getOrThrow<string>('MQTT_BROKER'),
           },
         }),
       },

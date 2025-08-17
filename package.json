@@ -2,7 +2,19 @@
   "name": "alarm-monitor",
   "private": true,
   "scripts": {
-    "build": "pnpm -r run build",
-    "dev": "pnpm -r run dev"
+    "mqtt:broker": "dotenv -e .env.local -- docker compose up -d",
+    "mqtt:broker:stop": "docker compose down",
+    "dev:web": "dotenv -e .env.local -- pnpm run --filter @alarm-monitor/web dev",
+    "dev:backend": "dotenv -e .env.local -- pnpm run --filter @alarm-monitor/backend start:dev",
+    "dev": "pnpm run mqtt:broker && concurrently --names \"WEB,BACKEND\" --prefix-colors \"blue,green\" \"pnpm run dev:web\" \"pnpm run dev:backend\"",
+    "ble:scan": "dotenv -e .env.local -- sh -c \"cd apps/crew-scanner && go run .\"",
+    "ble:mock": "dotenv -e .env.local -e .env.mock -- sh -c \"cd apps/crew-scanner && go run .\"",
+    "db:push": "dotenv -e .env.local -- pnpm run --filter @alarm-monitor/backend db:push",
+    "db:seed": "dotenv -e .env.local -- pnpm run --filter @alarm-monitor/backend db:seed",
+    "db:studio": "dotenv -e .env.local -- pnpm run --filter @alarm-monitor/backend db:studio"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "dotenv-cli": "^10.0.0"
   }
 }
