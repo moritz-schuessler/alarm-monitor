@@ -17,6 +17,18 @@ export class IncidentsService {
     private readonly stationsService: StationsService,
   ) {}
 
+  async getIncidents() {
+    return await this.incidentsRepository.find();
+  }
+
+  async createIncident(keyword: string, adress: string) {
+    return await this.incidentsRepository.create(keyword, adress);
+  }
+
+  async deleteIncident(incidentId: string) {
+    return await this.incidentsRepository.delete(incidentId);
+  }
+
   async getIncidentDetails(incidentId: string) {
     const incident = await this.incidentsRepository.findById(incidentId);
     if (!incident) {
@@ -33,6 +45,14 @@ export class IncidentsService {
       stations,
       firetrucks,
     };
+  }
+
+  async assignStation(incidentId: string, stationId: string) {
+    return this.incidentsRepository.assignStation(incidentId, stationId);
+  }
+
+  async removeStation(incidentId: string, stationId: string) {
+    return this.incidentsRepository.removeStation(incidentId, stationId);
   }
 
   async getIncidentsFromStation(stationId: string) {

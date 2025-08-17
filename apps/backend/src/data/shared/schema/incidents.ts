@@ -7,9 +7,9 @@ const incidents = sqliteTable('incidents', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
-  keyword: text('keyword'),
-  alarmTime: text('alarm_time'),
-  adress: text('address'),
+  keyword: text('keyword').notNull(),
+  alarmTime: text('alarm_time').notNull(),
+  adress: text('address').notNull(),
 });
 
 const incidentsRelations = relations(incidents, ({ many }) => ({
