@@ -16,8 +16,8 @@ const qualifications = sqliteTable('qualifications', {
       'Fachgebiet',
       'Beruf',
     ],
-  }),
-  name: text('name'),
+  }).notNull(),
+  name: text('name').notNull(),
 });
 
 const qualificationsRelations = relations(qualifications, ({ many }) => ({
