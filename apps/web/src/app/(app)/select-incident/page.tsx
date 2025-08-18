@@ -44,7 +44,7 @@ const SelectIncidentPage = () => {
               <Button
                 key={incident.id}
                 variant="outline"
-                className="flex group size-fit p-4 text-left w-1/8 text-lg"
+                className="flex group size-fit p-4 text-left min-w-1/8 w-fit text-lg"
                 onClick={() =>
                   mutation.mutate({
                     firetruckId: me!.firetruck!.id!,
