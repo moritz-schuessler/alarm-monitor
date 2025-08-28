@@ -1,5 +1,16 @@
 # Alarm-Monitor (Bachelor-Thesis-Project)
 
+## (Mock) Leitstellen UI
+Zum manuellen Anlegen und Verwalten von Einsätzen kann die folgende Seite verwendet werden:
+
+[http://localhost:3000/mock](http://localhost:3000/mock)
+
+Oder direkt im Browser aufrufen:
+
+```
+  /mock
+```
+
 ## Environment Variables
 
 This project requires several environment variables to be set.
