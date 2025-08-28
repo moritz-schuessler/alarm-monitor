@@ -17,10 +17,10 @@ import (
 func main() {
 	cfg := config.Load()
 
-	publisher := mqtt.NewPublisher(cfg.MQTTBroker, cfg.MQTTClientID, cfg.MQTTTopic)
+	publisher := mqtt.NewPublisher(cfg.MQTTBroker, cfg.MQTTRadioID)
 	defer publisher.Close()
 
-	manager := state.NewStateManager(cfg.DebounceDur, cfg.LeaveTimeout)
+	manager := state.NewStateManager(cfg.DebounceDur, cfg.LeaveTimeout, cfg.DistanceThreshold)
 
 	ctx, cancel := context.WithCancel(context.Background())
 	sigc := make(chan os.Signal, 1)
@@ -71,7 +71,9 @@ func main() {
 	}()
 
 	fmt.Println("Scanning…")
-	s.Scan(ctx, manager.UpdateCrew)
+	s.Scan(ctx, func(beaconID string, firstSeen time.Time, distance float64) {
+		manager.UpdateCrew(beaconID, firstSeen, distance)
+	})
 }
 
 // check if crew has changed

@@ -57,7 +57,7 @@ func (m *MockScanner) Scan(ctx context.Context, handler BeaconHandler) error {
 			}
 
 			for id := range m.inRange {
-				handler(id, time.Now())
+				handler(id, time.Now(), 3)
 			}
 
 		case <-ctx.Done():
