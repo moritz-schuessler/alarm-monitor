@@ -24,7 +24,7 @@ const AppLayout = async ({
 
   return (
     <IncidentGuard>
-      <div className="flex flex-col h-screen p-4 gap-4 ">
+      <div className="flex flex-col h-dvh p-4 gap-4 ">
         <header className="flex justify-between items-center">
           <h1 className="text-xl">Einsatzmonitor</h1>
           <div className="flex gap-2">
