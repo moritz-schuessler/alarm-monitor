@@ -88,12 +88,15 @@ const SelectQualification = () => {
             <DialogHeader>
               <DialogTitle>Qualifikationen</DialogTitle>
             </DialogHeader>
-            <div>
+            <div className="flex flex-col gap-4">
               {Object.entries(qualifications).map((topic) => {
                 return (
-                  <div key={topic[0]} className="font-semibold">
+                  <div
+                    key={topic[0]}
+                    className="flex flex-col font-semibold gap-2 "
+                  >
                     <div>{topic[0]}</div>
-                    <div className="flex flex-wrap w-full">
+                    <div className="flex flex-wrap w-full gap-2">
                       {topic[1].map((qualification, index) => {
                         return (
                           <DialogClose key={qualification.id + index} asChild>
