@@ -17,7 +17,7 @@ import (
 func main() {
 	cfg := config.Load()
 
-	publisher := mqtt.NewPublisher(cfg.MQTTBroker, cfg.MQTTClientID, cfg.MQTTTopic)
+	publisher := mqtt.NewPublisher(cfg.MQTTBroker, cfg.MQTTRadioID)
 	defer publisher.Close()
 
 	manager := state.NewStateManager(cfg.DebounceDur, cfg.LeaveTimeout, cfg.DistanceThreshold)

@@ -12,10 +12,10 @@ type Publisher struct {
 	topic  string
 }
 
-func NewPublisher(broker, clientID, topic string) *Publisher {
+func NewPublisher(broker, radioID string) *Publisher {
 	options := mqtt.NewClientOptions().
 		AddBroker(broker).
-		SetClientID(clientID).
+		SetClientID(radioID).
 		SetAutoReconnect(true).
 		SetOnConnectHandler(func(c mqtt.Client) {
 			fmt.Println("MQTT connected")
@@ -29,6 +29,7 @@ func NewPublisher(broker, clientID, topic string) *Publisher {
 		panic(token.Error())
 	}
 
+	topic := fmt.Sprintf("firetrucks/%s/crew", radioID)
 	return &Publisher{client: client, topic: topic}
 }
 

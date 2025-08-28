@@ -10,8 +10,7 @@ import (
 
 type Config struct {
 	MQTTBroker        string
-	MQTTClientID      string
-	MQTTTopic         string
+	MQTTRadioID       string
 	DebounceDur       time.Duration
 	LeaveTimeout      time.Duration
 	FlushInterval     time.Duration
@@ -22,8 +21,7 @@ type Config struct {
 func Load() Config {
 	return Config{
 		MQTTBroker:        getEnv("MQTT_BROKER", "tcp://localhost:1883"),
-		MQTTClientID:      getEnv("MQTT_CLIENT_ID", "collector"),
-		MQTTTopic:         getEnv("MQTT_TOPIC", "firetrucks/Mustergemeinde 1-44-1/crew"),
+		MQTTRadioID:       getEnv("MQTT_RADIO_ID", "Mustergemeinde 1-44-1"),
 		DebounceDur:       getEnvDuration("DEBOUNCE_DURATION", 3*time.Second),
 		LeaveTimeout:      getEnvDuration("LEAVE_TIMEOUT", 5*time.Second),
 		FlushInterval:     getEnvDuration("FLUSH_INTERVAL", 5*time.Second),

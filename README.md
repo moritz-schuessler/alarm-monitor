@@ -19,7 +19,7 @@ cp .env.example .env.local
 - **DATABASE_URL** → Connection string for SQLite/LibSQL
 - **MQTT_BROKER** → Connection string for the MQTT broker
 - **MQTT_BROKER_PORT** → Port for MQTT (default: 1883)
-- **MQTT_TOPIC** → Topic that is used by MQTT to send the current crew
+- **MQTT_RADIO_ID** → Funkrufname, wird als MQTT ClientID genutzt und ins Topic eingebaut
 - **DISTANCE_THRESHOLD** → Threshold for required minimum distance of beacon
 
 ---
