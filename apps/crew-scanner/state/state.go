@@ -13,21 +13,23 @@ type BeaconState struct {
 }
 
 type StateManager struct {
-	mutex            sync.Mutex
-	beacons          map[string]*BeaconState
-	DebounceDuration time.Duration
-	LeaveTimeout     time.Duration
+	mutex             sync.Mutex
+	beacons           map[string]*BeaconState
+	DebounceDuration  time.Duration
+	LeaveTimeout      time.Duration
+	DistanceThreshold float64
 }
 
-func NewStateManager(debounce, leave time.Duration) *StateManager {
+func NewStateManager(debounce, leave time.Duration, distanceThreshold float64) *StateManager {
 	return &StateManager{
-		beacons:          make(map[string]*BeaconState),
-		DebounceDuration: debounce,
-		LeaveTimeout:     leave,
+		beacons:           make(map[string]*BeaconState),
+		DebounceDuration:  debounce,
+		LeaveTimeout:      leave,
+		DistanceThreshold: distanceThreshold,
 	}
 }
 
-func (sm *StateManager) UpdateCrew(beaconID string, now time.Time) {
+func (sm *StateManager) UpdateCrew(beaconID string, now time.Time, distance float64) {
 	sm.mutex.Lock()
 	defer sm.mutex.Unlock()
 
@@ -36,8 +38,13 @@ func (sm *StateManager) UpdateCrew(beaconID string, now time.Time) {
 		state = &BeaconState{FirstSeen: now}
 		sm.beacons[beaconID] = state
 	}
-	state.LastSeen = now
+
 	state.Count++
+
+	if distance < sm.DistanceThreshold {
+		state.LastSeen = now
+	}
+
 	if !state.Active && now.Sub(state.FirstSeen) >= sm.DebounceDuration {
 		state.Active = true
 	}

@@ -20,6 +20,7 @@ cp .env.example .env.local
 - **MQTT_BROKER** → Connection string for the MQTT broker
 - **MQTT_BROKER_PORT** → Port for MQTT (default: 1883)
 - **MQTT_TOPIC** → Topic that is used by MQTT to send the current crew
+- **DISTANCE_THRESHOLD** → Threshold for required minimum distance of beacon
 
 ---
 

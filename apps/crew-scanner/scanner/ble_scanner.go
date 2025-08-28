@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
+	"math"
 	"time"
 
 	"github.com/go-ble/ble"
@@ -25,12 +26,19 @@ func (s *BLEScanner) Scan(ctx context.Context, handler BeaconHandler) error {
 		major := uint16(manufacturerData[20])<<8 | uint16(manufacturerData[21])
 		minor := uint16(manufacturerData[22])<<8 | uint16(manufacturerData[23])
 
+		txPower := int8(manufacturerData[24])
+
 		if major != 1811 && minor != 2000 {
 			return
 		}
 
+		n := 2.0
+
+		distance := math.Pow(10, float64(txPower-int8(advertisement.RSSI()))/(10*n))
+
 		beaconID := formatUUID(manufacturerData[4:20])
-		handler(beaconID, time.Now())
+
+		handler(beaconID, time.Now(), distance)
 	}, nil)
 }
 

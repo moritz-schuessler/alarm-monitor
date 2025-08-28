@@ -3,35 +3,50 @@ package config
 import (
 	"log"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
 
 type Config struct {
-	MQTTBroker    string
-	MQTTClientID  string
-	MQTTTopic     string
-	DebounceDur   time.Duration
-	LeaveTimeout  time.Duration
-	FlushInterval time.Duration
-	MockBeacons   []string
+	MQTTBroker        string
+	MQTTClientID      string
+	MQTTTopic         string
+	DebounceDur       time.Duration
+	LeaveTimeout      time.Duration
+	FlushInterval     time.Duration
+	MockBeacons       []string
+	DistanceThreshold float64
 }
 
 func Load() Config {
 	return Config{
-		MQTTBroker:    getEnv("MQTT_BROKER", "tcp://localhost:1883"),
-		MQTTClientID:  getEnv("MQTT_CLIENT_ID", "collector"),
-		MQTTTopic:     getEnv("MQTT_TOPIC", "firetrucks/Mustergemeinde 1-44-1/crew"),
-		DebounceDur:   getEnvDuration("DEBOUNCE_DURATION", 3*time.Second),
-		LeaveTimeout:  getEnvDuration("LEAVE_TIMEOUT", 5*time.Second),
-		FlushInterval: getEnvDuration("FLUSH_INTERVAL", 5*time.Second),
-		MockBeacons:   splitAndTrim(getEnv("MOCK_BEACONS", "")),
+		MQTTBroker:        getEnv("MQTT_BROKER", "tcp://localhost:1883"),
+		MQTTClientID:      getEnv("MQTT_CLIENT_ID", "collector"),
+		MQTTTopic:         getEnv("MQTT_TOPIC", "firetrucks/Mustergemeinde 1-44-1/crew"),
+		DebounceDur:       getEnvDuration("DEBOUNCE_DURATION", 3*time.Second),
+		LeaveTimeout:      getEnvDuration("LEAVE_TIMEOUT", 5*time.Second),
+		FlushInterval:     getEnvDuration("FLUSH_INTERVAL", 5*time.Second),
+		MockBeacons:       splitAndTrim(getEnv("MOCK_BEACONS", "")),
+		DistanceThreshold: getEnvFloat("DISTANCE_THRESHOLD", 5.0),
 	}
 }
 
 func getEnv(key, def string) string {
 	if val := os.Getenv(key); val != "" {
 		return val
+	}
+	return def
+}
+
+func getEnvFloat(key string, def float64) float64 {
+	if val := os.Getenv(key); val != "" {
+		f, err := strconv.ParseFloat(val, 64)
+		if err != nil {
+			log.Printf("Invalid float for %s, using default %v", key, def)
+			return def
+		}
+		return f
 	}
 	return def
 }
