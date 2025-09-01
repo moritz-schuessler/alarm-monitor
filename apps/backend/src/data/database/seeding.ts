@@ -7,6 +7,8 @@ import {
   stations as stationsSchema,
   firetrucks as firetrucksSchema,
   firefighters as firefightersSchema,
+  crews as crewsSchema,
+  beacons as beaconsSchema,
   FiretruckEntity,
   FirefighterEntity,
 } from 'src/data/shared/schema';
@@ -28,7 +30,10 @@ async function main() {
 
   const departments = await db
     .insert(departmentsSchema)
-    .values([{ name: 'Feuerwehr Mustergemeinde' }])
+    .values([
+      { name: 'Feuerwehr Mustergemeinde' },
+      { name: 'Feuerwehr Musterstadt' },
+    ])
     .returning();
 
   const stationsMustergemeinde = await db
@@ -37,6 +42,7 @@ async function main() {
       { name: 'Mitte', departmentId: departments[0].id },
       { name: 'Süd', departmentId: departments[0].id },
       { name: 'Musterdorf', departmentId: departments[0].id },
+      { name: 'Musterstadt', departmentId: departments[1].id },
     ])
     .returning();
 
@@ -97,94 +103,156 @@ async function main() {
     ])
     .returning();
 
+  firetrucksByStation.musterstadt = await db
+    .insert(firetrucksSchema)
+    .values([
+      {
+        radioIdentification: 'Mustergemeinde 3-46-1',
+        stationId: stationsMustergemeinde[3].id,
+        seats: 9,
+      },
+      {
+        radioIdentification: 'Mustergemeinde 3-40-1',
+        stationId: stationsMustergemeinde[3].id,
+        seats: 6,
+      },
+      {
+        radioIdentification: 'Mustergemeinde 3-38-1',
+        stationId: stationsMustergemeinde[3].id,
+        seats: 3,
+      },
+      {
+        radioIdentification: 'Mustergemeinde 3-67-1',
+        stationId: stationsMustergemeinde[3].id,
+        seats: 3,
+      },
+      {
+        radioIdentification: 'Mustergemeinde 3-67-2',
+        stationId: stationsMustergemeinde[3].id,
+        seats: 3,
+      },
+      {
+        radioIdentification: 'Mustergemeinde 3-11-2',
+        stationId: stationsMustergemeinde[3].id,
+        seats: 4,
+      },
+    ])
+    .returning();
+
+  await db
+    .insert(crewsSchema)
+    .values(
+      firetrucksByStation.mitte.map((firetruck) => ({
+        firetruckId: firetruck.id,
+      })),
+    )
+    .returning();
+
+  await db
+    .insert(crewsSchema)
+    .values(
+      firetrucksByStation.sued.map((firetruck) => ({
+        firetruckId: firetruck.id,
+      })),
+    )
+    .returning();
+
+  await db
+    .insert(crewsSchema)
+    .values(
+      firetrucksByStation.musterdorf.map((firetruck) => ({
+        firetruckId: firetruck.id,
+      })),
+    )
+    .returning();
+
+  await db
+    .insert(crewsSchema)
+    .values(
+      firetrucksByStation.musterstadt.map((firetruck) => ({
+        firetruckId: firetruck.id,
+      })),
+    )
+    .returning();
+
   const firefighersByStation: {
     [station: string]: null | FirefighterEntity[];
   } = {};
 
   firefighersByStation.mitte = await db
     .insert(firefightersSchema)
-    .values([
-      {
+    .values(
+      Array.from({ length: 15 }, () => ({
         name: faker.person.fullName(),
         stationId: stationsMustergemeinde[0].id,
-      },
-      {
-        name: faker.person.fullName(),
-        stationId: stationsMustergemeinde[0].id,
-      },
-      {
-        name: faker.person.fullName(),
-        stationId: stationsMustergemeinde[0].id,
-      },
-      {
-        name: faker.person.fullName(),
-        stationId: stationsMustergemeinde[0].id,
-      },
-      {
-        name: faker.person.fullName(),
-        stationId: stationsMustergemeinde[0].id,
-      },
-      {
-        name: faker.person.fullName(),
-        stationId: stationsMustergemeinde[0].id,
-      },
-      {
-        name: faker.person.fullName(),
-        stationId: stationsMustergemeinde[0].id,
-      },
-      {
-        name: faker.person.fullName(),
-        stationId: stationsMustergemeinde[0].id,
-      },
-      {
-        name: faker.person.fullName(),
-        stationId: stationsMustergemeinde[0].id,
-      },
-    ])
+      })),
+    )
     .returning();
 
   firefighersByStation.sued = await db
     .insert(firefightersSchema)
-    .values([
-      {
+    .values(
+      Array.from({ length: 15 }, () => ({
         name: faker.person.fullName(),
         stationId: stationsMustergemeinde[1].id,
-      },
-      {
-        name: faker.person.fullName(),
-        stationId: stationsMustergemeinde[1].id,
-      },
-      {
-        name: faker.person.fullName(),
-        stationId: stationsMustergemeinde[1].id,
-      },
-      {
-        name: faker.person.fullName(),
-        stationId: stationsMustergemeinde[1].id,
-      },
-    ])
+      })),
+    )
     .returning();
 
   firefighersByStation.musterdorf = await db
     .insert(firefightersSchema)
-    .values([
-      {
+    .values(
+      Array.from({ length: 15 }, () => ({
         name: faker.person.fullName(),
         stationId: stationsMustergemeinde[2].id,
-      },
-      {
+      })),
+    )
+    .returning();
+
+  firefighersByStation.musterstadt = await db
+    .insert(firefightersSchema)
+    .values(
+      Array.from({ length: 15 }, () => ({
         name: faker.person.fullName(),
-        stationId: stationsMustergemeinde[2].id,
-      },
-      {
-        name: faker.person.fullName(),
-        stationId: stationsMustergemeinde[2].id,
-      },
-      {
-        name: faker.person.fullName(),
-        stationId: stationsMustergemeinde[2].id,
-      },
-    ])
+        stationId: stationsMustergemeinde[3].id,
+      })),
+    )
+    .returning();
+
+  await db
+    .insert(beaconsSchema)
+    .values(
+      firefighersByStation.mitte.map((firefighter) => ({
+        firefighterId: firefighter.id,
+      })),
+    )
+    .returning();
+
+  await db
+    .insert(beaconsSchema)
+    .values(
+      firefighersByStation.sued.map((firefighter) => ({
+        firefighterId: firefighter.id,
+      })),
+    )
+    .returning();
+
+  await db
+    .insert(beaconsSchema)
+    .values(
+      firefighersByStation.musterdorf.map((firefighter) => ({
+        firefighterId: firefighter.id,
+      })),
+    )
+    .returning();
+
+  await db
+    .insert(beaconsSchema)
+    .values(
+      firefighersByStation.musterstadt.map((firefighter) => ({
+        firefighterId: firefighter.id,
+      })),
+    )
     .returning();
 
   await seedQualifications();
