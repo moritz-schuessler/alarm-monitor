@@ -63,14 +63,14 @@ pnpm i
 
 ### Database
 This project requires a database (SQLite/LibSQL).
-To initialize and seed the database, run:
+To get a working databse either copy the example database or initialize a database:
 
 ```bash
-# Push schema to the database
-pnpm db:push
+# Copy example database
+cp example.db apps/backend/local.db
 
-# Seed the database with initial data
-pnpm db:seed
+# or: Initialize schema to the database
+pnpm db:push
 ```
 
 > #### Database Studio
