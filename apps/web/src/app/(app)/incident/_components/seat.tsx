@@ -114,7 +114,7 @@ const Seat = (props: SeatProps) => {
                     ? "secondary"
                     : "destructive"
                 }
-                className="text-md"
+                className={`text-md ${qualificationToFirefighter?.status === "active" && qualificationToFirefighter.qualification.name === "Atemschutzgeräteträger" && "bg-green-700/20"}`}
               >
                 {qualificationToFirefighter?.qualification.name}
               </Badge>
